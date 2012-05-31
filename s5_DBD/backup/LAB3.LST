@@ -1,0 +1,430 @@
+SQL> SELECT * FROM EMPLOYEE;
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          7 subin                manager              abcd                      
+12-JAN-99      80000          4 12-APR-91                                       
+                                                                                
+          8 abcd                 manager              GM                        
+12-JAN-98      30000          3 12-DEC-81                                       
+                                                                                
+          1 vineeth              programmer           sujith                    
+11-JAN-91      15000          1 17-AUG-90                                       
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          3 SHANU                programmer           HOD                       
+12-JAN-11      23000          1 12-JAN-91                                       
+                                                                                
+          4 sujith               programmer           HOD                       
+12-JAN-08      30000          1 12-FEB-90                                       
+                                                                                
+          5 sonu                 programmer           vineeth                   
+12-MAY-08      22000          2 12-FEB-87                                       
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          6 noushad              programmer           HOD                       
+12-JUN-07      32000          3 10-APR-90                                       
+                                                                                
+          2 sooraj               programmer           nithin                    
+01-APR-10       9000          2 13-JUL-85                                       
+                                                                                
+
+8 rows selected.
+
+SQL> CREATE VIEW EMP_VIEW AS SELECT EMPLOYEENUM,EMP_NAME,JOB,MANAGER,HIER_DATE,DEPT_NUM FROM EMPLOYEE;
+
+View created.
+
+SQL> SELECT * FROM EMP_VIEW;
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE   DEPT_NUM                                                            
+--------- ----------                                                            
+          7 subin                manager              abcd                      
+12-JAN-99          4                                                            
+                                                                                
+          8 abcd                 manager              GM                        
+12-JAN-98          3                                                            
+                                                                                
+          1 vineeth              programmer           sujith                    
+11-JAN-91          1                                                            
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE   DEPT_NUM                                                            
+--------- ----------                                                            
+          3 SHANU                programmer           HOD                       
+12-JAN-11          1                                                            
+                                                                                
+          4 sujith               programmer           HOD                       
+12-JAN-08          1                                                            
+                                                                                
+          5 sonu                 programmer           vineeth                   
+12-MAY-08          2                                                            
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE   DEPT_NUM                                                            
+--------- ----------                                                            
+          6 noushad              programmer           HOD                       
+12-JUN-07          3                                                            
+                                                                                
+          2 sooraj               programmer           nithin                    
+01-APR-10          2                                                            
+                                                                                
+
+8 rows selected.
+
+SQL> INSERT INTO EMP_VIEW VALUES(&EMPLOYEENUM,'&EMP_NAME','&JOB','&MANAGER','&HIER_DATE',&DEPT_NUM);
+Enter value for employeenum: 10
+Enter value for emp_name: RAFEES
+Enter value for job: PROGRAMMER
+Enter value for manager: SOORAJ
+Enter value for hier_date: 12-AUG-10
+Enter value for dept_num: 3
+old   1: INSERT INTO EMP_VIEW VALUES(&EMPLOYEENUM,'&EMP_NAME','&JOB','&MANAGER','&HIER_DATE',&DEPT_NUM)
+new   1: INSERT INTO EMP_VIEW VALUES(10,'RAFEES','PROGRAMMER','SOORAJ','12-AUG-10',3)
+
+1 row created.
+
+SQL> /
+Enter value for employeenum: 11
+Enter value for emp_name: RAHUL
+Enter value for job: CLERK
+Enter value for manager: SOORAJ
+Enter value for hier_date: 19-JAN-99
+Enter value for dept_num: 4
+old   1: INSERT INTO EMP_VIEW VALUES(&EMPLOYEENUM,'&EMP_NAME','&JOB','&MANAGER','&HIER_DATE',&DEPT_NUM)
+new   1: INSERT INTO EMP_VIEW VALUES(11,'RAHUL','CLERK','SOORAJ','19-JAN-99',4)
+
+1 row created.
+
+SQL> /
+Enter value for employeenum: 12
+Enter value for emp_name: ARIF
+Enter value for job: PROGRAMMER
+Enter value for manager: SUJITH
+Enter value for hier_date: 01-APR-01
+Enter value for dept_num: 5
+old   1: INSERT INTO EMP_VIEW VALUES(&EMPLOYEENUM,'&EMP_NAME','&JOB','&MANAGER','&HIER_DATE',&DEPT_NUM)
+new   1: INSERT INTO EMP_VIEW VALUES(12,'ARIF','PROGRAMMER','SUJITH','01-APR-01',5)
+
+1 row created.
+
+SQL> DESC DEPARTMENT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPT_NUM                                  NOT NULL NUMBER(3)
+ DEPT_NAME                                          VARCHAR2(20)
+ LOCATION                                           VARCHAR2(20)
+
+SQL> DESC EMPLOYEE;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEENUM                               NOT NULL NUMBER(3)
+ EMP_NAME                                           VARCHAR2(20)
+ JOB                                                VARCHAR2(20)
+ MANAGER                                            VARCHAR2(20)
+ HIER_DATE                                          DATE
+ SALARY                                             NUMBER(5)
+ DEPT_NUM                                           NUMBER(3)
+ DOB                                                DATE
+
+SQL> SELECT D.DEPT_NAME,AVG(EMP.SALARY) FROM DPARTMENT D,EMPLOYEE EMP WHERE D.DEPT_NUM=EMP.DEPT_NUM GROUP BY EMP.DEPT_NUM;
+SELECT D.DEPT_NAME,AVG(EMP.SALARY) FROM DPARTMENT D,EMPLOYEE EMP WHERE D.DEPT_NUM=EMP.DEPT_NUM GROUP BY EMP.DEPT_NUM
+                                        *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> SELECT D.DEPT_NAME,AVG(EMP.SALARY) FROM DEPARTMENT D,EMPLOYEE EMP WHERE D.DEPT_NUM=EMP.DEPT_NUM GROUP BY EMP.DEPT_NUM;
+SELECT D.DEPT_NAME,AVG(EMP.SALARY) FROM DEPARTMENT D,EMPLOYEE EMP WHERE D.DEPT_NUM=EMP.DEPT_NUM GROUP BY EMP.DEPT_NUM
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> SELECT D.DEPT_NAME,AVG(EMP.SALARY) FROM DEPARTMENT D,EMPLOYEE EMP WHERE D.DEPT_NUM=EMP.DEPT_NUMGROUP BY D.DEPT_NUM;
+SELECT D.DEPT_NAME,AVG(EMP.SALARY) FROM DEPARTMENT D,EMPLOYEE EMP WHERE D.DEPT_NUM=EMP.DEPT_NUMGROUP BY D.DEPT_NUM
+                                                                                                     *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> SELECT EMP.DEPT_NUM,AVG(EMP.SALARY) FROM DEPARTMENT D,EMPLOYEE EMP WHERE D.DEPT_NUM=EMP.DEPT_NUMGROUP BY EMP.DEPT
+  2  _NUM;
+SELECT EMP.DEPT_NUM,AVG(EMP.SALARY) FROM DEPARTMENT D,EMPLOYEE EMP WHERE D.DEPT_NUM=EMP.DEPT_NUMGROUP BY EMP.DEPT
+                                                                                                      *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> SELECT EMP.DEPT_NUM,AVG(EMP.SALARY) FROM DEPARTMENT D,EMPLOYEE EMP WHERE D.DEPT_NUM=EMP.DEPT_NUM GROUP BY EMP.DEPT_NUM;
+
+  DEPT_NUM AVG(EMP.SALARY)                                                      
+---------- ---------------                                                      
+         1      22666.6667                                                      
+         2           15500                                                      
+         3           31000                                                      
+         4           80000                                                      
+         5                                                                      
+
+SQL>  SELECT D.DEPT_NAME,AVG(EMP.SALARY) FROM DEPARTMENT D,EMPLOYEE EMP WHERE D.DEPT_NUM=EMP.DEPT_NUM GROUP BY D.DEPT_NAME;
+
+DEPT_NAME            AVG(EMP.SALARY)                                            
+-------------------- ---------------                                            
+civil                          31000                                            
+copmuter science          22666.6667                                            
+electronics                                                                     
+mechanical                     15500                                            
+technical                      80000                                            
+
+SQL> SELECT * FROM DEPARTMENT;
+
+  DEPT_NUM DEPT_NAME            LOCATION                                        
+---------- -------------------- --------------------                            
+        10 HR                   tvm                                             
+         1 copmuter science     trivandrum                                      
+         2 mechanical           trivandrum                                      
+         3 civil                trivandrum                                      
+         4 technical            tvm                                             
+         5 electronics          tvm                                             
+
+6 rows selected.
+
+SQL> CREATE VIEW EMP_INFO AS SELECT D.DEPT_NAME,AVG(EMP.SALARY) FROM DEPARTMENT D,EMPLOYEE EMP WHERE D.DEPT_NUM=EMP.DEPT_NUM GROUP BY D.DEPT_NAME;
+CREATE VIEW EMP_INFO AS SELECT D.DEPT_NAME,AVG(EMP.SALARY) FROM DEPARTMENT D,EMPLOYEE EMP WHERE D.DEPT_NUM=EMP.DEPT_NUM GROUP BY D.DEPT_NAME
+                                           *
+ERROR at line 1:
+ORA-00998: must name this expression with a column alias 
+
+
+SQL> CREATE VIEW EMP_INFO AS SELECT D.DEPT_NAME,AVG(EMP.SALARY) AS AVG_SALARY FROM DEPARTMENT D,EMPLOYEE EMP WHERE D.DEPT_NUM=EMP.DEPT_NUM GROUP BY D.DEPT_NAME;
+
+View created.
+
+SQL> SELECT * FROM EMP_INFO;
+
+DEPT_NAME            AVG_SALARY                                                 
+-------------------- ----------                                                 
+civil                     31000                                                 
+copmuter science     22666.6667                                                 
+electronics                                                                     
+mechanical                15500                                                 
+technical                 80000                                                 
+
+SQL> SELECT * FROM EMPLOYEE;
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          7 subin                manager              abcd                      
+12-JAN-99      80000          4 12-APR-91                                       
+                                                                                
+          8 abcd                 manager              GM                        
+12-JAN-98      30000          3 12-DEC-81                                       
+                                                                                
+          1 vineeth              programmer           sujith                    
+11-JAN-91      15000          1 17-AUG-90                                       
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          3 SHANU                programmer           HOD                       
+12-JAN-11      23000          1 12-JAN-91                                       
+                                                                                
+          4 sujith               programmer           HOD                       
+12-JAN-08      30000          1 12-FEB-90                                       
+                                                                                
+          5 sonu                 programmer           vineeth                   
+12-MAY-08      22000          2 12-FEB-87                                       
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          6 noushad              programmer           HOD                       
+12-JUN-07      32000          3 10-APR-90                                       
+                                                                                
+          2 sooraj               programmer           nithin                    
+01-APR-10       9000          2 13-JUL-85                                       
+                                                                                
+         10 RAFEES               PROGRAMMER           SOORAJ                    
+12-AUG-10                     3                                                 
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+         11 RAHUL                CLERK                SOORAJ                    
+19-JAN-99                     4                                                 
+                                                                                
+         12 ARIF                 PROGRAMMER           SUJITH                    
+01-APR-01                     5                                                 
+                                                                                
+
+11 rows selected.
+
+SQL> UPDATE EMPLOYEE SET DEPT_NUM=10 WHERE JOB='CLERK';
+
+1 row updated.
+
+SQL> SELECT * FROM EMPLOYEE;
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          7 subin                manager              abcd                      
+12-JAN-99      80000          4 12-APR-91                                       
+                                                                                
+          8 abcd                 manager              GM                        
+12-JAN-98      30000          3 12-DEC-81                                       
+                                                                                
+          1 vineeth              programmer           sujith                    
+11-JAN-91      15000          1 17-AUG-90                                       
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          3 SHANU                programmer           HOD                       
+12-JAN-11      23000          1 12-JAN-91                                       
+                                                                                
+          4 sujith               programmer           HOD                       
+12-JAN-08      30000          1 12-FEB-90                                       
+                                                                                
+          5 sonu                 programmer           vineeth                   
+12-MAY-08      22000          2 12-FEB-87                                       
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          6 noushad              programmer           HOD                       
+12-JUN-07      32000          3 10-APR-90                                       
+                                                                                
+          2 sooraj               programmer           nithin                    
+01-APR-10       9000          2 13-JUL-85                                       
+                                                                                
+         10 RAFEES               PROGRAMMER           SOORAJ                    
+12-AUG-10                     3                                                 
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+         11 RAHUL                CLERK                SOORAJ                    
+19-JAN-99                    10                                                 
+                                                                                
+         12 ARIF                 PROGRAMMER           SUJITH                    
+01-APR-01                     5                                                 
+                                                                                
+
+11 rows selected.
+
+SQL> DROP VIEW EMP_INFO;
+
+View dropped.
+
+SQL> CREATE VIEW DEPT_INFO  AS SELECT D.DEPT_NAME,AVG(EMP.SALARY) AS AVG_SALARY FROM DEPARTMENT D,EMPLOYEE EMP WHERE D.DEPT_NUM=EMP.DEPT_NUM GROUP BY D.DEPT_NAME;
+
+View created.
+
+SQL> SELECT * FROM DEPT_INFO;
+
+DEPT_NAME            AVG_SALARY                                                 
+-------------------- ----------                                                 
+HR                                                                              
+civil                     31000                                                 
+copmuter science     22666.6667                                                 
+electronics                                                                     
+mechanical                15500                                                 
+technical                 80000                                                 
+
+6 rows selected.
+
+SQL> SELECT EMP_NAME,DEPT_NUM,SALARY WHERE DEPT_NUM=10;
+SELECT EMP_NAME,DEPT_NUM,SALARY WHERE DEPT_NUM=10
+                                *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT EMP_NAME,DEPT_NUM,SALARY FROM EMPLOYEE WHERE DEPT_NUM=10;
+
+EMP_NAME               DEPT_NUM     SALARY                                      
+-------------------- ---------- ----------                                      
+RAHUL                        10                                                 
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT * FROM S0959.EMPLOYEE;
+SELECT * FROM S0959.EMPLOYEE
+                    *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> SELECT * FROM S0942.EMPLOYEE;
+SELECT * FROM S0942.EMPLOYEE
+                    *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> SPOOL OFF;
+SQL> CREATE VIEW EMP_INFO AS SELECT EMP_NAME,DEPT_NUM,SALARY FROM EMPLOYEE WHERE DEPT_NUM=10;
+
+View created.
+
+SQL> GRANT ALL ON EMP_INFO TO S0959;
+
+Grant succeeded.
+
+SQL> REVOKE INSERT,UPDATE,DELETE ON EMP_INFO TO S0959;
+REVOKE INSERT,UPDATE,DELETE ON EMP_INFO TO S0959
+                                        *
+ERROR at line 1:
+ORA-00905: missing keyword 
+
+
+SQL> REVOKE (INSERT,UPDATE,DELETE) ON EMP_INFO TO S0959;
+REVOKE (INSERT,UPDATE,DELETE) ON EMP_INFO TO S0959
+       *
+ERROR at line 1:
+ORA-00990: missing or invalid privilege 
+
+
+SQL> REVOKE INSERT,UPDATE,DELETE ON EMP_INFO FROM S0959;
+
+Revoke succeeded.
+
+SQL> GRANT SELECT ON DEPT_INFO TO S0959;
+
+Grant succeeded.
+
+SQL> SPOOL OFF;

@@ -1,0 +1,1563 @@
+SQL> create table client(clint_no varchar2(6) primary key check(client_no like 'c%'),Name varchar2(15),address varchar2(15),city varchar2(15),pincode number(6),Bal_due number(6,2));
+create table client(clint_no varchar2(6) primary key check(client_no like 'c%'),Name varchar2(15),address varchar2(15),city varchar2(15),pincode number(6),Bal_due number(6,2))
+                                                                               *
+ERROR at line 1:
+ORA-02438: Column check constraint cannot reference other columns 
+
+
+SQL> create table client(clint_no varchar2(6) primary key check(client_no like 'c%'),Name varchar2(1
+  2  
+SQL> 
+SQL> create table client(clint_no varchar2(6) primary key check(like 'c%'),Name varchar2(15),address varchar2(15),city varchar2(15),pincode number(6),Bal_due number(6,2));
+create table client(clint_no varchar2(6) primary key check(like 'c%'),Name varchar2(15),address varchar2(15),city varchar2(15),pincode number(6),Bal_due number(6,2))
+                                                           *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> create table client(client_no varchar2(6) primary key check(client_no like 'c%'),Name varchar2(15),address varchar2(15),city varchar2(15),pincode number(6),Bal_due number(6,2));
+
+Table created.
+
+SQL> create table product(product_no varchar2(6) primary key check(product_no like 'p%'),description varchar2(15) not null,profit_percent number(4,2) not null,qty_on_hand number(8) not null,reorder_level number(8) not null,sell_price number(6,2) not null check(sell_price > 0),cost_price number(6,2) not null check(cost_price >0));
+
+Table created.
+
+SQL> CREATE TABLE SALESMAN(SALESMAN_NO VARCHAR2(6) PRIMARY KEY CHECK(SALESMAN_NO LIKE 'S%'),NAME VARCHAR2(15) NOT NULL,ADDRESS VARCHAR2(15) NOT NULL,SALARY NUMBER(8) NOT NULL CHECK(SALARY !=0));
+
+Table created.
+
+SQL> CREATE TABLE SALESORDER(ORDER_NO VARCHAR2(6) PRIMARY KEY CHECK(ORDER_NO LIKE 'O%'),ORDER_DATE DATE,CLIENT_NO VARCHAR2(6) REFERENCES CLIENT(CLIENT_NO),SALESMAN_NO VARCHAR2(6) REFERENCES SALESMAN(SALESMAN_NO),DELY_TYPE VARCHAR2(1) DEFAULT 'F' CHECK(DELY_TYPE IN('F','P'),DELY_DATE DATE CHECK(DELY_DATE > ORDER_DATE),ORDER_STATUS VARCHAR2(10) CHECK(ORDER_STATUS IN('IN PROCESS','DELIVERED','CANCELL
+  2  
+SQL> CREATE TABLE SALESORDER(ORDER_NO VARCHAR2(6) PRIMARY KEY CHECK(ORDER_NO LIKE 'O%'),ORDER_DATE DATE,CLIENT_NO VARCHAR2(6) REFERENCES CLIENT(CLIENT_NO),SALESMAN_NO VARCHAR2(6) REFERENCES SALESMAN(SALESMAN_NO),DELY_TYPE VARCHAR2(1) DEFAULT 'F' CHECK(DELY_TYPE IN('F','P'),DELY_DATE DATE CHECK(DELY_DATE > ORDER_DATE),ORDER_STATUS VARCHAR2(10) CHECK(ORDER_STATUS IN('IN PROCESS','DELIVERED','CANCELL
+  2  
+SQL> CREATE TABLE SALESORDER(ORDER_NO VARCHAR2(6) PRIMARY KEY CHECK(ORDER_NO LIKE 'O%'),ORDER_DATE DATE,CLIENT_NO VARCHAR2(6) REFERENCES CLIENT(CLIENT_NO),SALESMAN_NO VARCHAR2(6) REFERENCES SALESMAN(SALESMAN_NO),DELY_TYPE VARCHAR2(1) DEFAULT 'F' CHECK(DELY_TYPE IN('F','P'),DELY_DATE DATE CHECK(DELY_DATE > ORDER_DATE),ORDER_STATUS VARCHAR2(10) CHECK(ORDER_STATUS IN('IN PROCESS','DELIVERED','CANCELED'))
+  2  
+SQL> CREATE TABLE SALESORDER(ORDER_NO VARCHAR2(6) PRIMARY KEY CHECK(ORDER_NO LIKE 'O%'),ORDER_DATE DATE,CLIENT_NO VARCHAR2(6) REFERENCES CLIENT(CLIENT_NO),SALESMAN_NO VARCHAR2(6) REFERENCES SALESMAN(SALESMAN_NO),DELY_TYPE VARCHAR2(1) DEFAULT 'F' CHECK(DELY_TYPE IN('F','P')),,DELY_DATE DATE CHECK(DELY_DATE > ORDER_DATE),ORDER_STATUS VARCHAR2(10) CHECK(ORDER_STATUS IN('IN PROCESS','DELIVERED','CANCELED'))0;
+CREATE TABLE SALESORDER(ORDER_NO VARCHAR2(6) PRIMARY KEY CHECK(ORDER_NO LIKE 'O%'),ORDER_DATE DATE,CLIENT_NO VARCHAR2(6) REFERENCES CLIENT(CLIENT_NO),SALESMAN_NO VARCHAR2(6) REFERENCES SALESMAN(SALESMAN_NO),DELY_TYPE VARCHAR2(1) DEFAULT 'F' CHECK(DELY_TYPE IN('F','P')),,DELY_DATE DATE CHECK(DELY_DATE > ORDER_DATE),ORDER_STATUS VARCHAR2(10) CHECK(ORDER_STATUS IN('IN PROCESS','DELIVERED','CANCELED'))0
+                                                                                                                                                                                                                                                                              *
+ERROR at line 1:
+ORA-00904: : invalid identifier 
+
+
+SQL> CREATE TABLE SALESORDER(ORDER_NO VARCHAR2(6) PRIMARY KEY CHECK(ORDER_NO LIKE 'O%'),ORDER_DATE DATE,CLIENT_NO VARCHAR2(6) REFERENCES CLIENT(CLIENT_NO),SALESMAN_NO VARCHAR2(6) REFERENCES SALESMAN(SALESMAN_NO),DELY_TYPE VARCHAR2(1) DEFAULT 'F' CHECK(DELY_TYPE IN('F','P')),DELY_DATE DATE CHECK(DELY_DATE > ORDER_DATE),ORDER_STATUS VARCHAR2(10) CHECK(ORDER_STATUS IN('IN PROCESS','DELIVERED','CANCELED')));
+CREATE TABLE SALESORDER(ORDER_NO VARCHAR2(6) PRIMARY KEY CHECK(ORDER_NO LIKE 'O%'),ORDER_DATE DATE,CLIENT_NO VARCHAR2(6) REFERENCES CLIENT(CLIENT_NO),SALESMAN_NO VARCHAR2(6) REFERENCES SALESMAN(SALESMAN_NO),DELY_TYPE VARCHAR2(1) DEFAULT 'F' CHECK(DELY_TYPE IN('F','P')),DELY_DATE DATE CHECK(DELY_DATE > ORDER_DATE),ORDER_STATUS VARCHAR2(10) CHECK(ORDER_STATUS IN('IN PROCESS','DELIVERED','CANCELED')))
+                                                                                                                                                                                                                                                                                                                          *
+ERROR at line 1:
+ORA-02438: Column check constraint cannot reference other columns 
+
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL>  CREATE TABLE SALESORDER(ORDER_NO VARCHAR2(6) PRIMARY KEY CHECK(ORDER_NO LIKE 'O%'),ORDER_DATE DATE,CLIENT_NO VARCHAR2(6) REFERENCES CLIENT(CLIENT_NO),SALESMAN_NO VARCHAR2(6) REFERENCES SALESMAN(SALESMAN_NO),DELY_TYPE VARCHAR2(1) DEFAULT 'F' CHECK(DELY_TYPE IN('F','P')),DELY_DATE DATE CHECK(DELY_DATE > ORDER_DATE OR
+  2  
+SQL> CREATE TABLE SALESORDER(ORDER_NO VARCHAR2(6) PRIMARY KEY CHECK(ORDER_NO LIKE 'O%'),ORDER_DATEDATE,CLIENT_NO VARCHAR2(6) REFERENCES CLIENT(CLIENT_NO),SALESMAN_NO VARCHAR2(6) REFERENCES SALESMAN(SALESMAN_NO),DELY_TYPE VARCHAR2(1) DEFAULT 'F' CHECK(DELY_TYPE IN('F','P')),DELY_DATE DATE,ORDER_STATUS VARCHAR2(10) CHECK(ORDER_STATUS IN('IN PROCESS','DELIVERED','CANCELED')));
+CREATE TABLE SALESORDER(ORDER_NO VARCHAR2(6) PRIMARY KEY CHECK(ORDER_NO LIKE 'O%'),ORDER_DATEDATE,CLIENT_NO VARCHAR2(6) REFERENCES CLIENT(CLIENT_NO),SALESMAN_NO VARCHAR2(6) REFERENCES SALESMAN(SALESMAN_NO),DELY_TYPE VARCHAR2(1) DEFAULT 'F' CHECK(DELY_TYPE IN('F','P')),DELY_DATE DATE,ORDER_STATUS VARCHAR2(10) CHECK(ORDER_STATUS IN('IN PROCESS','DELIVERED','CANCELED')))
+                                                                                   *
+ERROR at line 1:
+ORA-02263: need to specify the datatype for this column 
+
+
+SQL> CREATE TABLE SALESORDER(ORDER_NO VARCHAR2(6) PRIMARY KEY CHECK(ORDER_NO LIKE 'O%'),ORDER_DATE DATE,CLIENT_NO VARCHAR2(6) REFERENCES CLIENT(CLIENT_NO),SALESMAN_NO VARCHAR2(6) REFERENCES SALESMAN(SALESMAN_NO),DELY_TYPE VARCHAR2(1) DEFAULT 'F' CHECK(DELY_TYPE IN('F','P')),DELY_DATE DATE,ORDER_STATUS VARCHAR2(10) CHECK(ORDER_STATUS IN('IN PROCESS','DELIVERED','CANCELED')),CHECK(DELY_DATE >= ORDER_DATE));
+
+Table created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> CREATE TABLE ORDERDETAILS(ORDER_NO VARCHAR2(6) PRIMARY KEY REFRENCES SALESORDER(ORDER_NO),PRODUCT_NO VARCHAR2(6) REFERENCES PRODUCT(PRODUCT_NO),QTY_ORDERED NUMBER(9),PRODUCT_RATE NUMBER(8,2));
+CREATE TABLE ORDERDETAILS(ORDER_NO VARCHAR2(6) PRIMARY KEY REFRENCES SALESORDER(ORDER_NO),PRODUCT_NO VARCHAR2(6) REFERENCES PRODUCT(PRODUCT_NO),QTY_ORDERED NUMBER(9),PRODUCT_RATE NUMBER(8,2))
+                         *
+ERROR at line 1:
+ORA-00922: missing or invalid option 
+
+
+SQL> CREATE TABLE ORDERDETAILS(ORDER_NO VARCHAR2(6) PRIMARY KEY REFRENCES SALESORDER(ORDER_NO),PRODUCT_NO VARCHAR2(6) REFERENCES PRODUCT(PRODUCT_NO),QTY_ORDERED NUMBER(9),PRODUCT_RATE NUMBER(8,2));
+CREATE TABLE ORDERDETAILS(ORDER_NO VARCHAR2(6) PRIMARY KEY REFRENCES SALESORDER(ORDER_NO),PRODUCT_NO VARCHAR2(6) REFERENCES PRODUCT(PRODUCT_NO),QTY_ORDERED NUMBER(9),PRODUCT_RATE NUMBER(8,2))
+                         *
+ERROR at line 1:
+ORA-00922: missing or invalid option 
+
+
+SQL> CREATE TABLE ORDERDETAILS(ORDER_NO VARCHAR2(6) PRIMARY KEY REFERENCES SALESORDER(ORDER_NO),PRODUCT_NO VARCHAR2(6) REFERENCES PRODUCT(PRODUCT_NO),QTY_ORDERED NUMBER(9),PRODUCT_RATE NUMBER(8,2));
+
+Table created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> DESC CLIENT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CLIENT_NO                                 NOT NULL VARCHAR2(6)
+ NAME                                               VARCHAR2(15)
+ ADDRESS                                            VARCHAR2(15)
+ CITY                                               VARCHAR2(15)
+ PINCODE                                            NUMBER(6)
+ BAL_DUE                                            NUMBER(6,2)
+
+SQL> DESC PRODUCT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRODUCT_NO                                NOT NULL VARCHAR2(6)
+ DESCRIPTION                               NOT NULL VARCHAR2(15)
+ PROFIT_PERCENT                            NOT NULL NUMBER(4,2)
+ QTY_ON_HAND                               NOT NULL NUMBER(8)
+ REORDER_LEVEL                             NOT NULL NUMBER(8)
+ SELL_PRICE                                NOT NULL NUMBER(6,2)
+ COST_PRICE                                NOT NULL NUMBER(6,2)
+
+SQL> INSERT INTO CLIENT VALUES('&CLIENT_NO','&NAME','&ADDRESS','&city',&pincode,&BAL_DUE);
+Enter value for client_no: C00001
+Enter value for name: SANDEEP
+Enter value for address: A-213
+Enter value for city: MUMBAI
+Enter value for pincode: 676123
+Enter value for bal_due: 22000
+old   1: INSERT INTO CLIENT VALUES('&CLIENT_NO','&NAME','&ADDRESS','&city',&pincode,&BAL_DUE)
+new   1: INSERT INTO CLIENT VALUES('C00001','SANDEEP','A-213','MUMBAI',676123,22000)
+INSERT INTO CLIENT VALUES('C00001','SANDEEP','A-213','MUMBAI',676123,22000)
+                                                                     *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allows for this column 
+
+
+SQL> /
+Enter value for client_no: 
+Enter value for name: 
+Enter value for address: 
+Enter value for city: 
+Enter value for pincode: 
+Enter value for bal_due: 
+old   1: INSERT INTO CLIENT VALUES('&CLIENT_NO','&NAME','&ADDRESS','&city',&pincode,&BAL_DUE)
+new   1: INSERT INTO CLIENT VALUES('','','','',,)
+INSERT INTO CLIENT VALUES('','','','',,)
+                                      *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> 
+SQL> INSERT INTO CLIENT VALUES('c00001','SANDEEP','A-213','MUMBAI',676123,22000.00);
+INSERT INTO CLIENT VALUES('c00001','SANDEEP','A-213','MUMBAI',676123,22000.00)
+                                                                     *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allows for this column 
+
+
+SQL> ALTER TABLE CLIENT MODIFY BAL_DUE NUMBER(8,2);
+
+Table altered.
+
+SQL> ALTER TABLE PRODUCT MODIFY SELL_PRICE NUMBER(8,2);
+
+Table altered.
+
+SQL> ALTER TABLE PRODUCT MODIFY COST_PRICE NUMBER(8,2);
+
+Table altered.
+
+SQL> INSERT INTO CLIENT VALUES('c00001','SANDEEP','A-213','MUMBAI',676123,22000.00);
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> /
+
+Commit complete.
+
+SQL> INSERT INTO CLIENT VALUES('&CLIENT_NO','&NAME','&ADDRESS','&city',&pincode,&BAL_DUE);
+Enter value for client_no: C00002
+Enter value for name: SHANAVAS
+Enter value for address: TVC-243
+Enter value for city: MUMBAI
+Enter value for pincode: 634234
+Enter value for bal_due: 50000
+old   1: INSERT INTO CLIENT VALUES('&CLIENT_NO','&NAME','&ADDRESS','&city',&pincode,&BAL_DUE)
+new   1: INSERT INTO CLIENT VALUES('C00002','SHANAVAS','TVC-243','MUMBAI',634234,50000)
+INSERT INTO CLIENT VALUES('C00002','SHANAVAS','TVC-243','MUMBAI',634234,50000)
+*
+ERROR at line 1:
+ORA-02290: check constraint (S0961.SYS_C0037221) violated 
+
+
+SQL> SPOOL OFF
+SQL> INSERT INTO CLIENT VALUES('c00002','SHANAVAS','TVC-243','MUMBAI',634234,50000);
+
+1 row created.
+
+SQL> INSERT INTO CLIENT VALUES('&CLIENT_NO','&NAME','&ADDRESS','&city',&pincode,&BAL_DUE);
+Enter value for client_no: c00003
+Enter value for name: TOM
+Enter value for address: DC-23A
+Enter value for city: KOLKATA
+Enter value for pincode: 624456
+Enter value for bal_due: 12000
+old   1: INSERT INTO CLIENT VALUES('&CLIENT_NO','&NAME','&ADDRESS','&city',&pincode,&BAL_DUE)
+new   1: INSERT INTO CLIENT VALUES('c00003','TOM','DC-23A','KOLKATA',624456,12000)
+
+1 row created.
+
+SQL> /
+Enter value for client_no: c00004
+Enter value for name: JOHN
+Enter value for address: 156A
+Enter value for city: TRIVANDRUM
+Enter value for pincode: 695001
+Enter value for bal_due: 23100
+old   1: INSERT INTO CLIENT VALUES('&CLIENT_NO','&NAME','&ADDRESS','&city',&pincode,&BAL_DUE)
+new   1: INSERT INTO CLIENT VALUES('c00004','JOHN','156A','TRIVANDRUM',695001,23100)
+
+1 row created.
+
+SQL> DESC PRODUCT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRODUCT_NO                                NOT NULL VARCHAR2(6)
+ DESCRIPTION                               NOT NULL VARCHAR2(15)
+ PROFIT_PERCENT                            NOT NULL NUMBER(4,2)
+ QTY_ON_HAND                               NOT NULL NUMBER(8)
+ REORDER_LEVEL                             NOT NULL NUMBER(8)
+ SELL_PRICE                                NOT NULL NUMBER(8,2)
+ COST_PRICE                                NOT NULL NUMBER(8,2)
+
+SQL> /
+Enter value for client_no: c00005
+Enter value for name: AMIT
+Enter value for address: B-414
+Enter value for city: HOUSTON
+Enter value for pincode: 214357
+Enter value for bal_due: 34000
+old   1: INSERT INTO CLIENT VALUES('&CLIENT_NO','&NAME','&ADDRESS','&city',&pincode,&BAL_DUE)
+new   1: INSERT INTO CLIENT VALUES('c00005','AMIT','B-414','HOUSTON',214357,34000)
+
+1 row created.
+
+SQL> INSERT INTO PRODUCT VALUES('&PRODUCT_NO','&DESCRIPTION',&PROFIT_PERCENT,&QTY_ON_HAND,&REORDER_LEVEL,&SELL_PRICE,&COST_PRICE);
+Enter value for product_no: p00001
+Enter value for description: CD DRIVE
+Enter value for profit_percent: 15.40
+Enter value for qty_on_hand: 1200
+Enter value for reorder_level: 232
+Enter value for sell_price: 6000
+Enter value for cost_price: 5000
+old   1: INSERT INTO PRODUCT VALUES('&PRODUCT_NO','&DESCRIPTION',&PROFIT_PERCENT,&QTY_ON_HAND,&REORDER_LEVEL,&SELL_PRICE,&COST_PRICE)
+new   1: INSERT INTO PRODUCT VALUES('p00001','CD DRIVE',15.40,1200,232,6000,5000)
+
+1 row created.
+
+SQL> UPDATE CLIENT SET CITY='CALICUT' WHERE CITY='TRIVANDRUM';
+
+1 row updated.
+
+SQL> COMMIT
+  2  ;
+
+Commit complete.
+
+SQL> SELECT * FROM CLIENT;
+
+CLIENT NAME            ADDRESS         CITY               PINCODE    BAL_DUE    
+------ --------------- --------------- --------------- ---------- ----------    
+c00001 SANDEEP         A-213           MUMBAI              676123      22000    
+c00002 SHANAVAS        TVC-243         MUMBAI              634234      50000    
+c00003 TOM             DC-23A          KOLKATA             624456      12000    
+c00004 JOHN            156A            CALICUT             695001      23100    
+c00005 AMIT            B-414           HOUSTON             214357      34000    
+
+SQL> INSERT INTO PRODUCT VALUES('&PRODUCT_NO','&DESCRIPTION',&PROFIT_PERCENT,&QTY_ON_HAND,&REORDER_LEVEL,&SELL_PRICE,&COST_PRICE);
+Enter value for product_no: p00002
+Enter value for description: RAM
+Enter value for profit_percent: 14.50
+Enter value for qty_on_hand: 234
+Enter value for reorder_level: 432
+Enter value for sell_price: 7000
+Enter value for cost_price: 2500
+old   1: INSERT INTO PRODUCT VALUES('&PRODUCT_NO','&DESCRIPTION',&PROFIT_PERCENT,&QTY_ON_HAND,&REORDER_LEVEL,&SELL_PRICE,&COST_PRICE)
+new   1: INSERT INTO PRODUCT VALUES('p00002','RAM',14.50,234,432,7000,2500)
+
+1 row created.
+
+SQL> /
+Enter value for product_no: p00003
+Enter value for description: GRAPHICS CARD
+Enter value for profit_percent: 25
+Enter value for qty_on_hand: 123
+Enter value for reorder_level: 700
+Enter value for sell_price: 8500
+Enter value for cost_price: 3600
+old   1: INSERT INTO PRODUCT VALUES('&PRODUCT_NO','&DESCRIPTION',&PROFIT_PERCENT,&QTY_ON_HAND,&REORDER_LEVEL,&SELL_PRICE,&COST_PRICE)
+new   1: INSERT INTO PRODUCT VALUES('p00003','GRAPHICS CARD',25,123,700,8500,3600)
+
+1 row created.
+
+SQL> /
+Enter value for product_no: p00004
+Enter value for description: HARD_DISC
+Enter value for profit_percent: 13.32
+Enter value for qty_on_hand: 244
+Enter value for reorder_level: 345
+Enter value for sell_price: 7600
+Enter value for cost_price: 1234
+old   1: INSERT INTO PRODUCT VALUES('&PRODUCT_NO','&DESCRIPTION',&PROFIT_PERCENT,&QTY_ON_HAND,&REORDER_LEVEL,&SELL_PRICE,&COST_PRICE)
+new   1: INSERT INTO PRODUCT VALUES('p00004','HARD_DISC',13.32,244,345,7600,1234)
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SPOOL OFF;
+SQL> desc client;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CLIENT_NO                                 NOT NULL VARCHAR2(6)
+ NAME                                               VARCHAR2(15)
+ ADDRESS                                            VARCHAR2(15)
+ CITY                                               VARCHAR2(15)
+ PINCODE                                            NUMBER(6)
+ BAL_DUE                                            NUMBER(8,2)
+
+SQL> select * from client;
+
+CLIENT NAME            ADDRESS         CITY               PINCODE    BAL_DUE    
+------ --------------- --------------- --------------- ---------- ----------    
+c00001 SANDEEP         A-213           MUMBAI              676123      22000    
+c00002 SHANAVAS        TVC-243         MUMBAI              634234      50000    
+c00003 TOM             DC-23A          KOLKATA             624456      12000    
+c00004 JOHN            156A            CALICUT             695001      23100    
+c00005 AMIT            B-414           HOUSTON             214357      34000    
+
+SQL> desc product;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRODUCT_NO                                NOT NULL VARCHAR2(6)
+ DESCRIPTION                               NOT NULL VARCHAR2(15)
+ PROFIT_PERCENT                            NOT NULL NUMBER(4,2)
+ QTY_ON_HAND                               NOT NULL NUMBER(8)
+ REORDER_LEVEL                             NOT NULL NUMBER(8)
+ SELL_PRICE                                NOT NULL NUMBER(8,2)
+ COST_PRICE                                NOT NULL NUMBER(8,2)
+
+SQL> select * from product;
+
+PRODUC DESCRIPTION     PROFIT_PERCENT QTY_ON_HAND REORDER_LEVEL SELL_PRICE      
+------ --------------- -------------- ----------- ------------- ----------      
+COST_PRICE                                                                      
+----------                                                                      
+p00001 CD DRIVE                  15.4        1200           232       6000      
+      5000                                                                      
+                                                                                
+p00002 RAM                       14.5         234           432       7000      
+      2500                                                                      
+                                                                                
+p00003 GRAPHICS CARD               25         123           700       8500      
+      3600                                                                      
+                                                                                
+
+PRODUC DESCRIPTION     PROFIT_PERCENT QTY_ON_HAND REORDER_LEVEL SELL_PRICE      
+------ --------------- -------------- ----------- ------------- ----------      
+COST_PRICE                                                                      
+----------                                                                      
+p00004 HARD_DISC                13.32         244           345       7600      
+      1234                                                                      
+                                                                                
+
+SQL> insert into slesman values
+  2  
+SQL> 
+SQL> desc salesman;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SALESMAN_NO                               NOT NULL VARCHAR2(6)
+ NAME                                      NOT NULL VARCHAR2(15)
+ ADDRESS                                   NOT NULL VARCHAR2(15)
+ SALARY                                    NOT NULL NUMBER(8)
+
+SQL> insert into salesman values('&salesman_no','&NAME','&NAME','&ADDRESS',SALARY);
+Enter value for salesman_no: S00001
+Enter value for name: SOORAJ
+Enter value for name: 
+Enter value for address: 
+old   1: insert into salesman values('&salesman_no','&NAME','&NAME','&ADDRESS',SALARY)
+new   1: insert into salesman values('S00001','SOORAJ','','',SALARY)
+insert into salesman values('S00001','SOORAJ','','',SALARY)
+            *
+ERROR at line 1:
+ORA-00913: too many values 
+
+
+SQL> 
+SQL> 
+SQL> insert into salesman values('&salesman_no','&NAME','&ADDRESS',SALARY);
+Enter value for salesman_no: S00001
+Enter value for name: SOORAJ
+Enter value for address: CALICUT
+old   1: insert into salesman values('&salesman_no','&NAME','&ADDRESS',SALARY)
+new   1: insert into salesman values('S00001','SOORAJ','CALICUT',SALARY)
+insert into salesman values('S00001','SOORAJ','CALICUT',SALARY)
+                                                        *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> insert into salesman values('&salesman_no','&NAME','&ADDRESS',&SALARY);
+Enter value for salesman_no: S00001
+Enter value for name: SOORAJ
+Enter value for address: CALICUT
+Enter value for salary: 500000
+old   1: insert into salesman values('&salesman_no','&NAME','&ADDRESS',&SALARY)
+new   1: insert into salesman values('S00001','SOORAJ','CALICUT',500000)
+
+1 row created.
+
+SQL> /
+Enter value for salesman_no: S00002
+Enter value for name: NITHIN
+Enter value for address: KOTTAYAM
+Enter value for salary: 12000
+old   1: insert into salesman values('&salesman_no','&NAME','&ADDRESS',&SALARY)
+new   1: insert into salesman values('S00002','NITHIN','KOTTAYAM',12000)
+
+1 row created.
+
+SQL> /
+Enter value for salesman_no: SUBIN
+Enter value for name: 
+Enter value for address: 
+Enter value for salary: 
+old   1: insert into salesman values('&salesman_no','&NAME','&ADDRESS',&SALARY)
+new   1: insert into salesman values('SUBIN','','',)
+insert into salesman values('SUBIN','','',)
+                                          *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> 
+SQL> /
+Enter value for salesman_no: S00003
+Enter value for name: SUBIN
+Enter value for address: PONNANI
+Enter value for salary: 23000
+old   1: insert into salesman values('&salesman_no','&NAME','&ADDRESS',&SALARY)
+new   1: insert into salesman values('S00003','SUBIN','PONNANI',23000)
+
+1 row created.
+
+SQL> /
+Enter value for salesman_no: S00004
+Enter value for name: VISHNU
+Enter value for address: KOLLAM
+Enter value for salary: 13322
+old   1: insert into salesman values('&salesman_no','&NAME','&ADDRESS',&SALARY)
+new   1: insert into salesman values('S00004','VISHNU','KOLLAM',13322)
+
+1 row created.
+
+SQL> /
+Enter value for salesman_no: S00005
+Enter value for name: MELWIN
+Enter value for address: ERNMKLM
+Enter value for salary: 123445
+old   1: insert into salesman values('&salesman_no','&NAME','&ADDRESS',&SALARY)
+new   1: insert into salesman values('S00005','MELWIN','ERNMKLM',123445)
+
+1 row created.
+
+SQL> DESC SALESORDER;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ORDER_NO                                  NOT NULL VARCHAR2(6)
+ ORDER_DATE                                         DATE
+ CLIENT_NO                                          VARCHAR2(6)
+ SALESMAN_NO                                        VARCHAR2(6)
+ DELY_TYPE                                          VARCHAR2(1)
+ DELY_DATE                                          DATE
+ ORDER_STATUS                                       VARCHAR2(10)
+
+SQL> INSERT INTO SALESORDER VALUES('&ORDER_NO','&ORDER_DATE','&CLIENT_NO','&SALESMAN_NO','&DELY_TYPW
+  2  
+SQL> INSERT INTO SALESORDER VALUES('&ORDER_NO','&ORDER_DATE','&CLIENT_NO','&SALESMAN_NO','&DELY_TYPE','&DELY_DATE','&ORDER_STATUS');
+Enter value for order_no: O00001
+Enter value for order_date: 12-JAN-10
+Enter value for client_no: C00001
+Enter value for salesman_no: S00001
+Enter value for dely_type: F
+Enter value for dely_date: 15-FEB-10
+Enter value for order_status: DELIVERED
+old   1: INSERT INTO SALESORDER VALUES('&ORDER_NO','&ORDER_DATE','&CLIENT_NO','&SALESMAN_NO','&DELY_TYPE','&DELY_DATE','&ORDER_STATUS')
+new   1: INSERT INTO SALESORDER VALUES('O00001','12-JAN-10','C00001','S00001','F','15-FEB-10','DELIVERED')
+INSERT INTO SALESORDER VALUES('O00001','12-JAN-10','C00001','S00001','F','15-FEB-10','DELIVERED')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (S0961.SYS_C0038058) violated - parent key not 
+found 
+
+
+SQL> INSERT INTO SALESORDER VALUES('O00001','12-JAN-10','c00001','S00001','F','15-FEB-10','DELIVERED');
+
+1 row created.
+
+SQL> /
+INSERT INTO SALESORDER VALUES('O00001','12-JAN-10','c00001','S00001','F','15-FEB-10','DELIVERED')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (S0961.SYS_C0038057) violated 
+
+
+SQL> INSERT INTO SALESORDER VALUES('&ORDER_NO','&ORDER_DATE','&CLIENT_NO','&SALESMAN_NO','&DELY_TYPE','&DELY_DATE','&ORDER_STATUS');
+Enter value for order_no: O00002
+Enter value for order_date: 10-MAR-11
+Enter value for client_no: c00003
+Enter value for salesman_no: S00003
+Enter value for dely_type: P
+Enter value for dely_date: 12-APR-11
+Enter value for order_status: In process
+old   1: INSERT INTO SALESORDER VALUES('&ORDER_NO','&ORDER_DATE','&CLIENT_NO','&SALESMAN_NO','&DELY_TYPE','&DELY_DATE','&ORDER_STATUS')
+new   1: INSERT INTO SALESORDER VALUES('O00002','10-MAR-11','c00003','S00003','P','12-APR-11','In process')
+INSERT INTO SALESORDER VALUES('O00002','10-MAR-11','c00003','S00003','P','12-APR-11','In process')
+*
+ERROR at line 1:
+ORA-02290: check constraint (S0961.SYS_C0038055) violated 
+
+
+SQL> INSERT INTO SALESORDER VALUES('O00002','10-MAR-11','c00003','S00003','P','12-APR-11','IN PROCESS');
+
+1 row created.
+
+SQL> /
+INSERT INTO SALESORDER VALUES('O00002','10-MAR-11','c00003','S00003','P','12-APR-11','IN PROCESS')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (S0961.SYS_C0038057) violated 
+
+
+SQL> INSERT INTO SALESORDER VALUES('&ORDER_NO','&ORDER_DATE','&CLIENT_NO','&SALESMAN_NO','&DELY_TYPE','&DELY_DATE','&ORDER_STATUS');
+Enter value for order_no: O00003
+Enter value for order_date: 
+Enter value for client_no: 
+Enter value for salesman_no: 
+Enter value for dely_type: 
+Enter value for dely_date: 
+Enter value for order_status: 
+old   1: INSERT INTO SALESORDER VALUES('&ORDER_NO','&ORDER_DATE','&CLIENT_NO','&SALESMAN_NO','&DELY_TYPE','&DELY_DATE','&ORDER_STATUS')
+new   1: INSERT INTO SALESORDER VALUES('O00003','','','','','','')
+
+1 row created.
+
+SQL> /
+Enter value for order_no: O19001
+Enter value for order_date: 13-DEC-10
+Enter value for client_no: C00005
+Enter value for salesman_no: S00003
+Enter value for dely_type: F
+Enter value for dely_date: 10-JAN-11
+Enter value for order_status: DELIVERED
+old   1: INSERT INTO SALESORDER VALUES('&ORDER_NO','&ORDER_DATE','&CLIENT_NO','&SALESMAN_NO','&DELY_TYPE','&DELY_DATE','&ORDER_STATUS')
+new   1: INSERT INTO SALESORDER VALUES('O19001','13-DEC-10','C00005','S00003','F','10-JAN-11','DELIVERED')
+INSERT INTO SALESORDER VALUES('O19001','13-DEC-10','C00005','S00003','F','10-JAN-11','DELIVERED')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (S0961.SYS_C0038058) violated - parent key not 
+found 
+
+
+SQL> INSERT INTO SALESORDER VALUES('O19001','13-DEC-10','c00005','S00003','F','10-JAN-11','DELIVERED');
+
+1 row created.
+
+SQL> INSERT INTO SALESORDER VALUES('O00121','22-MAR-11','c00004','S00004','F','10-MAY-11','DELIVERED');
+
+1 row created.
+
+SQL> SELECT NAME FROM CLIENT WHERE NAME LIKE '_a%';
+
+no rows selected
+
+SQL> SELECT * FROM CLIENT;
+
+CLIENT NAME            ADDRESS         CITY               PINCODE    BAL_DUE    
+------ --------------- --------------- --------------- ---------- ----------    
+c00001 SANDEEP         A-213           MUMBAI              676123      22000    
+c00002 SHANAVAS        TVC-243         MUMBAI              634234      50000    
+c00003 TOM             DC-23A          KOLKATA             624456      12000    
+c00004 JOHN            156A            CALICUT             695001      23100    
+c00005 AMIT            B-414           HOUSTON             214357      34000    
+
+SQL> SELECT NAME FROM CLIENT WHERE NAME LIKE '_A%';
+
+NAME                                                                            
+---------------                                                                 
+SANDEEP                                                                         
+
+SQL> SELECT NAME,CITY FROM CLIENT WHERE NAME LIKE '_A%';
+
+NAME            CITY                                                            
+--------------- ---------------                                                 
+SANDEEP         MUMBAI                                                          
+
+SQL> SELECT NAME,CITY FROM CLIENT WHERE CITY LIKE '_A%';
+
+NAME            CITY                                                            
+--------------- ---------------                                                 
+JOHN            CALICUT                                                         
+
+SQL> SELECT NAME FROM CLIENT WHERE CITY='MUMBAI' OR CITY='KOLKATA';
+
+NAME                                                                            
+---------------                                                                 
+SANDEEP                                                                         
+SHANAVAS                                                                        
+TOM                                                                             
+
+SQL> SELECT NAME,CITY FROM CLIENT WHERE CITY='MUMBAI' OR CITY='KOLKATA';
+
+NAME            CITY                                                            
+--------------- ---------------                                                 
+SANDEEP         MUMBAI                                                          
+SHANAVAS        MUMBAI                                                          
+TOM             KOLKATA                                                         
+
+SQL> SELECT * FROM CLIENT WHERE BAL_DUE>10000;
+
+CLIENT NAME            ADDRESS         CITY               PINCODE    BAL_DUE    
+------ --------------- --------------- --------------- ---------- ----------    
+c00001 SANDEEP         A-213           MUMBAI              676123      22000    
+c00002 SHANAVAS        TVC-243         MUMBAI              634234      50000    
+c00003 TOM             DC-23A          KOLKATA             624456      12000    
+c00004 JOHN            156A            CALICUT             695001      23100    
+c00005 AMIT            B-414           HOUSTON             214357      34000    
+
+SQL> SELECT * FROM ORDERDETAILS;
+
+no rows selected
+
+SQL> INSERT INTO ORDERDETAILS VALUES('&ORDER_NO','&PROIDUCT_NO',QTY_ORDERED,PRODUCT_RATE);
+Enter value for order_no: O00001
+Enter value for proiduct_no: P00001
+old   1: INSERT INTO ORDERDETAILS VALUES('&ORDER_NO','&PROIDUCT_NO',QTY_ORDERED,PRODUCT_RATE)
+new   1: INSERT INTO ORDERDETAILS VALUES('O00001','P00001',QTY_ORDERED,PRODUCT_RATE)
+INSERT INTO ORDERDETAILS VALUES('O00001','P00001',QTY_ORDERED,PRODUCT_RATE)
+                                                              *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> INSERT INTO ORDERDETAILS VALUES('&ORDER_NO','&PROIDUCT_NO',&QTY_ORDERED,&PRODUCT_RATE);
+Enter value for order_no: O00001
+Enter value for proiduct_no: P00001
+Enter value for qty_ordered: 120
+Enter value for product_rate: 1200
+old   1: INSERT INTO ORDERDETAILS VALUES('&ORDER_NO','&PROIDUCT_NO',&QTY_ORDERED,&PRODUCT_RATE)
+new   1: INSERT INTO ORDERDETAILS VALUES('O00001','P00001',120,1200)
+INSERT INTO ORDERDETAILS VALUES('O00001','P00001',120,1200)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (S0961.SYS_C0038113) violated - parent key not 
+found 
+
+
+SQL> INSERT INTO ORDERDETAILS VALUES('O00001','p00001',120,1200);
+
+1 row created.
+
+SQL> INSERT INTO ORDERDETAILS VALUES('&ORDER_NO','&PROIDUCT_NO',&QTY_ORDERED,&PRODUCT_RATE);
+Enter value for order_no: O19001
+Enter value for proiduct_no: p00002
+Enter value for qty_ordered: 23
+Enter value for product_rate: 1300
+old   1: INSERT INTO ORDERDETAILS VALUES('&ORDER_NO','&PROIDUCT_NO',&QTY_ORDERED,&PRODUCT_RATE)
+new   1: INSERT INTO ORDERDETAILS VALUES('O19001','p00002',23,1300)
+
+1 row created.
+
+SQL> /
+Enter value for order_no: O00003
+Enter value for proiduct_no: p00004
+Enter value for qty_ordered: 354
+Enter value for product_rate: 12234
+old   1: INSERT INTO ORDERDETAILS VALUES('&ORDER_NO','&PROIDUCT_NO',&QTY_ORDERED,&PRODUCT_RATE)
+new   1: INSERT INTO ORDERDETAILS VALUES('O00003','p00004',354,12234)
+
+1 row created.
+
+SQL> DESC SALESORDER;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ORDER_NO                                  NOT NULL VARCHAR2(6)
+ ORDER_DATE                                         DATE
+ CLIENT_NO                                          VARCHAR2(6)
+ SALESMAN_NO                                        VARCHAR2(6)
+ DELY_TYPE                                          VARCHAR2(1)
+ DELY_DATE                                          DATE
+ ORDER_STATUS                                       VARCHAR2(10)
+
+SQL> DESC ORDERDETAILS;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ORDER_NO                                  NOT NULL VARCHAR2(6)
+ PRODUCT_NO                                         VARCHAR2(6)
+ QTY_ORDERED                                        NUMBER(9)
+ PRODUCT_RATE                                       NUMBER(8,2)
+
+SQL> SELECT * FROM ORDERDETAILS WHERE ORDER_NO=(SELECT ORDER_NO FROM SALESORDER WHERE
+  2  
+SQL> SELECT * FROM ORDERDETAILS WHERE ORDER_NO=IN(SELECT ORDER_NO FROM SALESORDER WHERE EXTRACT MNOT
+  2  
+SQL> SELECT * FROM ORDERDETAILS WHERE ORDER_NO=IN(SELECT ORDER_NO FROM SALESORDER WHERE EXTRACT MONTH(ORDER_DATE)='JAN');
+SELECT * FROM ORDERDETAILS WHERE ORDER_NO=IN(SELECT ORDER_NO FROM SALESORDER WHERE EXTRACT MONTH(ORDER_DATE)='JAN')
+                                          *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> SELECT * FROM ORDERDETAILS WHERE ORDER_NO IN(SELECT ORDER_NO FROM SALESORDER WHERE EXTRACT MONTH(ORDER_DATE)='JAN');
+SELECT * FROM ORDERDETAILS WHERE ORDER_NO IN(SELECT ORDER_NO FROM SALESORDER WHERE EXTRACT MONTH(ORDER_DATE)='JAN')
+                                                                                           *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> SELECT * FROM ORDERDETAILS WHERE ORDER_NO IN(SELECT ORDER_NO FROM SALESORDER WHERE ORDER_DATE LIKE '%JAN%');
+
+ORDER_ PRODUC QTY_ORDERED PRODUCT_RATE                                          
+------ ------ ----------- ------------                                          
+O00001 p00001         120         1200                                          
+
+SQL> SELECT * FROM ORDERDETAILS WHERE ORDER_NO IN(SELECT ORDER_NO  FROM SALESORDER WHERE CLIENT_NO='c00001' OR CLIENT_NO='c00002');
+
+ORDER_ PRODUC QTY_ORDERED PRODUCT_RATE                                          
+------ ------ ----------- ------------                                          
+O00001 p00001         120         1200                                          
+
+SQL> COMMIT
+  2  ;
+
+Commit complete.
+
+SQL> SPOOL OFF
+SQL> SELECT CLIENT_NO,ORDER_NOM,PROIDUCT_NO,QTY_ORDERED,PRODUCT_RATE FROM ORDERDETAILS,
+  2  
+SQL> SELECT CLIENT_NO,ORDER_NO,PROIDUCT_NO,QTY_ORDERED,PRODUCT_RATE FROM ORDERDETAILS,SALESORDER WHERE ORDERDETAILS.ORDER_NO=SALESORDER.ORDER_NO AND ORDER_NO IN(SELECT ORDER_NO FROM SALESORDER WHERE CLIENT_NO = 'c00001' AND CLIENT_NO = 'c00002');
+SELECT CLIENT_NO,ORDER_NO,PROIDUCT_NO,QTY_ORDERED,PRODUCT_RATE FROM ORDERDETAILS,SALESORDER WHERE ORDERDETAILS.ORDER_NO=SALESORDER.ORDER_NO AND ORDER_NO IN(SELECT ORDER_NO FROM SALESORDER WHERE CLIENT_NO = 'c00001' AND CLIENT_NO = 'c00002')
+                                                                                                                                                *
+ERROR at line 1:
+ORA-00918: column ambiguously defined 
+
+
+SQL> SELECT CLIENT_NO,ORDER_NO,PROIDUCT_NO,QTY_ORDERED,PRODUCT_RATE FROM ORDERDETAILS,SALESORDER WHERE ORDERDETAILS.ORDER_NO=SALESORDER.ORDER_NO AND ORDERDETAILS.ORDER_NO IN(SELECT ORDER_NO FROM SALESORDER WHERE CLIENT_NO = 'c00001' AND CLIENT_NO = 'c00002');
+SELECT CLIENT_NO,ORDER_NO,PROIDUCT_NO,QTY_ORDERED,PRODUCT_RATE FROM ORDERDETAILS,SALESORDER WHERE ORDERDETAILS.ORDER_NO=SALESORDER.ORDER_NO AND ORDERDETAILS.ORDER_NO IN(SELECT ORDER_NO FROM SALESORDER WHERE CLIENT_NO = 'c00001' AND CLIENT_NO = 'c00002')
+                          *
+ERROR at line 1:
+ORA-00904: "PROIDUCT_NO": invalid identifier 
+
+
+SQL> SELECT CLIENT_NO,ORDER_NO,PRODUCT_NO,QTY_ORDERED,PRODUCT_RATE FROM ORDERDETAILS,SALESORDER WHERE ORDERDETAILS.ORDER_NO=SALESORDER.ORDER_NO AND ORDERDETAILS.ORDER_NO IN(SELECT ORDER_NO FROM SALESORDER WHERE CLIENT_NO = 'c00001' AND CLIENT_NO = 'c00002');
+SELECT CLIENT_NO,ORDER_NO,PRODUCT_NO,QTY_ORDERED,PRODUCT_RATE FROM ORDERDETAILS,SALESORDER WHERE ORDERDETAILS.ORDER_NO=SALESORDER.ORDER_NO AND ORDERDETAILS.ORDER_NO IN(SELECT ORDER_NO FROM SALESORDER WHERE CLIENT_NO = 'c00001' AND CLIENT_NO = 'c00002')
+                 *
+ERROR at line 1:
+ORA-00918: column ambiguously defined 
+
+
+SQL> SELECT CLIENT_NO,ORDERDETAILS.ORDER_NO,PRODUCT_NO,QTY_ORDERED,PRODUCT_RATE FROM ORDERDETAILS,SALESORDER WHERE ORDERDETAILS.ORDER_NO=SALESORDER.ORDER_NO AND ORDERDETAILS.ORDER_NO IN(SELECT ORDER_NO FROM SALESORDER WHERE CLIENT_NO = 'c00001' AND CLIENT_NO = 'c00002');
+
+no rows selected
+
+SQL>  SELECT CLIENT_NO,ORDERDETAILS.ORDER_NO,PRODUCT_NO,QTY_ORDERED,PRODUCT_RATE FROM ORDERDETAILS,SALESORDER WHERE ORDERDETAILS.ORDER_NO=SALESORDER.ORDER_NO AND SALESORDER.CLIENT_NO IN('c00001','c00002');
+
+CLIENT ORDER_ PRODUC QTY_ORDERED PRODUCT_RATE                                   
+------ ------ ------ ----------- ------------                                   
+c00001 O00001 p00001         120         1200                                   
+
+SQL> SELECT * FROM ORDERDETAILS;
+
+ORDER_ PRODUC QTY_ORDERED PRODUCT_RATE                                          
+------ ------ ----------- ------------                                          
+O00001 p00001         120         1200                                          
+O19001 p00002          23         1300                                          
+O00003 p00004         354        12234                                          
+
+SQL> SELECT * FROM SALESORDER;
+
+ORDER_ ORDER_DAT CLIENT SALESM D DELY_DATE ORDER_STAT                           
+------ --------- ------ ------ - --------- ----------                           
+O00001 12-JAN-10 c00001 S00001 F 15-FEB-10 DELIVERED                            
+O00002 10-MAR-11 c00003 S00003 P 12-APR-11 IN PROCESS                           
+O00003                                                                          
+O19001 13-DEC-10 c00005 S00003 F 10-JAN-11 DELIVERED                            
+O00121 22-MAR-11 c00004 S00004 F 10-MAY-11 DELIVERED                            
+
+SQL> UPDATE ORDERDETAILS ORDER_NO='O00002' WHERE ORDER_NO='O00003';
+UPDATE ORDERDETAILS ORDER_NO='O00002' WHERE ORDER_NO='O00003'
+                            *
+ERROR at line 1:
+ORA-00971: missing SET keyword 
+
+
+SQL> UPDATE ORDERDETAILS SET ORDER_NO='O00002' WHERE ORDER_NO='O00003';
+
+1 row updated.
+
+SQL> DELETE FROM SALESORDER WHERE ORDER_NO='O00003';
+
+1 row deleted.
+
+SQL> SELECT * FROM PRODUCT;
+
+PRODUC DESCRIPTION     PROFIT_PERCENT QTY_ON_HAND REORDER_LEVEL SELL_PRICE      
+------ --------------- -------------- ----------- ------------- ----------      
+COST_PRICE                                                                      
+----------                                                                      
+p00001 CD DRIVE                  15.4        1200           232       6000      
+      5000                                                                      
+                                                                                
+p00002 RAM                       14.5         234           432       7000      
+      2500                                                                      
+                                                                                
+p00003 GRAPHICS CARD               25         123           700       8500      
+      3600                                                                      
+                                                                                
+
+PRODUC DESCRIPTION     PROFIT_PERCENT QTY_ON_HAND REORDER_LEVEL SELL_PRICE      
+------ --------------- -------------- ----------- ------------- ----------      
+COST_PRICE                                                                      
+----------                                                                      
+p00004 HARD_DISC                13.32         244           345       7600      
+      1234                                                                      
+                                                                                
+
+SQL> SELECT * FROM PRODUCT WHERE SELL_PRICE>5000 AND SELL_PRICE<=10000;
+
+PRODUC DESCRIPTION     PROFIT_PERCENT QTY_ON_HAND REORDER_LEVEL SELL_PRICE      
+------ --------------- -------------- ----------- ------------- ----------      
+COST_PRICE                                                                      
+----------                                                                      
+p00001 CD DRIVE                  15.4        1200           232       6000      
+      5000                                                                      
+                                                                                
+p00002 RAM                       14.5         234           432       7000      
+      2500                                                                      
+                                                                                
+p00003 GRAPHICS CARD               25         123           700       8500      
+      3600                                                                      
+                                                                                
+
+PRODUC DESCRIPTION     PROFIT_PERCENT QTY_ON_HAND REORDER_LEVEL SELL_PRICE      
+------ --------------- -------------- ----------- ------------- ----------      
+COST_PRICE                                                                      
+----------                                                                      
+p00004 HARD_DISC                13.32         244           345       7600      
+      1234                                                                      
+                                                                                
+
+SQL> SELECT PRODUCT_NO,SELL_PRICE,SELL_PRCE*0.15 AS NEW_PRICE FROM PRODUCT WHERE SELL_PRICE>2000;
+SELECT PRODUCT_NO,SELL_PRICE,SELL_PRCE*0.15 AS NEW_PRICE FROM PRODUCT WHERE SELL_PRICE>2000
+                             *
+ERROR at line 1:
+ORA-00904: "SELL_PRCE": invalid identifier 
+
+
+SQL>  SELECT PRODUCT_NO,SELL_PRICE,(SELL_PRCE * 0.15) AS NEW_PRICE FROM PRODUCT WHERE SELL_PRICE>2000;
+ SELECT PRODUCT_NO,SELL_PRICE,(SELL_PRCE * 0.15) AS NEW_PRICE FROM PRODUCT WHERE SELL_PRICE>2000
+                               *
+ERROR at line 1:
+ORA-00904: "SELL_PRCE": invalid identifier 
+
+
+SQL> SELECT PRODUCT_NO,SELL_PRICE,(SELL_PRICE * 0.15) AS NEW_PRICE FROM PRODUCT WHERE SELL_PRICE>2000;
+
+PRODUC SELL_PRICE  NEW_PRICE                                                    
+------ ---------- ----------                                                    
+p00001       6000        900                                                    
+p00002       7000       1050                                                    
+p00003       8500       1275                                                    
+p00004       7600       1140                                                    
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT COUNT(*) FROM SALESORDER;
+
+  COUNT(*)                                                                      
+----------                                                                      
+         4                                                                      
+
+SQL> SELCT AVG(SELL_PRICE)
+SP2-0734: unknown command beginning "SELCT AVG(..." - rest of line ignored.
+SQL> 
+SQL> SELECT AVG(SELL_PRICE) FROM SALESORDER;
+SELECT AVG(SELL_PRICE) FROM SALESORDER
+           *
+ERROR at line 1:
+ORA-00904: "SELL_PRICE": invalid identifier 
+
+
+SQL> SELECT AVG(SELL_PRICE) FROM PRODUCT;
+
+AVG(SELL_PRICE)                                                                 
+---------------                                                                 
+           7275                                                                 
+
+SQL> SELECT MIN(SELL_PRICE) AS MIN_PRICE MAX(SELL_PRICE) AS MAX_PRICE FROM PRODUCT;
+SELECT MIN(SELL_PRICE) AS MIN_PRICE MAX(SELL_PRICE) AS MAX_PRICE FROM PRODUCT
+                                    *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT MIN(SELL_PRICE) AS MIN_PRICE,MAX(SELL_PRICE) AS MAX_PRICE FROM PRODUCT;
+
+ MIN_PRICE  MAX_PRICE                                                           
+---------- ----------                                                           
+      6000       8500                                                           
+
+SQL> SELECT COUNT(*) FROM PRODUCT WHERE SELL_PRICE>=5000;
+
+  COUNT(*)                                                                      
+----------                                                                      
+         4                                                                      
+
+SQL> SELECT * FROM PRODUCT WHERE QTY_ON_HAND<REORDER_LEVEL;
+
+PRODUC DESCRIPTION     PROFIT_PERCENT QTY_ON_HAND REORDER_LEVEL SELL_PRICE      
+------ --------------- -------------- ----------- ------------- ----------      
+COST_PRICE                                                                      
+----------                                                                      
+p00002 RAM                       14.5         234           432       7000      
+      2500                                                                      
+                                                                                
+p00003 GRAPHICS CARD               25         123           700       8500      
+      3600                                                                      
+                                                                                
+p00004 HARD_DISC                13.32         244           345       7600      
+      1234                                                                      
+                                                                                
+
+SQL> SELECT ORDER_NO,TO_CHAR(ORDER_DATE,'DAY') FROM SALESORDER;
+
+ORDER_ TO_CHAR(O                                                                
+------ ---------                                                                
+O00001 TUESDAY                                                                  
+O00002 THURSDAY                                                                 
+O19001 MONDAY                                                                   
+O00121 TUESDAY                                                                  
+
+SQL> SELECT ORDER_NO,TO_CHAR(ORDER_DATE,'DAY') AS DAY FROM SALESORDER;
+
+ORDER_ DAY                                                                      
+------ ---------                                                                
+O00001 TUESDAY                                                                  
+O00002 THURSDAY                                                                 
+O19001 MONDAY                                                                   
+O00121 TUESDAY                                                                  
+
+SQL> SELECT ORDER_NO,TO_CHAR(DELY_DATE,'MONTH') AS MONTH,DELY_DATE FROM SALESORDER;
+
+ORDER_ MONTH     DELY_DATE                                                      
+------ --------- ---------                                                      
+O00001 FEBRUARY  15-FEB-10                                                      
+O00002 APRIL     12-APR-11                                                      
+O19001 JANUARY   10-JAN-11                                                      
+O00121 MAY       10-MAY-11                                                      
+
+SQL> SELECT (SELECT SYSDATE FROM DUAL)+15 FROM DUAL;
+
+(SELECTSY                                                                       
+---------                                                                       
+10-AUG-11                                                                       
+
+SQL> SELCT ORDER_NO,CLIENT_NO,((SELECT SYSDATE FROM DUAL)-DELY_DATE) FROM SALESORDER;
+SP2-0734: unknown command beginning "SELCT ORDE..." - rest of line ignored.
+SQL> SELECT ORDER_NO,CLIENT_NO,((SELECT SYSDATE FROM DUAL)-DELY_DATE) FROM SALESORDER;
+
+ORDER_ CLIENT ((SELECTSYSDATEFROMDUAL)-DELY_DATE)                               
+------ ------ -----------------------------------                               
+O00001 c00001                          526.511516                               
+O00002 c00003                          105.511516                               
+O19001 c00005                          197.511516                               
+O00121 c00004                          77.5115162                               
+
+SQL>  SELECT ORDER_NO,CLIENT_NO,(
+  2  DELY_DATE-(SELECT SYSDATE FROM DUAL)FROM SALESORDER;
+DELY_DATE-(SELECT SYSDATE FROM DUAL)FROM SALESORDER
+                                    *
+ERROR at line 2:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SELECT ORDER_NO,CLIENT_NO,(DELY_DATE-(SELECT SYSDATE FROM DUAL) FROM SALESORDER;
+SELECT ORDER_NO,CLIENT_NO,(DELY_DATE-(SELECT SYSDATE FROM DUAL) FROM SALESORDER
+                                                                *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SELECT ORDER_NO,CLIENT_NO,(DELY_DATE-(SELECT SYSDATE FROM DUAL)) FROM SALESORDER;
+
+ORDER_ CLIENT (DELY_DATE-(SELECTSYSDATEFROMDUAL))                               
+------ ------ -----------------------------------                               
+O00001 c00001                          -526.51284                               
+O00002 c00003                          -105.51284                               
+O19001 c00005                          -197.51284                               
+O00121 c00004                          -77.512836                               
+
+SQL> SPOOL OFF
+SQL> desc product;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRODUCT_NO                                NOT NULL VARCHAR2(6)
+ DESCRIPTION                               NOT NULL VARCHAR2(15)
+ PROFIT_PERCENT                            NOT NULL NUMBER(4,2)
+ QTY_ON_HAND                               NOT NULL NUMBER(8)
+ REORDER_LEVEL                             NOT NULL NUMBER(8)
+ SELL_PRICE                                NOT NULL NUMBER(8,2)
+ COST_PRICE                                NOT NULL NUMBER(8,2)
+
+SQL> select * from product;
+
+PRODUC DESCRIPTION     PROFIT_PERCENT QTY_ON_HAND REORDER_LEVEL SELL_PRICE      
+------ --------------- -------------- ----------- ------------- ----------      
+COST_PRICE                                                                      
+----------                                                                      
+p00001 CD DRIVE                  15.4        1200           232       6000      
+      5000                                                                      
+                                                                                
+p00002 RAM                       14.5         234           432       7000      
+      2500                                                                      
+                                                                                
+p00003 GRAPHICS CARD               25         123           700       8500      
+      3600                                                                      
+                                                                                
+
+PRODUC DESCRIPTION     PROFIT_PERCENT QTY_ON_HAND REORDER_LEVEL SELL_PRICE      
+------ --------------- -------------- ----------- ------------- ----------      
+COST_PRICE                                                                      
+----------                                                                      
+p00004 HARD_DISC                13.32         244           345       7600      
+      1234                                                                      
+                                                                                
+
+SQL> SELECT ORDER_NO,CLIENT_NO,(DELY_DATE-(SELECT SYSDATE FROM DUAL)) as days_elapsed from salesorder;
+
+ORDER_ CLIENT DAYS_ELAPSED                                                      
+------ ------ ------------                                                      
+O00001 c00001   -528.42991                                                      
+O00002 c00003   -107.42991                                                      
+O19001 c00005   -199.42991                                                      
+O00121 c00004   -79.429907                                                      
+
+SQL> desc product;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRODUCT_NO                                NOT NULL VARCHAR2(6)
+ DESCRIPTION                               NOT NULL VARCHAR2(15)
+ PROFIT_PERCENT                            NOT NULL NUMBER(4,2)
+ QTY_ON_HAND                               NOT NULL NUMBER(8)
+ REORDER_LEVEL                             NOT NULL NUMBER(8)
+ SELL_PRICE                                NOT NULL NUMBER(8,2)
+ COST_PRICE                                NOT NULL NUMBER(8,2)
+
+SQL> desc orderdetails;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ORDER_NO                                  NOT NULL VARCHAR2(6)
+ PRODUCT_NO                                         VARCHAR2(6)
+ QTY_ORDERED                                        NUMBER(9)
+ PRODUCT_RATE                                       NUMBER(8,2)
+
+SQL> select description,QTY_ORDERED FROM PRODUCT,ORDERDETAILS WHERE PRODUCT.PRODUCT_NO=ORDERDETAILS.PRODUCT_NO;
+
+DESCRIPTION     QTY_ORDERED                                                     
+--------------- -----------                                                     
+CD DRIVE                120                                                     
+RAM                      23                                                     
+HARD_DISC               354                                                     
+
+SQL> DESC SALESORDER;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ORDER_NO                                  NOT NULL VARCHAR2(6)
+ ORDER_DATE                                         DATE
+ CLIENT_NO                                          VARCHAR2(6)
+ SALESMAN_NO                                        VARCHAR2(6)
+ DELY_TYPE                                          VARCHAR2(1)
+ DELY_DATE                                          DATE
+ ORDER_STATUS                                       VARCHAR2(10)
+
+SQL> SELECT CLIENT_NO,AVG(QTY_ORDERED) FROM SALESORDER,ORDERDETAILS WHERE SALESORDER.ORDER_NO=ORDERDETAILS.ORDER_NO GROUP BY CLIENT_NO;
+
+CLIENT AVG(QTY_ORDERED)                                                         
+------ ----------------                                                         
+c00001              120                                                         
+c00003              354                                                         
+c00005               23                                                         
+
+SQL> SELECT DESCRIPTION FROM PRODUCT,CLIENT,ORDERDETAILS WHERE NAME='AMIT' AND PRODUCT.PRODUCT_NO=ORDERDETAILS.PRODUCT_NO AND ORDERDETAILS.CLIENT_NO=CLIENT.CLIENT_NO;
+SELECT DESCRIPTION FROM PRODUCT,CLIENT,ORDERDETAILS WHERE NAME='AMIT' AND PRODUCT.PRODUCT_NO=ORDERDETAILS.PRODUCT_NO AND ORDERDETAILS.CLIENT_NO=CLIENT.CLIENT_NO
+                                                                                                                         *
+ERROR at line 1:
+ORA-00904: "ORDERDETAILS"."CLIENT_NO": invalid identifier 
+
+
+SQL> SELECT DESCRIPTION FROM PRODUCT P,CLIENT C,SALESORDER S,ORDERDETAILS T WHERE C.NAME='AMIT' AND C.CLIENT_NO=T.CLIENT_NO AND S.ORDER_NO=T.ORDER_NO AND T.PRODUCT_NO=P.PRODUCT_NO;
+SELECT DESCRIPTION FROM PRODUCT P,CLIENT C,SALESORDER S,ORDERDETAILS T WHERE C.NAME='AMIT' AND C.CLIENT_NO=T.CLIENT_NO AND S.ORDER_NO=T.ORDER_NO AND T.PRODUCT_NO=P.PRODUCT_NO
+                                                                                                           *
+ERROR at line 1:
+ORA-00904: "T"."CLIENT_NO": invalid identifier 
+
+
+SQL> SELECT DESCRIPTION FROM PRODUCT P,CLIENT C,SALESORDER S,ORDERDETAILS T WHERE C.NAME='AMIT' ANDC.CLIENT_NO=
+  2  
+SQL> SELECT DESCRIPTION FROM PRODUCT P,CLIENT C,SALESORDER S,ORDERDETAILS T WHERE C.NAME='AMIT' AND C.CLIENT_NO=S.CLIENT_NO AND S.ORDER_NO=T.ORDER_NO AND T.PRODUCT_NO=P.PRODUCT_NO;
+
+DESCRIPTION                                                                     
+---------------                                                                 
+RAM                                                                             
+
+SQL> SELECT DESCRIPTION,QTY_ORDERED FROM PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE EXTRACT(MONTH FROM S.DELY_DATE)=EXTRACT(MONTH FROM(SELECT SYSDATE FROM DUAL)) AND P.PRODUCT_NO=S.PRODUCT_NO AND S.ORDER_NO=D.ORDER_NO;
+SELECT DESCRIPTION,QTY_ORDERED FROM PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE EXTRACT(MONTH FROM S.DELY_DATE)=EXTRACT(MONTH FROM(SELECT SYSDATE FROM DUAL)) AND P.PRODUCT_NO=S.PRODUCT_NO AND S.ORDER_NO=D.ORDER_NO
+                                                                                                                                                                               *
+ERROR at line 1:
+ORA-00904: "S"."PRODUCT_NO": invalid identifier 
+
+
+SQL> SELECT DESCRIPTION,QTY_ORDERED FROM PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE EXTRACT(MONTH FROM S.DELY_DATE)=EXTRACT(MONTH FROM(SELECT SYSDATE FROM DUAL)) AND P.PRODUCT_NO=D..PRODUCT_NO AND S.ORDER_NO=D.ORDER_NO;
+SELECT DESCRIPTION,QTY_ORDERED FROM PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE EXTRACT(MONTH FROM S.DELY_DATE)=EXTRACT(MONTH FROM(SELECT SYSDATE FROM DUAL)) AND P.PRODUCT_NO=D..PRODUCT_NO AND S.ORDER_NO=D.ORDER_NO
+                                                                                                                                                                                 *
+ERROR at line 1:
+ORA-01747: invalid user.table.column, table.column, or column specification 
+
+
+SQL> SELECT DESCRIPTION,QTY_ORDERED FROM PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE EXTRACT(MONTH FROM S.DELY_DATE)=EXTRACT(MONTH FROM(SELECT SYSDATE FROM DUAL)) AND P.PRODUCT_NO=D.PRODUCT_NO AND S.ORDER_NO=D.ORDER_NO;
+
+no rows selected
+
+SQL> SELECT * FROM SALESORDER;
+
+ORDER_ ORDER_DAT CLIENT SALESM D DELY_DATE ORDER_STAT                           
+------ --------- ------ ------ - --------- ----------                           
+O00001 12-JAN-10 c00001 S00001 F 15-FEB-10 DELIVERED                            
+O00002 10-MAR-11 c00003 S00003 P 12-APR-11 IN PROCESS                           
+O19001 13-DEC-10 c00005 S00003 F 10-JAN-11 DELIVERED                            
+O00121 22-MAR-11 c00004 S00004 F 10-MAY-11 DELIVERED                            
+
+SQL> UPDATE SALESORDER SET DELY_DATE='10-JUL-11' WHERE ORDER_NO='O00121';
+
+1 row updated.
+
+SQL> SELECT DESCRIPTION,QTY_ORDERED FROM PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE EXTRACT(MONTH FROM S.DELY_DATE)=EXTRACT(MONTH FROM(SELECT SYSDATE FROM DUAL)) AND P.PRODUCT_NO=D.PRODUCT_NO AND S.ORDER_NO=D.ORDER_NO;
+
+no rows selected
+
+SQL> SELECT * FROM ORDERDEATILS;
+SELECT * FROM ORDERDEATILS
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL>  SELECT * FROM ORDERDETAILS;
+
+ORDER_ PRODUC QTY_ORDERED PRODUCT_RATE                                          
+------ ------ ----------- ------------                                          
+O00001 p00001         120         1200                                          
+O19001 p00002          23         1300                                          
+O00002 p00004         354        12234                                          
+
+SQL> INSERT INTO ORDERDETAILS VALUES('O00121','p00005',150,12345);
+INSERT INTO ORDERDETAILS VALUES('O00121','p00005',150,12345)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (S0961.SYS_C0038113) violated - parent key not 
+found 
+
+
+SQL> INSERT INTO ORDERDETAILS VALUES('O00121','p00004',150,12345);
+
+1 row created.
+
+SQL> SELECT DESCRIPTION,QTY_ORDERED FROM PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE EXTRACT(MONTH FROM S.DELY_DATE)=EXTRACT(MONTH FROM(SELECT SYSDATE FROM DUAL)) AND P.PRODUCT_NO=D.PRODUCT_NO AND S.ORDER_NO=D.ORDER_NO;
+
+DESCRIPTION     QTY_ORDERED                                                     
+--------------- -----------                                                     
+HARD_DISC               150                                                     
+
+SQL> SELECT * FROM PRODUCT;
+
+PRODUC DESCRIPTION     PROFIT_PERCENT QTY_ON_HAND REORDER_LEVEL SELL_PRICE      
+------ --------------- -------------- ----------- ------------- ----------      
+COST_PRICE                                                                      
+----------                                                                      
+p00001 CD DRIVE                  15.4        1200           232       6000      
+      5000                                                                      
+                                                                                
+p00002 RAM                       14.5         234           432       7000      
+      2500                                                                      
+                                                                                
+p00003 GRAPHICS CARD               25         123           700       8500      
+      3600                                                                      
+                                                                                
+
+PRODUC DESCRIPTION     PROFIT_PERCENT QTY_ON_HAND REORDER_LEVEL SELL_PRICE      
+------ --------------- -------------- ----------- ------------- ----------      
+COST_PRICE                                                                      
+----------                                                                      
+p00004 HARD_DISC                13.32         244           345       7600      
+      1234                                                                      
+                                                                                
+
+SQL> SELECT C.NAME FROM CLIENT C,PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE P.DESCRIPTION='CD DRIVE' AND C.CLIENT_NO=S.CLIENT_NO AND D.PRODUCT_NO=P.PRODUCT_NO AND S.ORDER_NO=D.ORDER_NO;
+
+NAME                                                                            
+---------------                                                                 
+SANDEEP                                                                         
+
+SQL> SELECT DESCRIPTION,QTY_ORDERED FROM PRODUCT P,ORDERDEATILS D,SALESORDER S,CLIENT C WHERE C.NAMEIN('TOM','JOHN') AND S.CLIENT_NO=C.CLIENT_NO AND S.ORDER_NO=D.ORDER_NO D.PRODUCT_NO=P.PRODUCT_NO;
+SELECT DESCRIPTION,QTY_ORDERED FROM PRODUCT P,ORDERDEATILS D,SALESORDER S,CLIENT C WHERE C.NAMEIN('TOM','JOHN') AND S.CLIENT_NO=C.CLIENT_NO AND S.ORDER_NO=D.ORDER_NO D.PRODUCT_NO=P.PRODUCT_NO
+                                                                                                                *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> SELECT DESCRIPTION,QTY_ORDERED FROM PRODUCT P,ORDERDEATILS D,SALESORDER S,CLIENT C WHERE C.NAME IN('TOM','JOHN') AND S.CLIENT_NO=C.CLIENT_NO AND S.ORDER_NO=D.ORDER_NO D.PRODUCT_NO=P.PRODUCT_NO;
+SELECT DESCRIPTION,QTY_ORDERED FROM PRODUCT P,ORDERDEATILS D,SALESORDER S,CLIENT C WHERE C.NAME IN('TOM','JOHN') AND S.CLIENT_NO=C.CLIENT_NO AND S.ORDER_NO=D.ORDER_NO D.PRODUCT_NO=P.PRODUCT_NO
+                                                                                                                                                                       *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> SELECT DESCRIPTION,QTY_ORDERED FROM PRODUCT P,ORDERDEATILS D,SALESORDER S,CLIENT C WHERE C.NAME IN('TOM','JOHN') AND S.CLIENT_NO=C.CLIENT_NO AND S.ORDER_NO=D.ORDER_NO AND D.PRODUCT_NO=P.PRODUCT_NO;
+SELECT DESCRIPTION,QTY_ORDERED FROM PRODUCT P,ORDERDEATILS D,SALESORDER S,CLIENT C WHERE C.NAME IN('TOM','JOHN') AND S.CLIENT_NO=C.CLIENT_NO AND S.ORDER_NO=D.ORDER_NO AND D.PRODUCT_NO=P.PRODUCT_NO
+                                              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> SELECT DESCRIPTION,QTY_ORDERED FROM PRODUCT P,ORDERDETAILS D,SALESORDER S,CLIENT C WHERE C.NAME IN('TOM','JOHN') AND S.CLIENT_NO=C.CLIENT_NO AND S.ORDER_NO=D.ORDER_NO AND D.PRODUCT_NO=P.PRODUCT_NO;
+
+DESCRIPTION     QTY_ORDERED                                                     
+--------------- -----------                                                     
+HARD_DISC               354                                                     
+HARD_DISC               150                                                     
+
+SQL> SELECT NAME,DESCRIPTION,QTY_ORDERED FROM PRODUCT P,ORDERDETAILS D,SALESORDER S,CLIENT C WHERE C.NAME IN('TOM','JOHN') AND S.CLIENT_NO=C.CLIENT_NO AND S.ORDER_NO=D.ORDER_NO AND D.PRODUCT_NO=P.PRODUCT_NO;
+
+NAME            DESCRIPTION     QTY_ORDERED                                     
+--------------- --------------- -----------                                     
+TOM             HARD_DISC               354                                     
+JOHN            HARD_DISC               150                                     
+
+SQL> SELECT DESCRIPTION,QTY_ORDERED FROM PRODUCT P,CLIENT C,SALESORDER S,ORDERDETAILS D WHERE C.CLIENT_NO IN('c00001','c00002') AND S.CLIENT_NO=C.CLIENT_NO AND P.PRODUCT_NO=D.PRODUCT_NO AND S.ORDER_NO=D.ORDER_NO;
+
+DESCRIPTION     QTY_ORDERED                                                     
+--------------- -----------                                                     
+CD DRIVE                120                                                     
+
+SQL> SELECT C.CLIENT_NO,DESCRIPTION,QTY_ORDERED FROM PRODUCT P,CLIENT C,SALESORDER S,ORDERDETAILS D WHERE C.CLIENT_NO IN('c00001','c00002') AND S.CLIENT_NO=C.CLIENT_NO AND P.PRODUCT_NO=D.PRODUCT_NO AND S.ORDER_NO=D.ORDER_NO;
+
+CLIENT DESCRIPTION     QTY_ORDERED                                              
+------ --------------- -----------                                              
+c00001 CD DRIVE                120                                              
+
+SQL> SELECT * FROM SALESORDER;
+
+ORDER_ ORDER_DAT CLIENT SALESM D DELY_DATE ORDER_STAT                           
+------ --------- ------ ------ - --------- ----------                           
+O00001 12-JAN-10 c00001 S00001 F 15-FEB-10 DELIVERED                            
+O00002 10-MAR-11 c00003 S00003 P 12-APR-11 IN PROCESS                           
+O19001 13-DEC-10 c00005 S00003 F 10-JAN-11 DELIVERED                            
+O00121 22-MAR-11 c00004 S00004 F 10-JUL-11 DELIVERED                            
+
+SQL> UPDATE SALESORDER SET CLIENT_NO='c00002' WHERE CLIENT_NO='c00005';
+
+1 row updated.
+
+SQL> SELECT C.CLIENT_NO,DESCRIPTION,QTY_ORDERED FROM PRODUCT P,CLIENT C,SALESORDER S,ORDERDETAILS D WHERE C.CLIENT_NO IN('c00001','c00002') AND S.CLIENT_NO=C.CLIENT_NO AND P.PRODUCT_NO=D.PRODUCT_NO AND S.ORDER_NO=D.ORDER_NO;
+
+CLIENT DESCRIPTION     QTY_ORDERED                                              
+------ --------------- -----------                                              
+c00001 CD DRIVE                120                                              
+c00002 RAM                      23                                              
+
+SQL> SELECT NAME,ADDRESS,CITY,PINCODE FROM CLIENT C,SALESORDER S WHERE S.ORDER_NO='O019001' AND C.CLIENT_NO=S.CLIENT_NO;
+
+no rows selected
+
+SQL> SELECT * FROM CLIENT;
+
+CLIENT NAME            ADDRESS         CITY               PINCODE    BAL_DUE    
+------ --------------- --------------- --------------- ---------- ----------    
+c00001 SANDEEP         A-213           MUMBAI              676123      22000    
+c00002 SHANAVAS        TVC-243         MUMBAI              634234      50000    
+c00003 TOM             DC-23A          KOLKATA             624456      12000    
+c00004 JOHN            156A            CALICUT             695001      23100    
+c00005 AMIT            B-414           HOUSTON             214357      34000    
+
+SQL> SELECT * FROM SALESORDER;
+
+ORDER_ ORDER_DAT CLIENT SALESM D DELY_DATE ORDER_STAT                           
+------ --------- ------ ------ - --------- ----------                           
+O00001 12-JAN-10 c00001 S00001 F 15-FEB-10 DELIVERED                            
+O00002 10-MAR-11 c00003 S00003 P 12-APR-11 IN PROCESS                           
+O19001 13-DEC-10 c00002 S00003 F 10-JAN-11 DELIVERED                            
+O00121 22-MAR-11 c00004 S00004 F 10-JUL-11 DELIVERED                            
+
+SQL> SELECT NAME,ADDRESS,CITY,PINCODE FROM CLIENT C,SALESORDER S WHERE S.ORDER_NO='O19001' AND C.CLIENT_NO=S.CLIENT_NO;
+
+NAME            ADDRESS         CITY               PINCODE                      
+--------------- --------------- --------------- ----------                      
+SHANAVAS        TVC-243         MUMBAI              634234                      
+
+SQL> SELECT NAME FROM CLIENT C,SALESORDER S WHERE S.ORDER_DATE<'01-JUL-11' AND S.CLIENT_NO=C.CLIENT_NO;
+
+NAME                                                                            
+---------------                                                                 
+SANDEEP                                                                         
+TOM                                                                             
+SHANAVAS                                                                        
+JOHN                                                                            
+
+SQL> SELECT NAME FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE S.ORDER_NO=(SELECT ORDER_NO FROM ORDERDETAILS QTY_ORDERED=(SELECT MAX(QTY_ORDERED) FROM ORDERDETAILS))) AND S.ORDER_NO=D.ORDER_NO ANDS.SALESMAN_NO=M.SALESMAN_NO;
+SELECT NAME FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE S.ORDER_NO=(SELECT ORDER_NO FROM ORDERDETAILS QTY_ORDERED=(SELECT MAX(QTY_ORDERED) FROM ORDERDETAILS))) AND S.ORDER_NO=D.ORDER_NO ANDS.SALESMAN_NO=M.SALESMAN_NO
+                                                                                                                       *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SELECT NAME FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE S.ORDER_NO=(SELECT ORDER_NO FROM ORDERDETAILS QTY_ORDERED=(SELECT MAX(QTY_ORDERED) FROM ORDERDETAILS)) AND S.ORDER_NO=D.ORDER_NO ANDS.SALESMAN_NO=M.SALESMAN_NO;
+SELECT NAME FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE S.ORDER_NO=(SELECT ORDER_NO FROM ORDERDETAILS QTY_ORDERED=(SELECT MAX(QTY_ORDERED) FROM ORDERDETAILS)) AND S.ORDER_NO=D.ORDER_NO ANDS.SALESMAN_NO=M.SALESMAN_NO
+                                                                                                                       *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SELECT NAME FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE S.ORDER_NO=(SELECT ORDER_NO FROM ORDERDETAILS WHERE QTY_ORDERED=(SELECT MAX(QTY_ORDERED) FROM ORDERDETAILS)) AND S.ORDER_NO=D.ORDER_NO AND S.SALESMAN_NO=M.SALESMAN_NO;
+
+NAME                                                                            
+---------------                                                                 
+SUBIN                                                                           
+
+SQL> SELECT CLIENT_NO,NAME FROM CLIENT C,PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE D.PRODUCT_NO='P
+  2  
+SQL> SELECT CLIENT_NO,NAME FROM CLIENT C,PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE D.PRODUCT_NO='p00003' AND S.ORDER_NO=D.ORDER_NO AND C.CLIENT_NO=S.CLIENT_NO;
+SELECT CLIENT_NO,NAME FROM CLIENT C,PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE D.PRODUCT_NO='p00003' AND S.ORDER_NO=D.ORDER_NO AND C.CLIENT_NO=S.CLIENT_NO
+       *
+ERROR at line 1:
+ORA-00918: column ambiguously defined 
+
+
+SQL> SELECT C.CLIENT_NO,NAME FROM CLIENT C,PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE D.PRODUCT_NO='p00003' AND S.ORDER_NO=D.ORDER_NO AND C.CLIENT_NO=S.CLIENT_NO;
+
+no rows selected
+
+SQL> SELECT * FROM ORDERDETAILS;
+
+ORDER_ PRODUC QTY_ORDERED PRODUCT_RATE                                          
+------ ------ ----------- ------------                                          
+O00001 p00001         120         1200                                          
+O19001 p00002          23         1300                                          
+O00002 p00004         354        12234                                          
+O00121 p00004         150        12345                                          
+
+SQL> UPDATE ORDERDETAILS SET PRODUCT_NO='p00003' WHERE ORDER_NO='O00002';
+
+1 row updated.
+
+SQL>  SELECT C.CLIENT_NO,NAME FROM CLIENT C,PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE D.PRODUCT_NO='p00003' AND S.ORDER_NO=D.ORDER_NO AND C.CLIENT_NO=S.CLIENT_NO;
+
+CLIENT NAME                                                                     
+------ ---------------                                                          
+c00003 TOM                                                                      
+c00003 TOM                                                                      
+c00003 TOM                                                                      
+c00003 TOM                                                                      
+
+SQL> SELECT C.CLIENT_NO,NAME FROM CLIENT C,PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE D.PRODUCT_NO='p00003' AND S.ORDER_NO=D.ORDER_NO AND C.CLIENT_NO=S.CLIENT_NO AND D.PRODUCT_NO=P.PRODUCT_NO;
+
+CLIENT NAME                                                                     
+------ ---------------                                                          
+c00003 TOM                                                                      
+
+SQL> SELCT NAME FROM CLIENT C,SALESORDER S,ORDERDETAILS D WHERE S.ORDER_NO=(SELECT ORDER_NO FROM ORDERDETAILS WHERE (QTY_ORDERED*PRODUCT_RATE)=(SELECT MAX(PRODUCT_RATE * QTY_ORDERED) FROM ORDERDETAILS)) S.CLIENT_NO=C.CLIENT_NO;
+SP2-0734: unknown command beginning "SELCT NAME..." - rest of line ignored.
+SQL> SELECT NAME FROM CLIENT C,SALESORDER S,ORDERDETAILS D WHERE S.ORDER_NO=(SELECT ORDER_NO FROM ORDERDETAILS WHERE (QTY_ORDERED*PRODUCT_RATE)=(SELECT MAX(PRODUCT_RATE * QTY_ORDERED) FROM ORDERDETAILS)) S.CLIENT_NO=C.CLIENT_NO;
+SELECT NAME FROM CLIENT C,SALESORDER S,ORDERDETAILS D WHERE S.ORDER_NO=(SELECT ORDER_NO FROM ORDERDETAILS WHERE (QTY_ORDERED*PRODUCT_RATE)=(SELECT MAX(PRODUCT_RATE * QTY_ORDERED) FROM ORDERDETAILS)) S.CLIENT_NO=C.CLIENT_NO
+                                                                                                                                                                                                       *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> SELECT NAME FROM CLIENT C,SALESORDER S,ORDERDETAILS D WHERE S.ORDER_NO=(SELECT ORDER_NO FROM ORDERDETAILS WHERE (QTY_ORDERED*PRODUCT_RATE)=(SELECT MAX(PRODUCT_RATE * QTY_ORDERED) FROM ORDERDETAILS)) AND S.CLIENT_NO=C.CLIENT_NO;
+
+NAME                                                                            
+---------------                                                                 
+TOM                                                                             
+TOM                                                                             
+TOM                                                                             
+TOM                                                                             
+
+SQL> SELECT NAME FROM CLIENT C,SALESORDER S,ORDERDETAILS D WHERE S.ORDER_NO=(SELECT ORDER_NO FROM ORDERDETAILS WHERE (QTY_ORDERED*PRODUCT_RATE)=(SELECT MAX(PRODUCT_RATE * QTY_ORDERED) FROM ORDERDETAILS)) AND S.CLIENT_NO=C.CLIENT_NO AND S.ORDER_NO=D.ORDER_NO;
+
+NAME                                                                            
+---------------                                                                 
+TOM                                                                             
+
+SQL> ELECT NAME FROM CLIENT C,SALESORDER S,ORDERDETAILS D WHERE S.ORDER_NO=(SELECT ORDER_NO FROM ORDERDETAILS WHERE (QTY_ORDERED*PRODUCT_RATE)>=15000 AND S.CLIENT_NO=C.CLIENT_NO AND S.ORDER_NO=D.ORDER_NO;
+SP2-0734: unknown command beginning "ELECT NAME..." - rest of line ignored.
+SQL> SELECT NAME FROM CLIENT C,SALESORDER S,ORDERDETAILS D WHERE S.ORDER_NO=(SELECT ORDER_NO FROM ORDERDETAILS WHERE (QTY_ORDERED*PRODUCT_RATE)>=15000 AND S.CLIENT_NO=C.CLIENT_NO AND S.ORDER_NO=D.ORDER_NO;
+SELECT NAME FROM CLIENT C,SALESORDER S,ORDERDETAILS D WHERE S.ORDER_NO=(SELECT ORDER_NO FROM ORDERDETAILS WHERE (QTY_ORDERED*PRODUCT_RATE)>=15000 AND S.CLIENT_NO=C.CLIENT_NO AND S.ORDER_NO=D.ORDER_NO
+                                                                        *
+ERROR at line 1:
+ORA-00921: unexpected end of SQL command 
+
+
+SQL> SELECT NAME FROM CLIENT C,SALESORDER S,ORDERDETAILS D WHERE S.ORDER_NO=(SELECT ORDER_NO FROM ORDERDETAILS WHERE (QTY_ORDERED*PRODUCT_RATE)>=15000) AND S.CLIENT_NO=C.CLIENT_NO AND S.ORDER_NO=D.ORDER_NO;
+SELECT NAME FROM CLIENT C,SALESORDER S,ORDERDETAILS D WHERE S.ORDER_NO=(SELECT ORDER_NO FROM ORDERDETAILS WHERE (QTY_ORDERED*PRODUCT_RATE)>=15000) AND S.CLIENT_NO=C.CLIENT_NO AND S.ORDER_NO=D.ORDER_NO
+                                                                        *
+ERROR at line 1:
+ORA-01427: single-row subquery returns more than one row 
+
+
+SQL>  SELECT NAME FROM CLIENT C,SALESORDER S,ORDERDETAILS D WHERE S.ORDER_NO IN(SELECT ORDER_NO FROM ORDERDETAILS WHERE (QTY_ORDERED*PRODUCT_RATE)>=15000) AND S.CLIENT_NO=C.CLIENT_NO AND S.ORDER_NO=D.ORDER_NO;
+
+NAME                                                                            
+---------------                                                                 
+SANDEEP                                                                         
+TOM                                                                             
+SHANAVAS                                                                        
+JOHN                                                                            
+
+SQL> SELECT * FROM SALESORDER;
+
+ORDER_ ORDER_DAT CLIENT SALESM D DELY_DATE ORDER_STAT                           
+------ --------- ------ ------ - --------- ----------                           
+O00001 12-JAN-10 c00001 S00001 F 15-FEB-10 DELIVERED                            
+O00002 10-MAR-11 c00003 S00003 P 12-APR-11 IN PROCESS                           
+O19001 13-DEC-10 c00002 S00003 F 10-JAN-11 DELIVERED                            
+O00121 22-MAR-11 c00004 S00004 F 10-JUL-11 DELIVERED                            
+
+SQL> SELECT DISTINCT DESCRIPTION FROM PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE S.DELY_TYPE='F' AND S.ORDER_NO=D.ORDER_NO AND P.PRODUCT_NO=D.PRODUCT_NO;
+
+DESCRIPTION                                                                     
+---------------                                                                 
+CD DRIVE                                                                        
+HARD_DISC                                                                       
+RAM                                                                             
+
+SQL> SELECT DISTINCT COUNT(*) FROM PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE S.DELY_TYPE='P' AND S.ORDER_NO=D.ORDER_NO AND D.PRODUCT_NO=P.PRODUCT_NO;
+
+  COUNT(*)                                                                      
+----------                                                                      
+         1                                                                      
+
+SQL> select description,SUM(QTY_ORDERED) FROM PRODUCT,ORDERDETAILS WHERE PRODUCT.PRODUCT_NO=ORDERDETAILS.PRODUCT_NO;
+select description,SUM(QTY_ORDERED) FROM PRODUCT,ORDERDETAILS WHERE PRODUCT.PRODUCT_NO=ORDERDETAILS.PRODUCT_NO
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> elect description,SUM(QTY_ORDERED) FROM PRODUCT,ORDERDETAILS WHERE PRODUCT.PRODUCT_NO=ORDERDET
+SP2-0734: unknown command beginning "elect desc..." - rest of line ignored.
+SQL> 
+SQL> select description,SUM(QTY_ORDERED) FROM PRODUCT,ORDERDETAILS WHERE PRODUCT.PRODUCT_NO=ORDERDETAILS.PRODUCT_NO GROUP BY ORDERDETAILS.PRODUCT_NO;
+select description,SUM(QTY_ORDERED) FROM PRODUCT,ORDERDETAILS WHERE PRODUCT.PRODUCT_NO=ORDERDETAILS.PRODUCT_NO GROUP BY ORDERDETAILS.PRODUCT_NO
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select description,SUM(QTY_ORDERED) FROM PRODUCT,ORDERDETAILS WHERE PRODUCT.PRODUCT_NO=ORDERDETAILS.PRODUCT_NO GROUP BY DESCRIPTION;
+
+DESCRIPTION     SUM(QTY_ORDERED)                                                
+--------------- ----------------                                                
+CD DRIVE                     120                                                
+GRAPHICS CARD                354                                                
+HARD_DISC                    150                                                
+RAM                           23                                                
+
+SQL> SELECT SALESMAN_NO,SUM(QTY_ORDERED) FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY SALESMAN_NO;
+SELECT SALESMAN_NO,SUM(QTY_ORDERED) FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY SALESMAN_NO
+                                                                                                                                                     *
+ERROR at line 1:
+ORA-00918: column ambiguously defined 
+
+
+SQL> SELECT M.SALESMAN_NO,SUM(QTY_ORDERED) FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN;
+SELECT M.SALESMAN_NO,SUM(QTY_ORDERED) FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN
+                                                                                                                                                       *
+ERROR at line 1:
+ORA-00904: "M"."SALESMAN": invalid identifier 
+
+
+SQL> ELECT M.SALESMAN_NO,SUM(QTY_ORDERED) FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO;
+SP2-0734: unknown command beginning "ELECT M.SA..." - rest of line ignored.
+SQL> SELECT M.SALESMAN_NO,SUM(QTY_ORDERED) FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO;
+
+SALESM SUM(QTY_ORDERED)                                                         
+------ ----------------                                                         
+S00001              120                                                         
+S00003              377                                                         
+S00004              150                                                         
+
+SQL> SPOOL OFF
+SQL> Q. 31
+SP2-0042: unknown command "Q. 31" - rest of line ignored.
+SQL> SELECT M.NAME FROM SALESMAN WHERE SALESMAN_NO IN(SELECT M.SALESMAN_NO FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE SUM(QTY_ORDERED)=(SELECT MAX(SUM(QTY_ORDERED)) FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO) AND M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO;
+SELECT M.NAME FROM SALESMAN WHERE SALESMAN_NO IN(SELECT M.SALESMAN_NO FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE SUM(QTY_ORDERED)=(SELECT MAX(SUM(QTY_ORDERED)) FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO) AND M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO
+                                                                                                                        *
+ERROR at line 1:
+ORA-00934: group function is not allowed here 
+
+
+SQL> 
+SQL> SELECT NAME FROM SALESMAN WHERE SALESMAN_NO IN(SELECT M.SALESMAN_NO FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE SUM(QTY_ORDERED)=(SELECT MAX(SUM(QTY_ORDERED)) FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO)AND M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO;
+SELECT NAME FROM SALESMAN WHERE SALESMAN_NO IN(SELECT M.SALESMAN_NO FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE SUM(QTY_ORDERED)=(SELECT MAX(SUM(QTY_ORDERED)) FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO)AND M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO
+                                                                                                                      *
+ERROR at line 1:
+ORA-00934: group function is not allowed here 
+
+
+SQL> SELECT MAX(SUM(QTY_ORDERED)) FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO;
+
+MAX(SUM(QTY_ORDERED))                                                           
+---------------------                                                           
+                  377                                                           
+
+SQL> SELECT M.NAME FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE SUM(QTY_ORDERED)=(SELECT MAX(SUM(QTY_ORDERED)) FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO) AND M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO;
+SELECT M.NAME FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE SUM(QTY_ORDERED)=(SELECT MAX(SUM(QTY_ORDERED)) FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO) AND M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO
+                                                                *
+ERROR at line 1:
+ORA-00934: group function is not allowed here 
+
+
+SQL> SELECT M.NAME FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO HAVING SUM(QTY_ORDERED)=(SELECT MAX(SUM(QTY_ORDERED)) FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO);
+SELECT M.NAME FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO HAVING SUM(QTY_ORDERED)=(SELECT MAX(SUM(QTY_ORDERED)) FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO)
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> SELECT M.SALESMAN_NO FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO HAVING SUM(QTY_ORDERED)=(SELECT MAX(SUM(QTY_ORDERED)) FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO);
+
+SALESM                                                                          
+------                                                                          
+S00003                                                                          
+
+SQL> SELECT * FROM SALESMAN WHERE SALESMAN_NO IN(SELECT M.SALESMAN_NO FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO HAVING SUM(QTY_ORDERED)=(SELECT MAX(SUM(QTY_ORDERED)) FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO));
+
+SALESM NAME            ADDRESS             SALARY                               
+------ --------------- --------------- ----------                               
+S00003 SUBIN           PONNANI              23000                               
+
+SQL> SPOOL OFF

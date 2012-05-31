@@ -1,0 +1,899 @@
+SQL> spool off
+SQL> create table department(dept_num number(3) primary key,dept_name varchar(20),location varchar(20));
+
+Table created.
+
+SQL> create table employee(employeeNum number(3) primary key,emp_name varchar(20),age int,job varchar(20),manager varchar(20),hier_date date,salary number(5),dept_num number(3) references department(dept_num));
+
+Table created.
+
+SQL> create table software(employeeNum number(3) references employee(employeeNum),package varchar(20) primary key,language varchar(20),developCost number(6),saleCost number(6));
+
+Table created.
+
+
+SQL> create table study(employeeNum number(3) references employee(employeeNum),institute varchar(20), location varchar(20));
+
+Table created.
+
+SQL> alter table employee drop column age;
+
+Table altered.
+
+SQL> alter table employee add(DOB date);
+
+Table altered.
+
+
+SQL> insert into department values(&dept_num,'&dept_name','&location');
+Enter value for dept_num: 1
+Enter value for dept_name: copmuter science
+Enter value for location: trivandrum
+old   1: insert into department values(&dept_num,'&dept_name','&location')
+new   1: insert into department values(1,'copmuter science','trivandrum')
+
+1 row created.
+
+SQL> insert into department values(1,'copmuter science','trivandrum')
+  2  ;
+
+1 row created.
+                              
+SQL> insert into department values(&dept_num,'&dept_name','&location');
+Enter value for dept_num: 2
+Enter value for dept_name: mechanical
+Enter value for location: trivandrum
+old   1: insert into department values(&dept_num,'&dept_name','&location')
+new   1: insert into department values(2,'mechanical','trivandrum')
+
+1 row created.
+
+SQL> insert into department values(&dept_num,'&dept_name','&location');
+Enter value for dept_num: 3
+Enter value for dept_name: civil
+Enter value for location: trivandrum
+old   1: insert into department values(&dept_num,'&dept_name','&location')
+new   1: insert into department values(3,'civil','trivandrum')
+
+1 row created.
+
+SQL>  insert into employee values(&employeeNum,'&emp_name','&job','&manager',&heir_date,&salary,&dept_num,&dob);
+Enter value for employeenum: 1
+Enter value for emp_name: vineeth
+Enter value for job: programmer
+Enter value for manager: sujith
+Enter value for heir_date: '11-jan-91'
+Enter value for salary: 15000
+Enter value for dept_num: 1
+Enter value for dob: '10-jan-91'
+old   1:  insert into employee values(&employeeNum,'&emp_name','&job','&manager',&heir_date,&salary,&dept_num,&dob)
+new   1:  insert into employee values(1,'vineeth','programmer','sujith','11-jan-91',15000,1,'10-jan-91')
+
+1 row created.
+
+
+SQL> insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob');
+Enter value for employeenum: 3
+Enter value for emp_name: shanavas
+Enter value for job: clerk
+Enter value for manager: HOD
+Enter value for heir_date: 12-jan-11
+Enter value for salary: 23000
+Enter value for dept_num: 1
+Enter value for dob: 12-jan-91
+old   1: insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob')
+new   1: insert into employee values(3,'shanavas','clerk','HOD','12-jan-11',23000,1,'12-jan-91')
+
+1 row created.
+
+SQL> select * from employee;
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          1 vineeth              programmer           sujith                    
+11-JAN-91      15000          1 10-JAN-91                                       
+                                                                                
+          3 shanavas             clerk                HOD                       
+12-JAN-11      23000          1 12-JAN-91                                       
+                                                                                
+
+SQL> commit;
+
+Commit complete.
+
+SQL> insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob');
+Enter value for employeenum: 4
+Enter value for emp_name: sujith
+Enter value for job: server administrator
+Enter value for manager: HOD
+Enter value for heir_date: 12-jan-09
+Enter value for salary: 30000
+Enter value for dept_num: 1
+Enter value for dob: 11-may-91
+old   1: insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob')
+new   1: insert into employee values(4,'sujith','server administrator','HOD','12-jan-09',30000,1,'11-may-91')
+
+1 row created.
+
+SQL> insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob');
+Enter value for employeenum: 5
+Enter value for emp_name: vijeesh
+Enter value for job: clerk
+Enter value for manager: vineeth
+Enter value for heir_date: 12-may-08
+Enter value for salary: 22000
+Enter value for dept_num: 2
+Enter value for dob: 12-feb-87
+old   1: insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob')
+new   1: insert into employee values(5,'vijeesh','clerk','vineeth','12-may-08',22000,2,'12-feb-87')
+
+1 row created.
+
+SQL> /
+Enter value for employeenum: 6
+Enter value for emp_name: noushad
+Enter value for job: professor
+Enter value for manager: HOD
+Enter value for heir_date: 12-jun-07
+Enter value for salary: 32000
+Enter value for dept_num: 3
+Enter value for dob: 12-mar-85
+old   1: insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob')
+new   1: insert into employee values(6,'noushad','professor','HOD','12-jun-07',32000,3,'12-mar-85')
+
+1 row created.
+                                                
+
+SQL> insert into department values(&dept_num,'&dept_name','&location');
+Enter value for dept_num: 4
+Enter value for dept_name: technical
+Enter value for location: tvm
+old   1: insert into department values(&dept_num,'&dept_name','&location')
+new   1: insert into department values(4,'technical','tvm')
+
+1 row created.
+
+SQL> /
+Enter value for dept_num: electronics
+Enter value for dept_name: 
+Enter value for location: 
+old   1: insert into department values(&dept_num,'&dept_name','&location')
+new   1: insert into department values(electronics,'','')
+insert into department values(electronics,'','')
+                              *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> /
+Enter value for dept_num: 5
+Enter value for dept_name: electronics
+Enter value for location: tvm
+old   1: insert into department values(&dept_num,'&dept_name','&location')
+new   1: insert into department values(5,'electronics','tvm')
+
+1 row created.
+
+SQL> select * from department;
+
+  DEPT_NUM DEPT_NAME            LOCATION                                        
+---------- -------------------- --------------------                            
+         1 copmuter science     trivandrum                                      
+         2 mechanical           trivandrum                                      
+         3 civil                trivandrum                                      
+         4 technical            tvm                                             
+         5 electronics          tvm                                             
+
+                                
+
+SQL> desc study
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEENUM                                        NUMBER(3)
+ INSTITUTE                                          VARCHAR2(20)
+ LOCATION                                           VARCHAR2(20)
+
+SQL> insert into study values(&employeenum,'&institute','&location');
+Enter value for employeenum: 1
+Enter value for institute: CET
+Enter value for location: trivandrum
+old   1: insert into study values(&employeenum,'&institute','&location')
+new   1: insert into study values(1,'CET','trivandrum')
+
+1 row created.
+
+
+
+
+SQL> /
+Enter value for employeenum: 4
+Enter value for institute: cet
+Enter value for location: trivandrum
+old   1: insert into study values(&employeenum,'&institute','&location')
+new   1: insert into study values(4,'cet','trivandrum')
+
+1 row created.
+
+SQL> /
+Enter value for employeenum: 3
+Enter value for institute: tkm
+Enter value for location: kollam
+old   1: insert into study values(&employeenum,'&institute','&location')
+new   1: insert into study values(3,'tkm','kollam')
+
+1 row created.
+
+SQL> /
+Enter value for employeenum: 5
+Enter value for institute: nit
+Enter value for location: calicut
+old   1: insert into study values(&employeenum,'&institute','&location')
+new   1: insert into study values(5,'nit','calicut')
+
+1 row created.
+
+SQL> /
+Enter value for employeenum: 6
+Enter value for institute: iit
+Enter value for location: delhi
+old   1: insert into study values(&employeenum,'&institute','&location')
+new   1: insert into study values(6,'iit','delhi')
+
+1 row created.
+
+SQL> insert into software values(&employeenum,'&package','&language',&developcost,&salecost);
+Enter value for employeenum: 1
+Enter value for package: emacs
+Enter value for language: python
+Enter value for developcost: 300000
+Enter value for salecost: 2000
+old   1: insert into software values(&employeenum,'&package','&language',&developcost,&salecost)
+new   1: insert into software values(1,'emacs','python',300000,2000)
+
+1 row created.
+
+
+SQL> /
+Enter value for employeenum: 3
+Enter value for package: mint package
+Enter value for language: c/c++
+Enter value for developcost: 12000
+Enter value for salecost: 1200
+old   1: insert into software values(&employeenum,'&package','&language',&developcost,&salecost)
+new   1: insert into software values(3,'mint package','c/c++',12000,1200)
+
+1 row created.
+
+SQL> /
+Enter value for employeenum: 4
+Enter value for package: chrome
+Enter value for language: python
+Enter value for developcost: 20000
+Enter value for salecost: 1200
+old   1: insert into software values(&employeenum,'&package','&language',&developcost,&salecost)
+new   1: insert into software values(4,'chrome','python',20000,1200)
+
+1 row created.
+
+SQL> /
+Enter value for employeenum: 5
+Enter value for package: yty
+Enter value for language: java
+Enter value for developcost: 23000
+Enter value for salecost: 1213
+old   1: insert into software values(&employeenum,'&package','&language',&developcost,&salecost)
+new   1: insert into software values(5,'yty','java',23000,1213)
+
+1 row created.
+
+SQL> /
+Enter value for employeenum: 6
+Enter value for package: abcd
+Enter value for language: perl
+Enter value for developcost: 43000
+Enter value for salecost: 4323
+old   1: insert into software values(&employeenum,'&package','&language',&developcost,&salecost)
+new   1: insert into software values(6,'abcd','perl',43000,4323)
+
+1 row created.
+
+SQL> commit
+  2  ;
+
+Commit complete.
+
+SQL> select * from software;
+
+EMPLOYEENUM PACKAGE              LANGUAGE             DEVELOPCOST   SALECOST    
+----------- -------------------- -------------------- ----------- ----------    
+          1 emacs                python                    300000       2000    
+          3 mint package         c/c++                      12000       1200    
+          4 chrome               python                     20000       1200    
+          5 yty                  java                       23000       1213    
+          6 abcd                 perl                       43000       4323    
+
+SQL> insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob');
+Enter value for employeenum: 2
+Enter value for emp_name: sooraj
+Enter value for job: clerk
+Enter value for manager: nithin
+Enter value for heir_date: 01-apr-10
+Enter value for salary: 9000
+Enter value for dept_num: 2
+Enter value for dob: 13-jul-85
+old   1: insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob')
+new   1: insert into employee values(2,'sooraj','clerk','nithin','01-apr-10',9000,2,'13-jul-85')
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+Q. 1
+-------
+SQL> select * from employee;
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          1 vineeth              programmer           sujith                    
+11-JAN-91      15000          1 10-JAN-91                                       
+                                                                                
+          3 shanavas             clerk                HOD                       
+12-JAN-11      23000          1 12-JAN-91                                       
+                                                                                
+          4 sujith               server administrator HOD                       
+12-JAN-09      30000          1 11-MAY-91                                       
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          5 vijeesh              clerk                vineeth                   
+12-MAY-08      22000          2 12-FEB-87                                       
+                                                                                
+          6 noushad              professor            HOD                       
+12-JUN-07      32000          3 12-MAR-85                                       
+                                                                                
+          2 sooraj               clerk                nithin                    
+01-APR-10       9000          2 13-JUL-85                                       
+                                                                                
+
+6 rows selected.
+
+
+Q. 2
+-------
+SQL>  select emp_name,salary from employee where(salary>8000 and salary<12000);
+
+EMP_NAME                 SALARY                                                 
+-------------------- ----------                                                 
+sooraj                     9000                                                 
+
+
+
+Q. 3
+-----
+SQL> select emp_name from employee where(emp_name like 't%' or emp_name like 's%');
+
+EMP_NAME                                                                        
+--------------------                                                            
+shanavas                                                                        
+sujith                                                                          
+sooraj                                                                          
+
+Q. 4
+-----
+SQL> select emp_name,job from employee where(job like 'm%' or job like 'p%');
+
+EMP_NAME             JOB                                                        
+-------------------- --------------------                                       
+vineeth              programmer                                                 
+noushad              professor                                                  
+
+
+Q. 5
+-----
+SQL> select job from employee group by job;
+
+JOB                                                                             
+--------------------                                                            
+clerk                                                                           
+professor                                                                       
+programmer                                                                      
+server administrator                                                            
+
+Q. 6
+-----
+SQL> select emp_name from employee where(dept_num=10 or dept_num =20);
+
+no rows selected
+
+SQL> select emp_name from employee where(dept_num=1 or dept_num =2);
+
+EMP_NAME                                                                        
+--------------------                                                            
+vineeth                                                                         
+shanavas                                                                        
+sujith                                                                          
+vijeesh                                                                         
+sooraj                                                                          
+
+Q. 7
+-----
+SQL> select emp_name,salary,salary+0.15*salary from employee;
+
+EMP_NAME                 SALARY SALARY+0.15*SALARY                              
+-------------------- ---------- ------------------                              
+vineeth                   15000              17250                              
+shanavas                  23000              26450                              
+sujith                    30000              34500                              
+vijeesh                   22000              25300                              
+noushad                   32000              36800                              
+sooraj                     9000              10350                              
+
+6 rows selected.
+
+Q. 8
+-----
+SQL> select count(distinct job) from employee;
+
+COUNT(DISTINCTJOB)                                                              
+------------------                                                              
+                 4                                                              
+
+Q. 9
+-----
+SQL> select emp_name,salary from employee where(salary>(select avg(salary) from employee) and job like 'p%');
+
+EMP_NAME                 SALARY                                                 
+-------------------- ----------                                                 
+noushad                   32000                                                 
+
+Q. 10
+-----
+SQL> select sum(salary) from employee;
+
+SUM(SALARY)                                                                     
+-----------                                                                     
+     131000   
+
+Q. 11
+-----
+SQL> select emp_name from employee where manager!='NULL';
+
+EMP_NAME                                                                        
+--------------------                                                            
+vineeth                                                                         
+shanavas                                                                        
+sujith                                                                          
+vijeesh                                                                         
+noushad                                                                         
+sooraj                                                                          
+
+6 rows selected.
+                                                                  
+
+Q. 12
+-----
+SQL> select job,sum(salary) from employee group by job;
+
+JOB                  SUM(SALARY)                                                
+-------------------- -----------                                                
+clerk                      54000                                                
+professor                  32000                                                
+programmer                 15000                                                
+server administrator       30000                                                
+
+
+
+Q. 13
+-----
+SQL> select * from employee t where salary=(select min(salary) from employee where job=t.job);
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          1 vineeth              programmer           sujith                    
+11-JAN-91      15000          1 10-JAN-91                                       
+                                                                                
+          4 sujith               server administrator HOD                       
+12-JAN-09      30000          1 11-MAY-91                                       
+                                                                                
+          6 noushad              professor            HOD                       
+12-JUN-07      32000          3 12-MAR-85                                       
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          2 sooraj               clerk                nithin                    
+01-APR-10       9000          2 13-JUL-85                                       
+                                               
+
+Q. 14
+-----
+SQL> select count(*),dept_name from  employee,department where employee.dept_num=department.dept_num group by dept_name;
+
+  COUNT(*) DEPT_NAME                                                            
+---------- --------------------                                                 
+         1 civil                                                                
+         3 copmuter science                                                     
+         2 mechanical                                                           
+
+
+Q. 15
+-----
+SQL> select emp_name,sum(salecost) from employee,software where employee.employeenum=software.employeenum group by emp_name;
+
+EMP_NAME             SUM(SALECOST)                                              
+-------------------- -------------                                              
+noushad                       4323                                              
+shanavas                      1200                                              
+sujith                        1200                                              
+vijeesh                       1213                                              
+vineeth                       2000                                              
+
+Q. 16
+-----
+SQL> select emp_name,count(*) from employee,software where employee.employeenum=software.employeenum group by emp_name;
+
+EMP_NAME               COUNT(*)                                                 
+-------------------- ----------                                                 
+noushad                       1                                                 
+shanavas                      1                                                 
+sujith                        1                                                 
+vijeesh                       1                                                 
+vineeth                       1                                                 
+
+Q. 17
+-----
+SQL> select language,count(package) from software where developcost<20000 group by language;
+
+LANGUAGE             COUNT(PACKAGE)                                             
+-------------------- --------------                                             
+c/c++                             1   
+                                     
+
+SQL> /
+Enter value for employeenum: 7
+Enter value for emp_name: subin
+Enter value for job: manager
+Enter value for manager: abcd
+Enter value for heir_date: '12-jan-99'
+Enter value for salary: 80000
+Enter value for dept_num: 4
+Enter value for dob: '12-apr-91'
+old   1: insert into employee values(&employeeNum,'&emp_name','&job','&manager',&heir_date,&salary,&dept_num,&dob)
+new   1: insert into employee values(7,'subin','manager','abcd','12-jan-99',80000,4,'12-apr-91')
+
+1 row created.
+
+
+
+SQL> insert into department values(&dept_num,'&dept_name','&location');
+Enter value for dept_num: 10
+Enter value for dept_name: HR
+Enter value for location: tvm
+old   1: insert into department values(&dept_num,'&dept_name','&location')
+new   1: insert into department values(10,'HR','tvm')
+
+1 row created.
+
+                         
+
+SQL> insert into software values(&employeenum,'&package','&language',&developcost,&salecost);
+Enter value for employeenum: 2
+Enter value for package: msofffice
+Enter value for language: pascal
+Enter value for developcost: 500000
+Enter value for salecost: 34457
+old   1: insert into software values(&employeenum,'&package','&language',&developcost,&salecost)
+new   1: insert into software values(2,'msofffice','pascal',500000,34457)
+
+1 row created.
+
+SQL> /
+Enter value for employeenum: 3
+Enter value for package: abcdefg
+Enter value for language: pascal
+Enter value for developcost: 123456
+Enter value for salecost: 1213
+old   1: insert into software values(&employeenum,'&package','&language',&developcost,&salecost)
+new   1: insert into software values(3,'abcdefg','pascal',123456,1213)
+
+1 row created.
+
+
+Q. 18
+-----
+SQL> select package from software where developcost=(select min(developcost) from software where language = 'pascal');
+
+PACKAGE                                                                         
+--------------------                                                            
+abcdefg                                                                         
+
+Q. 19
+-----
+SQL> select language from software group by language having count(package)=(select max(count(*)) from software group by language);
+
+LANGUAGE                                                                        
+--------------------                                                            
+pascal                                                                          
+python                                                                          
+
+
+SQL> insert into study values(&employeenum,'&institute','&location');
+Enter value for employeenum: 2
+Enter value for institute: kgptc calicut
+Enter value for location: calicut
+old   1: insert into study values(&employeenum,'&institute','&location')
+new   1: insert into study values(2,'kgptc calicut','calicut')
+
+1 row created.
+
+Q. 20
+-----
+SQL> select institute from software,study where study.employeenum=software.employeenum and software.developcost=(select max(developcost) from software);
+
+INSTITUTE                                                                       
+--------------------                                                            
+kgptc calicut                                                                   
+
+SQL> spooloff;
+
+
+
+Q. 21
+-----
+
+SQL> select  salary,institute from study,employee,software where employee.employeenum=study.employeenum and employee.employeenum=(select employeenum from software where developcost=(select max(developcost) from software));
+
+    SALARY INSTITUTE                                                            
+---------- --------------------                                                 
+      9000 kgptc calicut                                                        
+
+
+Q. 22
+-----
+SQL> select count(*) from software where employeenum=(select employeenum from software where developcost=(select min(developcost) from software));
+
+  COUNT(*)                                                                      
+----------                                                                      
+         2                                                                      
+
+
+SQL> select * from employee where salary in (select salary from employee group by salary having count(*)>1) order by salary;
+
+no rows selected
+
+
+SQL> /
+Enter value for employeenum: 8
+Enter value for emp_name: abcd
+Enter value for job: manager
+Enter value for manager: GM
+Enter value for heir_date: 12-jan-98
+Enter value for salary: 30000
+Enter value for dept_num: 3
+Enter value for dob: 12-dec-81
+old   1: insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob')
+new   1: insert into employee values(8,'abcd','manager','GM','12-jan-98',30000,3,'12-dec-81')
+
+1 row created.
+
+Q. 23
+-----
+SQL> select * from employee where salary in (select salary from employee group by salary having count(*)>1) order by salary;
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          4 sujith               server administrator HOD                       
+12-JAN-09      30000          1 11-MAY-91                                       
+                                                                                
+          8 abcd                 manager              GM                        
+12-JAN-98      30000          3 12-DEC-81                                       
+                                                                                
+
+Q. 24
+-----                                        
+
+SQL> select emp_name,dob from employee where dob like '%JAN%';
+
+EMP_NAME             DOB                                                        
+-------------------- ---------                                                  
+vineeth              10-JAN-91                                                  
+shanavas             12-JAN-91                                                  
+ 
+
+
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off;
+
+
+SQL> update employee set job='programmer' where employeenum!=7 and employeenum!=8;
+
+6 rows updated.
+
+Q. 25
+-----
+SQL> select emp_name,((select sysdate from dual)-hier_date)/365 as experience from employee where job='programmer' order by 2 desc;
+
+EMP_NAME             EXPERIENCE                                                 
+-------------------- ----------                                                 
+vineeth              20.5327126                                                 
+noushad              4.10531535                                                 
+vijeesh              3.18750713                                                 
+sujith               2.51627426                                                 
+sooraj                1.2998359                                                 
+shanavas             .516274258                                                 
+
+6 rows selected.
+
+Q. 26
+-----
+
+SQL> select emp_name,dob from employee where extract(month from dob) = extract(month from (select sysdate from dual));
+
+EMP_NAME             DOB                                                        
+-------------------- ---------                                                  
+sooraj               13-JUL-85                                                  
+
+Q. 27
+-----
+SQL> select * from employee where employeenum = (
+  2  select employeenum from employee where ((select sysdate from dual)-hier_date)/365=(
+  3  select min(((select sysdate from dual)-hier_date)/365) from employee));
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          3 shanavas             programmer           HOD                       
+12-JAN-11      23000          1 12-JAN-91                                       
+                                                                                
+
+
+Q. 28
+-----
+
+SQL> select emp_name from employee where dob=(select min(dob) from employee where dob like '%90%');
+
+EMP_NAME                                                                        
+--------------------                                                            
+sujith                                                                          
+
+
+Q. 29
+-----
+
+SQL>  select extract(year from dob),count(*) from employee group by extract(year from dob) having count(*)=(select max(count(*)) from employee group by extract(year from dob));
+
+EXTRACT(YEARFROMDOB)   COUNT(*)                                                 
+-------------------- ----------                                                 
+                1990          3   
+
+Q. 30
+-----
+SQL> select extract(year from hier_date),count(*) from employee group by extract(year from hier_date) having count(*)=(select max(count(*)) from employee group by extract(year from hier_date));
+
+EXTRACT(YEARFROMHIER_DATE)   COUNT(*)                                           
+-------------------------- ----------                                           
+                      2008          2  
+Q. 31
+-----
+
+SQL> select * from employee where emp_name not like '_____%' and job='programmer';
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          5 sonu                 programmer           vineeth                   
+12-MAY-08      22000          2 12-FEB-87                                       
+                                                                
+Q. 32
+-----
+SQL> select lower(package) as package,upper(emp_name) as name from employee,software where employee.employeenum=software.employeenum;
+
+PACKAGE              NAME                                                       
+-------------------- --------------------                                       
+emacs                VINEETH                                                    
+abcdefg              SHANAVAS                                                   
+mint package         SHANAVAS                                                   
+chrome               SUJITH                                                     
+yty                  VIJEESH                                                    
+abcd                 NOUSHAD                                                    
+msofffice            SOORAJ  
+
+7 rows selected.
+
+
+SQL> spool off;
+Q.15
+
+SQL> select emp_name,sum(salecost) from employee,software where employee.employeenum=software.employeenum AND JOB='programmer' GROUP BY EMP_NAME;
+
+EMP_NAME             SUM(SALECOST)                                              
+-------------------- -------------                                              
+SHANU                         2413                                              
+noushad                       4323                                              
+sonu                          1213                                              
+sooraj                       34457                                              
+sujith                        1200                                              
+vineeth                       2000                                              
+
+6 rows selected.
+
+SQL> SPOOL OFF;
+
+
+
+SQL> select emp_name,count(*) from employee,software where employee.employeenum=software.employeenum AND JOB='programmer' GROUP BY EMP_NAME;
+
+EMP_NAME               COUNT(*)                                                 
+-------------------- ----------                                                 
+SHANU                         2                                                 
+noushad                       1                                                 
+sonu                          1                                                 
+sooraj                        1                                                 
+sujith                        1                                                 
+vineeth                       1                                                 
+
+6 rows selected.
+
+SQL> SPOOL OFF;
+
+Q. 16
+
+SQL> select emp_name,count(*) AS NUM_OF_PACKAGES from employee,software where employee.employeenum=software.employeenum AND JOB='programmer' GROUP BY EMP_NAME;
+
+EMP_NAME             NUM_OF_PACKAGES                                            
+-------------------- ---------------                                            
+SHANU                              2                                            
+noushad                            1                                            
+sonu                               1                                            
+sooraj                             1                                            
+sujith                             1                                            
+vineeth                            1                                            
+
+6 rows selected.
+
+SQL> SPOOL OFF;
+
+Q.27
+++
+SQL> select * from employee where employeenum = (select employeenum from employee where ((select sysdate from dual)-hier_date)/365=(select min(((select sysdate from dual)-hier_date)/365) from employee WHERE JOB='programmer'));
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          3 SHANU                programmer           HOD                       
+12-JAN-11      23000          1 12-JAN-91                                       
+                                                                                
+
+SQL> SPOOL OFF;
+
+
+Q.28
+
+SQL> select emp_name from employee where dob=(select min(dob) from employee where dob like '%90%' AND JOB='programmer');
+
+EMP_NAME                                                                        
+--------------------                                                            
+sujith                                                                          
+
+SQL> SPOOL OFF;

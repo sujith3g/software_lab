@@ -1,0 +1,77 @@
+SQL> create table employee2(emp_num int,name varchar(20),job varchar(20),manager varchar(20),hier_date date,salary int,dept_num int);
+
+Table created.
+
+SQL> insert into employee2  values(&emp_num,'&name','&job','&manager','&heir_date',&salary,&dept_num);
+Enter value for emp_num: 1
+Enter value for name: sujith
+Enter value for job: clerk
+Enter value for manager: asif
+Enter value for heir_date: '12-jan-03'
+Enter value for salary: 12000
+Enter value for dept_num: 1
+old   1: insert into employee2  values(&emp_num,'&name','&job','&manager','&heir_date',&salary,&dept_num)
+new   1: insert into employee2  values(1,'sujith','clerk','asif',''12-jan-03'',12000,1)
+insert into employee2  values(1,'sujith','clerk','asif',''12-jan-03'',12000,1)
+                                                          *
+ERROR at line 1:
+ORA-00917: missing comma 
+
+
+SQL> insert into employee2  values(&emp_num,'&name','&job','&manager','&heir_date',&salary,&dept_num);
+Enter value for emp_num: 1
+Enter value for name: sujith
+Enter value for job: clerk
+Enter value for manager: sg
+Enter value for heir_date: 12-jan-05
+Enter value for salary: 12000
+Enter value for dept_num: 1
+old   1: insert into employee2  values(&emp_num,'&name','&job','&manager','&heir_date',&salary,&dept_num)
+new   1: insert into employee2  values(1,'sujith','clerk','sg','12-jan-05',12000,1)
+
+1 row created.
+
+SQL> insert into employee2  values(&emp_num,'&name','&job','&manager','&heir_date',&salary,&dept_num);
+Enter value for emp_num: 2
+Enter value for name: vijay
+Enter value for job: clerk
+Enter value for manager: sujith
+Enter value for heir_date: 13-feb-99
+Enter value for salary: 13000
+Enter value for dept_num: 1
+old   1: insert into employee2  values(&emp_num,'&name','&job','&manager','&heir_date',&salary,&dept_num)
+new   1: insert into employee2  values(2,'vijay','clerk','sujith','13-feb-99',13000,1)
+
+1 row created.
+
+SQL> insert into employee2  values(&emp_num,'&name','&job','&manager','&heir_date',&salary,&dept_num);
+Enter value for emp_num: 3
+Enter value for name: arif
+Enter value for job: clerk
+Enter value for manager: sujith
+Enter value for heir_date: 12-feb-06
+Enter value for salary: 14000
+Enter value for dept_num: 1
+old   1: insert into employee2  values(&emp_num,'&name','&job','&manager','&heir_date',&salary,&dept_num)
+new   1: insert into employee2  values(3,'arif','clerk','sujith','12-feb-06',14000,1)
+
+1 row created.
+
+SQL> spool off
+SQL> select * from employee2;
+
+   EMP_NUM NAME                 JOB                  MANAGER                    
+---------- -------------------- -------------------- --------------------       
+HIER_DATE     SALARY   DEPT_NUM                                                 
+--------- ---------- ----------                                                 
+         1 sujith               clerk                sg                         
+12-JAN-05      12000          1                                                 
+                                                                                
+         2 vijay                clerk                sujith                     
+13-FEB-99      13000          1                                                 
+                                                                                
+         3 arif                 clerk                sujith                     
+12-FEB-06      14000          1                                                 
+                                                                                
+
+SQL> spool off;

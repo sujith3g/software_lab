@@ -1,0 +1,681 @@
+
+Q=> 1
+-----
+SQL> create table client(client_no varchar2(6) primary key check(client_no like 'c%'),Name varchar2(15),address varchar2(15),city varchar2(15),pincode number(6),Bal_due number(6,2));
+
+Table created.
+
+SQL> create table product(product_no varchar2(6) primary key check(product_no like 'p%'),description varchar2(15) not null,profit_percent number(4,2) not null,qty_on_hand number(8) not null,reorder_level number(8) not null,sell_price number(6,2) not null check(sell_price > 0),cost_price number(6,2) not null check(cost_price >0));
+
+Table created.
+
+SQL> CREATE TABLE SALESMAN(SALESMAN_NO VARCHAR2(6) PRIMARY KEY CHECK(SALESMAN_NO LIKE 'S%'),NAME VARCHAR2(15) NOT NULL,ADDRESS VARCHAR2(15) NOT NULL,SALARY NUMBER(8) NOT NULL CHECK(SALARY !=0));
+
+Table created.
+
+
+SQL> CREATE TABLE SALESORDER(ORDER_NO VARCHAR2(6) PRIMARY KEY CHECK(ORDER_NO LIKE 'O%'),ORDER_DATE DATE,CLIENT_NO VARCHAR2(6) REFERENCES CLIENT(CLIENT_NO),SALESMAN_NO VARCHAR2(6) REFERENCES SALESMAN(SALESMAN_NO),DELY_TYPE VARCHAR2(1) DEFAULT 'F' CHECK(DELY_TYPE IN('F','P')),DELY_DATE DATE,ORDER_STATUS VARCHAR2(10) CHECK(ORDER_STATUS IN('IN PROCESS','DELIVERED','CANCELED')),CHECK(DELY_DATE >= ORDER_DATE));
+
+Table created.
+
+SQL> CREATE TABLE ORDERDETAILS(ORDER_NO VARCHAR2(6) PRIMARY KEY REFERENCES SALESORDER(ORDER_NO),PRODUCT_NO VARCHAR2(6) REFERENCES PRODUCT(PRODUCT_NO),QTY_ORDERED NUMBER(9),PRODUCT_RATE NUMBER(8,2));
+
+Table created.
+
+SQL> ALTER TABLE CLIENT MODIFY BAL_DUE NUMBER(8,2);
+
+Table altered.
+
+SQL> ALTER TABLE PRODUCT MODIFY SELL_PRICE NUMBER(8,2);
+
+Table altered.
+
+SQL> ALTER TABLE PRODUCT MODIFY COST_PRICE NUMBER(8,2);
+
+Table altered.
+
+SQL> DESC PRODUCT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRODUCT_NO                                NOT NULL VARCHAR2(6)
+ DESCRIPTION                               NOT NULL VARCHAR2(15)
+ PROFIT_PERCENT                            NOT NULL NUMBER(4,2)
+ QTY_ON_HAND                               NOT NULL NUMBER(8)
+ REORDER_LEVEL                             NOT NULL NUMBER(8)
+ SELL_PRICE                                NOT NULL NUMBER(8,2)
+ COST_PRICE                                NOT NULL NUMBER(8,2)
+
+SQL> desc client;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CLIENT_NO                                 NOT NULL VARCHAR2(6)
+ NAME                                               VARCHAR2(15)
+ ADDRESS                                            VARCHAR2(15)
+ CITY                                               VARCHAR2(15)
+ PINCODE                                            NUMBER(6)
+ BAL_DUE                                            NUMBER(8,2)
+
+
+SQL> desc product;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRODUCT_NO                                NOT NULL VARCHAR2(6)
+ DESCRIPTION                               NOT NULL VARCHAR2(15)
+ PROFIT_PERCENT                            NOT NULL NUMBER(4,2)
+ QTY_ON_HAND                               NOT NULL NUMBER(8)
+ REORDER_LEVEL                             NOT NULL NUMBER(8)
+ SELL_PRICE                                NOT NULL NUMBER(8,2)
+ COST_PRICE                                NOT NULL NUMBER(8,2)
+
+       
+
+SQL> desc salesman;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SALESMAN_NO                               NOT NULL VARCHAR2(6)
+ NAME                                      NOT NULL VARCHAR2(15)
+ ADDRESS                                   NOT NULL VARCHAR2(15)
+ SALARY                                    NOT NULL NUMBER(8)
+
+SQL> DESC SALESORDER;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ORDER_NO                                  NOT NULL VARCHAR2(6)
+ ORDER_DATE                                         DATE
+ CLIENT_NO                                          VARCHAR2(6)
+ SALESMAN_NO                                        VARCHAR2(6)
+ DELY_TYPE                                          VARCHAR2(1)
+ DELY_DATE                                          DATE
+ ORDER_STATUS                                       VARCHAR2(10)
+
+
+Q=> 2
+------
+
+SQL> INSERT INTO CLIENT VALUES('c00001','SANDEEP','A-213','MUMBAI',676123,22000.00);
+
+1 row created.
+
+
+SQL> INSERT INTO CLIENT VALUES('c00002','SHANAVAS','TVC-243','MUMBAI',634234,50000);
+
+1 row created.
+
+SQL> INSERT INTO CLIENT VALUES('&CLIENT_NO','&NAME','&ADDRESS','&city',&pincode,&BAL_DUE);
+Enter value for client_no: c00003
+Enter value for name: TOM
+Enter value for address: DC-23A
+Enter value for city: KOLKATA
+Enter value for pincode: 624456
+Enter value for bal_due: 12000
+old   1: INSERT INTO CLIENT VALUES('&CLIENT_NO','&NAME','&ADDRESS','&city',&pincode,&BAL_DUE)
+new   1: INSERT INTO CLIENT VALUES('c00003','TOM','DC-23A','KOLKATA',624456,12000)
+
+1 row created.
+
+SQL> /
+Enter value for client_no: c00004
+Enter value for name: JOHN
+Enter value for address: 156A
+Enter value for city: TRIVANDRUM
+Enter value for pincode: 695001
+Enter value for bal_due: 23100
+old   1: INSERT INTO CLIENT VALUES('&CLIENT_NO','&NAME','&ADDRESS','&city',&pincode,&BAL_DUE)
+new   1: INSERT INTO CLIENT VALUES('c00004','JOHN','156A','TRIVANDRUM',695001,23100)
+
+1 row created.
+
+
+SQL> /
+Enter value for client_no: c00005
+Enter value for name: AMIT
+Enter value for address: B-414
+Enter value for city: HOUSTON
+Enter value for pincode: 214357
+Enter value for bal_due: 34000
+old   1: INSERT INTO CLIENT VALUES('&CLIENT_NO','&NAME','&ADDRESS','&city',&pincode,&BAL_DUE)
+new   1: INSERT INTO CLIENT VALUES('c00005','AMIT','B-414','HOUSTON',214357,34000)
+
+1 row created.
+
+SQL> INSERT INTO PRODUCT VALUES('&PRODUCT_NO','&DESCRIPTION',&PROFIT_PERCENT,&QTY_ON_HAND,&REORDER_LEVEL,&SELL_PRICE,&COST_PRICE);
+Enter value for product_no: p00001
+Enter value for description: CD DRIVE
+Enter value for profit_percent: 15.40
+Enter value for qty_on_hand: 1200
+Enter value for reorder_level: 232
+Enter value for sell_price: 6000
+Enter value for cost_price: 5000
+old   1: INSERT INTO PRODUCT VALUES('&PRODUCT_NO','&DESCRIPTION',&PROFIT_PERCENT,&QTY_ON_HAND,&REORDER_LEVEL,&SELL_PRICE,&COST_PRICE)
+new   1: INSERT INTO PRODUCT VALUES('p00001','CD DRIVE',15.40,1200,232,6000,5000)
+
+1 row created.
+
+SQL> UPDATE CLIENT SET CITY='CALICUT' WHERE CITY='TRIVANDRUM';
+
+1 row updated.
+
+
+SQL> INSERT INTO PRODUCT VALUES('&PRODUCT_NO','&DESCRIPTION',&PROFIT_PERCENT,&QTY_ON_HAND,&REORDER_LEVEL,&SELL_PRICE,&COST_PRICE);
+Enter value for product_no: p00002
+Enter value for description: RAM
+Enter value for profit_percent: 14.50
+Enter value for qty_on_hand: 234
+Enter value for reorder_level: 432
+Enter value for sell_price: 7000
+Enter value for cost_price: 2500
+old   1: INSERT INTO PRODUCT VALUES('&PRODUCT_NO','&DESCRIPTION',&PROFIT_PERCENT,&QTY_ON_HAND,&REORDER_LEVEL,&SELL_PRICE,&COST_PRICE)
+new   1: INSERT INTO PRODUCT VALUES('p00002','RAM',14.50,234,432,7000,2500)
+
+1 row created.
+
+SQL> /
+Enter value for product_no: p00003
+Enter value for description: GRAPHICS CARD
+Enter value for profit_percent: 25
+Enter value for qty_on_hand: 123
+Enter value for reorder_level: 700
+Enter value for sell_price: 8500
+Enter value for cost_price: 3600
+old   1: INSERT INTO PRODUCT VALUES('&PRODUCT_NO','&DESCRIPTION',&PROFIT_PERCENT,&QTY_ON_HAND,&REORDER_LEVEL,&SELL_PRICE,&COST_PRICE)
+new   1: INSERT INTO PRODUCT VALUES('p00003','GRAPHICS CARD',25,123,700,8500,3600)
+
+1 row created.
+
+SQL> /
+Enter value for product_no: p00004
+Enter value for description: HARD_DISC
+Enter value for profit_percent: 13.32
+Enter value for qty_on_hand: 244
+Enter value for reorder_level: 345
+Enter value for sell_price: 7600
+Enter value for cost_price: 1234
+old   1: INSERT INTO PRODUCT VALUES('&PRODUCT_NO','&DESCRIPTION',&PROFIT_PERCENT,&QTY_ON_HAND,&REORDER_LEVEL,&SELL_PRICE,&COST_PRICE)
+new   1: INSERT INTO PRODUCT VALUES('p00004','HARD_DISC',13.32,244,345,7600,1234)
+
+1 row created.
+
+
+
+SQL> insert into salesman values('&salesman_no','&NAME','&ADDRESS',&SALARY);
+Enter value for salesman_no: S00001
+Enter value for name: SOORAJ
+Enter value for address: CALICUT
+Enter value for salary: 500000
+old   1: insert into salesman values('&salesman_no','&NAME','&ADDRESS',&SALARY)
+new   1: insert into salesman values('S00001','SOORAJ','CALICUT',500000)
+
+1 row created.
+
+SQL> /
+Enter value for salesman_no: S00002
+Enter value for name: NITHIN
+Enter value for address: KOTTAYAM
+Enter value for salary: 12000
+old   1: insert into salesman values('&salesman_no','&NAME','&ADDRESS',&SALARY)
+new   1: insert into salesman values('S00002','NITHIN','KOTTAYAM',12000)
+
+1 row created.
+
+
+SQL> /
+Enter value for salesman_no: S00003
+Enter value for name: SUBIN
+Enter value for address: PONNANI
+Enter value for salary: 23000
+old   1: insert into salesman values('&salesman_no','&NAME','&ADDRESS',&SALARY)
+new   1: insert into salesman values('S00003','SUBIN','PONNANI',23000)
+
+1 row created.
+
+SQL> /
+Enter value for salesman_no: S00004
+Enter value for name: VISHNU
+Enter value for address: KOLLAM
+Enter value for salary: 13322
+old   1: insert into salesman values('&salesman_no','&NAME','&ADDRESS',&SALARY)
+new   1: insert into salesman values('S00004','VISHNU','KOLLAM',13322)
+
+1 row created.
+
+SQL> /
+Enter value for salesman_no: S00005
+Enter value for name: MELWIN
+Enter value for address: ERNMKLM
+Enter value for salary: 123445
+old   1: insert into salesman values('&salesman_no','&NAME','&ADDRESS',&SALARY)
+new   1: insert into salesman values('S00005','MELWIN','ERNMKLM',123445)
+
+1 row created.
+
+
+
+SQL> INSERT INTO SALESORDER VALUES('O00001','12-JAN-10','c00001','S00001','F','15-FEB-10','DELIVERED');
+
+1 row created.
+
+
+SQL> INSERT INTO SALESORDER VALUES('O00002','10-MAR-11','c00003','S00003','P','12-APR-11','IN PROCESS');
+
+1 row created.
+
+SQL> INSERT INTO SALESORDER VALUES('&ORDER_NO','&ORDER_DATE','&CLIENT_NO','&SALESMAN_NO','&DELY_TYPE','&DELY_DATE','&ORDER_STATUS');
+Enter value for order_no: O00003
+Enter value for order_date: 
+Enter value for client_no: 
+Enter value for salesman_no: 
+Enter value for dely_type: 
+Enter value for dely_date: 
+Enter value for order_status: 
+old   1: INSERT INTO SALESORDER VALUES('&ORDER_NO','&ORDER_DATE','&CLIENT_NO','&SALESMAN_NO','&DELY_TYPE','&DELY_DATE','&ORDER_STATUS')
+new   1: INSERT INTO SALESORDER VALUES('O00003','','','','','','')
+
+1 row created.
+
+
+SQL> INSERT INTO SALESORDER VALUES('O19001','13-DEC-10','c00005','S00003','F','10-JAN-11','DELIVERED');
+
+1 row created.
+
+SQL> INSERT INTO SALESORDER VALUES('O00121','22-MAR-11','c00004','S00004','F','10-MAY-11','DELIVERED');
+
+1 row created.
+
+SQL> INSERT INTO ORDERDETAILS VALUES('O00001','p00001',120,1200);
+
+1 row created.
+
+SQL> INSERT INTO ORDERDETAILS VALUES('&ORDER_NO','&PROIDUCT_NO',&QTY_ORDERED,&PRODUCT_RATE);
+Enter value for order_no: O19001
+Enter value for proiduct_no: p00002
+Enter value for qty_ordered: 23
+Enter value for product_rate: 1300
+old   1: INSERT INTO ORDERDETAILS VALUES('&ORDER_NO','&PROIDUCT_NO',&QTY_ORDERED,&PRODUCT_RATE)
+new   1: INSERT INTO ORDERDETAILS VALUES('O19001','p00002',23,1300)
+
+1 row created.
+
+SQL> /
+Enter value for order_no: O00003
+Enter value for proiduct_no: p00004
+Enter value for qty_ordered: 354
+Enter value for product_rate: 12234
+old   1: INSERT INTO ORDERDETAILS VALUES('&ORDER_NO','&PROIDUCT_NO',&QTY_ORDERED,&PRODUCT_RATE)
+new   1: INSERT INTO ORDERDETAILS VALUES('O00003','p00004',354,12234)
+
+1 row created.
+
+SQL> INSERT INTO ORDERDETAILS VALUES('O00121','p00004',150,12345);
+
+1 row created.
+
+Q=> 3
+-----
+
+SQL> SELECT NAME FROM CLIENT WHERE NAME LIKE '_A%';
+
+NAME                                                                            
+---------------                                                                 
+SANDEEP                                                                         
+                                       
+Q=> 4
+-----
+
+SQL> SELECT NAME,CITY FROM CLIENT WHERE CITY LIKE '_A%';
+
+NAME            CITY                                                            
+--------------- ---------------                                                 
+JOHN            CALICUT                                                         
+
+Q=> 5
+-----
+
+SQL> SELECT NAME,CITY FROM CLIENT WHERE CITY='MUMBAI' OR CITY='KOLKATA';
+
+NAME            CITY                                                            
+--------------- ---------------                                                 
+SANDEEP         MUMBAI                                                          
+SHANAVAS        MUMBAI                                                          
+TOM             KOLKATA                                                         
+
+Q=> 6
+-----
+
+SQL> SELECT * FROM CLIENT WHERE BAL_DUE>10000;
+
+CLIENT NAME            ADDRESS         CITY               PINCODE    BAL_DUE    
+------ --------------- --------------- --------------- ---------- ----------    
+c00001 SANDEEP         A-213           MUMBAI              676123      22000    
+c00002 SHANAVAS        TVC-243         MUMBAI              634234      50000    
+c00003 TOM             DC-23A          KOLKATA             624456      12000    
+c00004 JOHN            156A            CALICUT             695001      23100    
+c00005 AMIT            B-414           HOUSTON             214357      34000    
+
+
+
+
+Q=> 7
+-----
+SQL> SELECT * FROM ORDERDETAILS WHERE ORDER_NO IN(SELECT ORDER_NO FROM SALESORDER WHERE ORDER_DATE LIKE '%JAN%');
+
+ORDER_ PRODUC QTY_ORDERED PRODUCT_RATE                                          
+------ ------ ----------- ------------                                          
+O00001 p00001         120         1200                                          
+
+Q=> 8
+-----
+
+SQL> SELECT C.CLIENT_NO,O.ORDER_NO,O.PRODUCT_NO,O.QTY_ORDERED,O.PRODUCT_RATE FROM CLIENT C,ORDERDETA
+ILS O,SALESORDER S WHERE S.CLIENT_NO=C.CLIENT_NO AND S.ORDER_NO=O.ORDER_NO AND C.CLIENT_NO IN('c0000
+1','c00002');
+
+CLIENT ORDER_ PRODUC QTY_ORDERED PRODUCT_RATE
+------ ------ ------ ----------- ------------
+c00001 O00001 p00001         120         1200
+c00002 O19001 p00002          23         1300
+
+
+Q=> 9
+-----                                                        
+                                                                                
+
+SQL> SELECT * FROM PRODUCT WHERE SELL_PRICE>5000 AND SELL_PRICE<=10000;
+
+PRODUC DESCRIPTION     PROFIT_PERCENT QTY_ON_HAND REORDER_LEVEL SELL_PRICE      
+------ --------------- -------------- ----------- ------------- ----------      
+COST_PRICE                                                                      
+----------                                                                      
+p00001 CD DRIVE                  15.4        1200           232       6000      
+      5000                                                                      
+                                                                                
+p00002 RAM                       14.5         234           432       7000      
+      2500                                                                      
+                                                                                
+p00003 GRAPHICS CARD               25         123           700       8500      
+      3600                                                                      
+                                                                                
+
+PRODUC DESCRIPTION     PROFIT_PERCENT QTY_ON_HAND REORDER_LEVEL SELL_PRICE      
+------ --------------- -------------- ----------- ------------- ----------      
+COST_PRICE                                                                      
+----------                                                                      
+p00004 HARD_DISC                13.32         244           345       7600      
+      1234                                                                      
+                                                                                
+
+Q=> 10
+-----
+
+
+SQL> SELECT PRODUCT_NO,SELL_PRICE,(SELL_PRICE * 0.15) AS NEW_PRICE FROM PRODUCT WHERE SELL_PRICE>2000;
+
+PRODUC SELL_PRICE  NEW_PRICE                                                    
+------ ---------- ----------                                                    
+p00001       6000        900                                                    
+p00002       7000       1050                                                    
+p00003       8500       1275                                                    
+p00004       7600       1140                                                    
+
+Q=> 11
+------
+
+SQL> SELECT COUNT(*) AS TOTAL_ORDERS FROM SALESORDER;
+
+  TOTAL_ORDERS                                                                      
+--------------                                                                      
+             4                                                                      
+
+
+Q=> 12
+------
+
+SQL> SELECT AVG(SELL_PRICE) FROM PRODUCT;
+
+AVG(SELL_PRICE)                                                                 
+---------------                                                                 
+           7275                                                                 
+
+
+Q=> 13
+------
+SQL> SELECT MIN(SELL_PRICE) AS MIN_PRICE,MAX(SELL_PRICE) AS MAX_PRICE FROM PRODUCT;
+
+ MIN_PRICE  MAX_PRICE                                                           
+---------- ----------                                                           
+      6000       8500                                                           
+
+
+Q=> 14
+------
+SQL> SELECT COUNT(*) AS SELL_PRICE FROM PRODUCT WHERE SELL_PRICE>=5000;
+
+SELL_PRICE                                                                      
+----------                                                                      
+         4                                                                      
+
+
+Q=> 15
+-------
+SQL> SELECT * FROM PRODUCT WHERE QTY_ON_HAND<REORDER_LEVEL;
+
+PRODUC DESCRIPTION     PROFIT_PERCENT QTY_ON_HAND REORDER_LEVEL SELL_PRICE      
+------ --------------- -------------- ----------- ------------- ----------      
+COST_PRICE                                                                      
+----------                                                                      
+p00002 RAM                       14.5         234           432       7000      
+      2500                                                                      
+                                                                                
+p00003 GRAPHICS CARD               25         123           700       8500      
+      3600                                                                      
+                                                                                
+p00004 HARD_DISC                13.32         244           345       7600      
+      1234                                                                      
+                                                                                
+
+Q=> 16
+-------
+SQL> SELECT ORDER_NO,TO_CHAR(ORDER_DATE,'DAY') AS DAY FROM SALESORDER;
+
+ORDER_ DAY                                                                      
+------ ---------                                                                
+O00001 TUESDAY                                                                  
+O00002 THURSDAY                                                                 
+O19001 MONDAY                                                                   
+O00121 TUESDAY                                                                  
+
+ Q=> 17
+-----------
+
+SQL> SELECT ORDER_NO,TO_CHAR(DELY_DATE,'MONTH') AS MONTH,DELY_DATE FROM SALESORDER WHERE ORDER_STATUS='IN PROCESS';
+
+ORDER_ MONTH     DELY_DATE                                                      
+------ --------- ---------                                                      
+O00002 DECEMBER  12-DEC-11                                                      
+
+Q=> 18
+-------
+
+SQL> select to_char(order_date,'dd-month-yy') as order_date from salesorder;
+
+ORDER_DATE                                                                      
+---------------                                                                 
+12-january  -10                                                                 
+10-march    -11                                                                 
+13-december -10                                                                 
+22-march    -11                                                                     
+
+
+Q=> 19
+-------
+
+SQL> SELECT (SELECT SYSDATE FROM DUAL)+15 AS DAY_AFTER FROM DUAL;
+
+DAY_AFTER                                                                      
+---------                                                                       
+10-AUG-11 
+
+
+Q => 20
+----------
+SQL> UPDATE SALESORDER SET DELY_DATE='12-DEC-11' WHERE ORDER_STATUS='IN PROCESS';
+
+1 row updated.
+
+SQL> SELECT DELY_DATE,ROUND(DELY_DATE-(SELECT SYSDATE FROM DUAL),0) AS DAYS_ELAPSED FROM SALESORDER WHERE ORDER_STATUS='IN PROCESS';
+
+DELY_DATE DAYS_ELAPSED                                                          
+--------- ------------                                                          
+12-DEC-11          123                                                          
+                                                                    
+                                            
+ Q=>21
+----------
+
+SQL> select description,QTY_ORDERED FROM PRODUCT,ORDERDETAILS,SALESORDER S WHERE PRODUCT.PRODUCT_NO=ORDERDETAILS.PRODUCT_NO AND ORDERDETAILS.ORDER_NO=S.ORDER_NO AND S.ORDER_STATUS<>'CANCELED';
+
+DESCRIPTION     QTY_ORDERED                                                     
+--------------- -----------                                                     
+CD DRIVE                120                                                     
+RAM                      23                                                     
+GRAPHICS CARD           354                                                     
+HARD_DISC               150                                                     
+
+
+Q=> 22
+-------
+
+SQL> SELECT CLIENT_NO,AVG(QTY_ORDERED) FROM SALESORDER,ORDERDETAILS WHERE SALESORDER.ORDER_NO=ORDERDETAILS.ORDER_NO GROUP BY CLIENT_NO;
+
+CLIENT AVG(QTY_ORDERED)                                                         
+------ ----------------                                                         
+c00001              120                                                         
+c00003              354                                                         
+c00005               23                                                         
+
+Q=> 23
+-------
+
+SQL> SELECT DESCRIPTION FROM PRODUCT P,CLIENT C,SALESORDER S,ORDERDETAILS T WHERE C.NAME='AMIT' AND C.CLIENT_NO=S.CLIENT_NO AND S.ORDER_NO=T.ORDER_NO AND T.PRODUCT_NO=P.PRODUCT_NO;
+
+DESCRIPTION                                                                     
+---------------                                                                 
+RAM                                                                             
+
+
+Q=> 24
+-------
+
+SQL> SELECT DESCRIPTION,QTY_ORDERED FROM PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE EXTRACT(MONTH FROM S.DELY_DATE)=EXTRACT(MONTH FROM(SELECT SYSDATE FROM DUAL)) AND P.PRODUCT_NO=D.PRODUCT_NO AND S.ORDER_NO=D.ORDER_NO;
+
+DESCRIPTION     QTY_ORDERED                                                     
+--------------- -----------                                                     
+HARD_DISC               150                                                     
+
+                                                      
+Q=> 25
+-------                                                                               
+
+SQL> SELECT C.NAME FROM CLIENT C,PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE P.DESCRIPTION='CD DRIVE' AND C.CLIENT_NO=S.CLIENT_NO AND D.PRODUCT_NO=P.PRODUCT_NO AND S.ORDER_NO=D.ORDER_NO;
+
+NAME                                                                            
+---------------                                                                 
+SANDEEP                                                                         
+
+Q=> 26
+-------
+
+                 
+SQL> SELECT NAME,DESCRIPTION,QTY_ORDERED FROM PRODUCT P,ORDERDETAILS D,SALESORDER S,CLIENT C WHERE C.NAME IN('TOM','JOHN') AND S.CLIENT_NO=C.CLIENT_NO AND S.ORDER_NO=D.ORDER_NO AND D.PRODUCT_NO=P.PRODUCT_NO;
+
+NAME            DESCRIPTION     QTY_ORDERED                                     
+--------------- --------------- -----------                                     
+TOM             HARD_DISC               354                                     
+JOHN            HARD_DISC               150      
+                               
+Q=> 27
+-------
+
+                                              
+SQL> SELECT C.CLIENT_NO,DESCRIPTION,QTY_ORDERED FROM PRODUCT P,CLIENT C,SALESORDER S,ORDERDETAILS D WHERE C.CLIENT_NO IN('c00001','c00002') AND S.CLIENT_NO=C.CLIENT_NO AND P.PRODUCT_NO=D.PRODUCT_NO AND S.ORDER_NO=D.ORDER_NO;
+
+CLIENT DESCRIPTION     QTY_ORDERED                                              
+------ --------------- -----------                                              
+c00001 CD DRIVE                120                                              
+c00002 RAM                      23                                              
+
+Q=> 28
+-------                          
+
+SQL> SELECT NAME,ADDRESS,CITY,PINCODE FROM CLIENT C,SALESORDER S WHERE S.ORDER_NO='O19001' AND C.CLIENT_NO=S.CLIENT_NO;
+
+NAME            ADDRESS         CITY               PINCODE                      
+--------------- --------------- --------------- ----------                      
+SHANAVAS        TVC-243         MUMBAI              634234             
+
+Q=> 29
+-------         
+
+SQL> SELECT NAME FROM CLIENT C,SALESORDER S WHERE S.ORDER_DATE<'01-JUN-11' AND S.CLIENT_NO=C.CLIENT_NO;
+
+NAME                                                                            
+---------------                                                                 
+SANDEEP                                                                         
+TOM                                                                             
+SHANAVAS                                                                        
+JOHN                                                                            
+
+
+Q=> 30
+-------
+
+SQL> SELECT * FROM SALESMAN WHERE SALESMAN_NO IN(SELECT M.SALESMAN_NO FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO HAVING SUM(QTY_ORDERED)=(SELECT MAX(SUM(QTY_ORDERED)) FROM SALESMAN M,SALESORDER S,ORDERDETAILS D WHERE M.SALESMAN_NO=S.SALESMAN_NO AND S.ORDER_NO=D.ORDER_NO GROUP BY M.SALESMAN_NO));
+
+SALESM NAME            ADDRESS             SALARY                               
+------ --------------- --------------- ----------                               
+S00003 SUBIN           PONNANI              23000 
+
+                                                             
+Q=> 31
+-------
+                                                            
+
+SQL> SELECT C.CLIENT_NO,NAME FROM CLIENT C,PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE D.PRODUCT_NO='p00003' AND S.ORDER_NO=D.ORDER_NO AND C.CLIENT_NO=S.CLIENT_NO AND D.PRODUCT_NO=P.PRODUCT_NO;
+
+CLIENT NAME                                                                     
+------ ---------------                                                          
+c00003 TOM                                                                      
+
+Q=> 32
+-------
+       
+SQL>  SELECT NAME FROM CLIENT C,SALESORDER S,ORDERDETAILS D WHERE S.ORDER_NO IN(SELECT ORDER_NO FROM ORDERDETAILS WHERE (QTY_ORDERED*PRODUCT_RATE)>=15000) AND S.CLIENT_NO=C.CLIENT_NO AND S.ORDER_NO=D.ORDER_NO;
+
+NAME                                                                            
+---------------                                                                 
+SANDEEP                                                                         
+TOM                                                                             
+SHANAVAS                                                                        
+JOHN        
+
+
+Q=> 33
+-------
+SQL> SELECT COUNT(*) AS PARTIAL_DELIVERED FROM PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE S.DELY_TYPE='P' AND S.ORDER_NO=D.ORDER_NO AND D.PRODUCT_NO=P.PRODUCT_NO;
+
+  PARTIAL_DELIVERED                                                                    
+-------------------                                                                      
+                  1   
+
+Q=> 34
+-------
+SQL> SELECT DISTINCT DESCRIPTION FROM PRODUCT P,SALESORDER S,ORDERDETAILS D WHERE S.DELY_TYPE='F' AND S.ORDER_NO=D.ORDER_NO AND P.PRODUCT_NO=D.PRODUCT_NO;
+
+DESCRIPTION                                                                     
+---------------                                                                 
+CD DRIVE                                                                        
+HARD_DISC                                                                       
+RAM   
+
+
+
+

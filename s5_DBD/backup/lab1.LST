@@ -1,0 +1,1818 @@
+SQL> spool off
+SQL> create table department(dept_num number(3) primary key,dept_name varchar(20),location varchar(20));
+
+Table created.
+
+SQL> create table employee(employeeNum number(3) primary key,emp_name varchar(20),age int,job varchar(20),manager varchar(20),hier_date date,salary number(5),dept_num number(3) references department(dept_num));
+
+Table created.
+
+SQL> create table software(employeeNum number(3) references employee(employeeNum),package varchar(20) primary key,language varchar(20),developCost number(6),saleCost number(6));
+
+Table created.
+
+
+SQL> create table study(employeeNum number(3) references employee(employeeNum),institute varchar(20), location varchar(20));
+
+Table created.
+
+SQL> alter table employee drop column age;
+
+Table altered.
+
+SQL> alter table employee add(DOB date);
+
+Table altered.
+
+
+SQL> insert into department values(&dept_num,'&dept_name','&location');
+Enter value for dept_num: 1
+Enter value for dept_name: copmuter science
+Enter value for location: trivandrum
+old   1: insert into department values(&dept_num,'&dept_name','&location')
+new   1: insert into department values(1,'copmuter science','trivandrum')
+
+1 row created.
+
+SQL> insert into department values(1,'copmuter science','trivandrum')
+  2  ;
+
+1 row created.
+                              
+SQL> insert into department values(&dept_num,'&dept_name','&location');
+Enter value for dept_num: 2
+Enter value for dept_name: mechanical
+Enter value for location: trivandrum
+old   1: insert into department values(&dept_num,'&dept_name','&location')
+new   1: insert into department values(2,'mechanical','trivandrum')
+
+1 row created.
+
+SQL> insert into department values(&dept_num,'&dept_name','&location');
+Enter value for dept_num: 3
+Enter value for dept_name: civil
+Enter value for location: trivandrum
+old   1: insert into department values(&dept_num,'&dept_name','&location')
+new   1: insert into department values(3,'civil','trivandrum')
+
+1 row created.
+
+SQL>  insert into employee values(&employeeNum,'&emp_name','&job','&manager',&heir_date,&salary,&dept_num,&dob);
+Enter value for employeenum: 1
+Enter value for emp_name: vineeth
+Enter value for job: programmer
+Enter value for manager: sujith
+Enter value for heir_date: '11-jan-91'
+Enter value for salary: 15000
+Enter value for dept_num: 1
+Enter value for dob: '10-jan-91'
+old   1:  insert into employee values(&employeeNum,'&emp_name','&job','&manager',&heir_date,&salary,&dept_num,&dob)
+new   1:  insert into employee values(1,'vineeth','programmer','sujith','11-jan-91',15000,1,'10-jan-91')
+
+1 row created.
+
+
+SQL> insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob');
+Enter value for employeenum: 3
+Enter value for emp_name: shanavas
+Enter value for job: clerk
+Enter value for manager: HOD
+Enter value for heir_date: 12-jan-11
+Enter value for salary: 23000
+Enter value for dept_num: 1
+Enter value for dob: 12-jan-91
+old   1: insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob')
+new   1: insert into employee values(3,'shanavas','clerk','HOD','12-jan-11',23000,1,'12-jan-91')
+
+1 row created.
+
+SQL> select * from employee;
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          1 vineeth              programmer           sujith                    
+11-JAN-91      15000          1 10-JAN-91                                       
+                                                                                
+          3 shanavas             clerk                HOD                       
+12-JAN-11      23000          1 12-JAN-91                                       
+                                                                                
+
+SQL> commit;
+
+Commit complete.
+
+SQL> insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob');
+Enter value for employeenum: 4
+Enter value for emp_name: sujith
+Enter value for job: server administrator
+Enter value for manager: HOD
+Enter value for heir_date: 12-jan-09
+Enter value for salary: 30000
+Enter value for dept_num: 1
+Enter value for dob: 11-may-91
+old   1: insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob')
+new   1: insert into employee values(4,'sujith','server administrator','HOD','12-jan-09',30000,1,'11-may-91')
+
+1 row created.
+
+SQL> insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob');
+Enter value for employeenum: 5
+Enter value for emp_name: vijeesh
+Enter value for job: clerk
+Enter value for manager: vineeth
+Enter value for heir_date: 12-may-08
+Enter value for salary: 22000
+Enter value for dept_num: 2
+Enter value for dob: 12-feb-87
+old   1: insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob')
+new   1: insert into employee values(5,'vijeesh','clerk','vineeth','12-may-08',22000,2,'12-feb-87')
+
+1 row created.
+
+SQL> /
+Enter value for employeenum: 6
+Enter value for emp_name: noushad
+Enter value for job: professor
+Enter value for manager: HOD
+Enter value for heir_date: 12-jun-07
+Enter value for salary: 32000
+Enter value for dept_num: 3
+Enter value for dob: 12-mar-85
+old   1: insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob')
+new   1: insert into employee values(6,'noushad','professor','HOD','12-jun-07',32000,3,'12-mar-85')
+
+1 row created.
+                                                
+
+SQL> insert into department values(&dept_num,'&dept_name','&location');
+Enter value for dept_num: 4
+Enter value for dept_name: technical
+Enter value for location: tvm
+old   1: insert into department values(&dept_num,'&dept_name','&location')
+new   1: insert into department values(4,'technical','tvm')
+
+1 row created.
+
+SQL> /
+Enter value for dept_num: electronics
+Enter value for dept_name: 
+Enter value for location: 
+old   1: insert into department values(&dept_num,'&dept_name','&location')
+new   1: insert into department values(electronics,'','')
+insert into department values(electronics,'','')
+                              *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> /
+Enter value for dept_num: 5
+Enter value for dept_name: electronics
+Enter value for location: tvm
+old   1: insert into department values(&dept_num,'&dept_name','&location')
+new   1: insert into department values(5,'electronics','tvm')
+
+1 row created.
+
+SQL> select * from department;
+
+  DEPT_NUM DEPT_NAME            LOCATION                                        
+---------- -------------------- --------------------                            
+         1 copmuter science     trivandrum                                      
+         2 mechanical           trivandrum                                      
+         3 civil                trivandrum                                      
+         4 technical            tvm                                             
+         5 electronics          tvm                                             
+
+                                
+
+SQL> desc study
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEENUM                                        NUMBER(3)
+ INSTITUTE                                          VARCHAR2(20)
+ LOCATION                                           VARCHAR2(20)
+
+SQL> insert into study values(&employeenum,'&institute','&location');
+Enter value for employeenum: 1
+Enter value for institute: CET
+Enter value for location: trivandrum
+old   1: insert into study values(&employeenum,'&institute','&location')
+new   1: insert into study values(1,'CET','trivandrum')
+
+1 row created.
+
+
+
+
+SQL> /
+Enter value for employeenum: 4
+Enter value for institute: cet
+Enter value for location: trivandrum
+old   1: insert into study values(&employeenum,'&institute','&location')
+new   1: insert into study values(4,'cet','trivandrum')
+
+1 row created.
+
+SQL> /
+Enter value for employeenum: 3
+Enter value for institute: tkm
+Enter value for location: kollam
+old   1: insert into study values(&employeenum,'&institute','&location')
+new   1: insert into study values(3,'tkm','kollam')
+
+1 row created.
+
+SQL> /
+Enter value for employeenum: 5
+Enter value for institute: nit
+Enter value for location: calicut
+old   1: insert into study values(&employeenum,'&institute','&location')
+new   1: insert into study values(5,'nit','calicut')
+
+1 row created.
+
+SQL> /
+Enter value for employeenum: 6
+Enter value for institute: iit
+Enter value for location: delhi
+old   1: insert into study values(&employeenum,'&institute','&location')
+new   1: insert into study values(6,'iit','delhi')
+
+1 row created.
+
+SQL> insert into software values(&employeenum,'&package','&language',&developcost,&salecost);
+Enter value for employeenum: 1
+Enter value for package: emacs
+Enter value for language: python
+Enter value for developcost: 300000
+Enter value for salecost: 2000
+old   1: insert into software values(&employeenum,'&package','&language',&developcost,&salecost)
+new   1: insert into software values(1,'emacs','python',300000,2000)
+
+1 row created.
+
+
+SQL> /
+Enter value for employeenum: 3
+Enter value for package: mint package
+Enter value for language: c/c++
+Enter value for developcost: 12000
+Enter value for salecost: 1200
+old   1: insert into software values(&employeenum,'&package','&language',&developcost,&salecost)
+new   1: insert into software values(3,'mint package','c/c++',12000,1200)
+
+1 row created.
+
+SQL> /
+Enter value for employeenum: 4
+Enter value for package: chrome
+Enter value for language: python
+Enter value for developcost: 20000
+Enter value for salecost: 1200
+old   1: insert into software values(&employeenum,'&package','&language',&developcost,&salecost)
+new   1: insert into software values(4,'chrome','python',20000,1200)
+
+1 row created.
+
+SQL> /
+Enter value for employeenum: 5
+Enter value for package: yty
+Enter value for language: java
+Enter value for developcost: 23000
+Enter value for salecost: 1213
+old   1: insert into software values(&employeenum,'&package','&language',&developcost,&salecost)
+new   1: insert into software values(5,'yty','java',23000,1213)
+
+1 row created.
+
+SQL> /
+Enter value for employeenum: 6
+Enter value for package: abcd
+Enter value for language: perl
+Enter value for developcost: 43000
+Enter value for salecost: 4323
+old   1: insert into software values(&employeenum,'&package','&language',&developcost,&salecost)
+new   1: insert into software values(6,'abcd','perl',43000,4323)
+
+1 row created.
+
+SQL> commit
+  2  ;
+
+Commit complete.
+
+SQL> select * from software;
+
+EMPLOYEENUM PACKAGE              LANGUAGE             DEVELOPCOST   SALECOST    
+----------- -------------------- -------------------- ----------- ----------    
+          1 emacs                python                    300000       2000    
+          3 mint package         c/c++                      12000       1200    
+          4 chrome               python                     20000       1200    
+          5 yty                  java                       23000       1213    
+          6 abcd                 perl                       43000       4323    
+
+SQL> insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob');
+Enter value for employeenum: 2
+Enter value for emp_name: sooraj
+Enter value for job: clerk
+Enter value for manager: nithin
+Enter value for heir_date: 01-apr-10
+Enter value for salary: 9000
+Enter value for dept_num: 2
+Enter value for dob: 13-jul-85
+old   1: insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob')
+new   1: insert into employee values(2,'sooraj','clerk','nithin','01-apr-10',9000,2,'13-jul-85')
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+1)SQL> select * from employee;
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          1 vineeth              programmer           sujith                    
+11-JAN-91      15000          1 10-JAN-91                                       
+                                                                                
+          3 shanavas             clerk                HOD                       
+12-JAN-11      23000          1 12-JAN-91                                       
+                                                                                
+          4 sujith               server administrator HOD                       
+12-JAN-09      30000          1 11-MAY-91                                       
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          5 vijeesh              clerk                vineeth                   
+12-MAY-08      22000          2 12-FEB-87                                       
+                                                                                
+          6 noushad              professor            HOD                       
+12-JUN-07      32000          3 12-MAR-85                                       
+                                                                                
+          2 sooraj               clerk                nithin                    
+01-APR-10       9000          2 13-JUL-85                                       
+                                                                                
+
+6 rows selected.
+
+
+2)SQL>  select emp_name,salary from employee where(salary>8000 and salary<12000);
+
+EMP_NAME                 SALARY                                                 
+-------------------- ----------                                                 
+sooraj                     9000                                                 
+
+
+3)SQL> select emp_name from employee where(emp_name like 't%' or emp_name like 's%');
+
+EMP_NAME                                                                        
+--------------------                                                            
+shanavas                                                                        
+sujith                                                                          
+sooraj                                                                          
+
+4)SQL> select emp_name,job from employee where(job like 'm%' or job like 'p%');
+
+EMP_NAME             JOB                                                        
+-------------------- --------------------                                       
+vineeth              programmer                                                 
+noushad              professor                                                  
+
+
+5)SQL> select job from employee group by job;
+
+JOB                                                                             
+--------------------                                                            
+clerk                                                                           
+professor                                                                       
+programmer                                                                      
+server administrator                                                            
+
+6)SQL> select emp_name from employee where(dept_num=10 or dept_num =20);
+
+no rows selected
+
+SQL> select emp_name from employee where(dept_num=1 or dept_num =2);
+
+EMP_NAME                                                                        
+--------------------                                                            
+vineeth                                                                         
+shanavas                                                                        
+sujith                                                                          
+vijeesh                                                                         
+sooraj                                                                          
+
+7)SQL> select emp_name,salary,salary+0.15*salary from employee;
+
+EMP_NAME                 SALARY SALARY+0.15*SALARY                              
+-------------------- ---------- ------------------                              
+vineeth                   15000              17250                              
+shanavas                  23000              26450                              
+sujith                    30000              34500                              
+vijeesh                   22000              25300                              
+noushad                   32000              36800                              
+sooraj                     9000              10350                              
+
+6 rows selected.
+
+
+9)SQL> select emp_name,salary from employee where(salary>(select avg(salary) from employee) and job like 'p%');
+
+EMP_NAME                 SALARY                                                 
+-------------------- ----------                                                 
+noushad                   32000                                                 
+
+SQL> select sum(salary) from employee;
+
+SUM(SALARY)                                                                     
+-----------                                                                     
+     131000                                                                     
+
+SQL> select emp_name from employee where manager!=null;
+
+no rows selected
+
+SQL> select emp_name from employee where manager!='';
+
+no rows selected
+
+SQL> select emp_name from employee where manager<>'';
+
+no rows selected
+
+SQL> select sum(salary) from employee group by job;
+
+SUM(SALARY)                                                                     
+-----------                                                                     
+      54000                                                                     
+      32000                                                                     
+      15000                                                                     
+      30000                                                                     
+
+SQL> select job,sum(salary) from employee group by job;
+
+JOB                  SUM(SALARY)                                                
+-------------------- -----------                                                
+clerk                      54000                                                
+professor                  32000                                                
+programmer                 15000                                                
+server administrator       30000                                                
+
+SQL> select emp_name from employee where manager!='NULL';
+
+EMP_NAME                                                                        
+--------------------                                                            
+vineeth                                                                         
+shanavas                                                                        
+sujith                                                                          
+vijeesh                                                                         
+noushad                                                                         
+sooraj                                                                          
+
+6 rows selected.
+
+SQL> select emp_name,min(salary) from employee group by job;
+select emp_name,min(salary) from employee group by job
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select job,min(salary) from employee group by job;
+
+JOB                  MIN(SALARY)                                                
+-------------------- -----------                                                
+clerk                       9000                                                
+professor                  32000                                                
+programmer                 15000                                                
+server administrator       30000                                                
+
+SQL> select * from employee where(salary=(select min(salary) from employee group by job)) group by job;
+select * from employee where(salary=(select min(salary) from employee group by job)) group by job
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select * from employee where(salary=(select min(salary) from employee group by job));
+select * from employee where(salary=(select min(salary) from employee group by job))
+                                     *
+ERROR at line 1:
+ORA-01427: single-row subquery returns more than one row 
+
+
+SQL> select * from employee where(salary=(select min(salary) from employee)) group by job;
+select * from employee where(salary=(select min(salary) from employee)) group by job
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select * from employee where(salary=(select min(salary) from employee));
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          2 sooraj               clerk                nithin                    
+01-APR-10       9000          2 13-JUL-85                                       
+                                                                                
+
+SQL> commit
+  2  ;
+
+Commit complete.
+
+SQL> spool off;
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEENUM                               NOT NULL NUMBER(3)
+ EMP_NAME                                           VARCHAR2(20)
+ JOB                                                VARCHAR2(20)
+ MANAGER                                            VARCHAR2(20)
+ HIER_DATE                                          DATE
+ SALARY                                             NUMBER(5)
+ DEPT_NUM                                           NUMBER(3)
+ DOB                                                DATE
+
+SQL> desc department;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPT_NUM                                  NOT NULL NUMBER(3)
+ DEPT_NAME                                          VARCHAR2(20)
+ LOCATION                                           VARCHAR2(20)
+
+SQL> desc study;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEENUM                                        NUMBER(3)
+ INSTITUTE                                          VARCHAR2(20)
+ LOCATION                                           VARCHAR2(20)
+
+SQL> desc software;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEENUM                                        NUMBER(3)
+ PACKAGE                                   NOT NULL VARCHAR2(20)
+ LANGUAGE                                           VARCHAR2(20)
+ DEVELOPCOST                                        NUMBER(6)
+ SALECOST                                           NUMBER(6)
+
+SQL> select * from employee;
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          1 vineeth              programmer           sujith                    
+11-JAN-91      15000          1 10-JAN-91                                       
+                                                                                
+          3 shanavas             clerk                HOD                       
+12-JAN-11      23000          1 12-JAN-91                                       
+                                                                                
+          4 sujith               server administrator HOD                       
+12-JAN-09      30000          1 11-MAY-91                                       
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          5 vijeesh              clerk                vineeth                   
+12-MAY-08      22000          2 12-FEB-87                                       
+                                                                                
+          6 noushad              professor            HOD                       
+12-JUN-07      32000          3 12-MAR-85                                       
+                                                                                
+          2 sooraj               clerk                nithin                    
+01-APR-10       9000          2 13-JUL-85                                       
+                                                                                
+
+6 rows selected.
+
+SQL> select  * from employee group by job hving salary<=all(select salary from employee group by job);
+select  * from employee group by job hving salary<=all(select salary from employee group by job)
+                                     *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select  * from employee group by job having salary<=all(select salary from employee group by job);
+select  * from employee group by job having salary<=all(select salary from employee group by job)
+                                                               *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select  * from employee group by job having salary<=all(select salary from employee);
+select  * from employee group by job having salary<=all(select salary from employee)
+                                            *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select  * from employee group by job having salary<all(select salary from employee) or salary=all(select salary from employee);
+select  * from employee group by job having salary<all(select salary from employee) or salary=all(select salary from employee)
+                                                                                       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select  * from employee where(salary<all(select salary from employee) or salary=all(selll(selec
+  2  
+SQL> select  * from employee where(salary<all(select salary from employee) or or salary=all(select salary from employee)) group by job;
+select  * from employee where(salary<all(select salary from employee) or or salary=all(select salary from employee)) group by job
+                                    *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select * from employee where(salary<all(select salary from employee) orsalary=all(select salary from employee)) group by job;
+select * from employee where(salary<all(select salary from employee) orsalary=all(select salary from employee)) group by job
+                                   *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> desc employment;
+ERROR:
+ORA-04043: object employment does not exist 
+
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEENUM                               NOT NULL NUMBER(3)
+ EMP_NAME                                           VARCHAR2(20)
+ JOB                                                VARCHAR2(20)
+ MANAGER                                            VARCHAR2(20)
+ HIER_DATE                                          DATE
+ SALARY                                             NUMBER(5)
+ DEPT_NUM                                           NUMBER(3)
+ DOB                                                DATE
+
+SQL> select count(*) from employee group by job;
+
+  COUNT(*)                                                                      
+----------                                                                      
+         3                                                                      
+         1                                                                      
+         1                                                                      
+         1                                                                      
+
+SQL> select count(*) from employee group by dept_num;
+
+  COUNT(*)                                                                      
+----------                                                                      
+         3                                                                      
+         2                                                                      
+         1                                                                      
+
+SQL> select count(*),department.dept_name from employee group by dept_num;
+select count(*),department.dept_name from employee group by dept_num
+                *
+ERROR at line 1:
+ORA-00904: "DEPARTMENT"."DEPT_NAME": invalid identifier 
+
+
+SQL> query 14;
+SP2-0042: unknown command "query 14" - rest of line ignored.
+SQL> select count(*),dept_name from employee,department where employee.dept_num=depatrment.dept_num group by job;
+select count(*),dept_name from employee,department where employee.dept_num=depatrment.dept_num group by job
+                                                                           *
+ERROR at line 1:
+ORA-00904: "DEPATRMENT"."DEPT_NUM": invalid identifier 
+
+
+SQL> select count(*),departmen.dept_name from  employee,department where employee.dept_num=department.dept_num group by employee.dept_num;
+select count(*),departmen.dept_name from  employee,department where employee.dept_num=department.dept_num group by employee.dept_num
+                *
+ERROR at line 1:
+ORA-00904: "DEPARTMEN"."DEPT_NAME": invalid identifier 
+
+
+SQL> select count(*),department.dept_name from  employee,department where employee.dept_num=department.dept_num group by employee.dept_num;
+select count(*),department.dept_name from  employee,department where employee.dept_num=department.dept_num group by employee.dept_num
+                *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL>  select count(*),dept_name from  employee,department where employee.dept_num=department.dept_num group by employee.dept_num;
+ select count(*),dept_name from  employee,department where employee.dept_num=department.dept_num group by employee.dept_num
+                 *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select count(*),dept_name from  employee,department where employee.dept_num=department.dept_num group by dept_num;
+select count(*),dept_name from  employee,department where employee.dept_num=department.dept_num group by dept_num
+                                                                                                         *
+ERROR at line 1:
+ORA-00918: column ambiguously defined 
+
+
+SQL> select count(*),dept_name from  employee,department where employee.dept_num=department.dept_numgroup by department.dept_num;
+select count(*),dept_name from  employee,department where employee.dept_num=department.dept_numgroup by department.dept_num
+                                                                                                     *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select count(*),dept_name from  employee,department where employee.dept_num=department.dept_numgroup by employee.dept_num;
+select count(*),dept_name from  employee,department where employee.dept_num=department.dept_numgroup by employee.dept_num
+                                                                                                     *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select count(*),dept_name from  employee,department where employee.dept_num=department.dept_num group by employee.dept_num;
+select count(*),dept_name from  employee,department where employee.dept_num=department.dept_num group by employee.dept_num
+                *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> /select count(*),dept_name from  employee,department where employee.dept_num=department.dept_num group by job;
+SP2-0734: unknown command beginning "/select co..." - rest of line ignored.
+SQL> select count(*),dept_name from  employee,department where employee.dept_num=department.dept_num group by job;
+select count(*),dept_name from  employee,department where employee.dept_num=department.dept_num group by job
+                *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select * from software;
+
+EMPLOYEENUM PACKAGE              LANGUAGE             DEVELOPCOST   SALECOST    
+----------- -------------------- -------------------- ----------- ----------    
+          1 emacs                python                    300000       2000    
+          3 mint package         c/c++                      12000       1200    
+          4 chrome               python                     20000       1200    
+          5 yty                  java                       23000       1213    
+          6 abcd                 perl                       43000       4323    
+
+SQL> select emp_name,salecost from employee,software group by software.employeenum;
+select emp_name,salecost from employee,software group by software.employeenum
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select emp_name,salecost from employee,software where employee.employeenum=software.employeenum;
+
+EMP_NAME               SALECOST                                                 
+-------------------- ----------                                                 
+vineeth                    2000                                                 
+shanavas                   1200                                                 
+sujith                     1200                                                 
+vijeesh                    1213                                                 
+noushad                    4323                                                 
+
+SQL> select emp_name,salecost from employee,software where employee.employeenum=software.employeenum group by employee.emp_num;
+select emp_name,salecost from employee,software where employee.employeenum=software.employeenum group by employee.emp_num
+                                                                                                         *
+ERROR at line 1:
+ORA-00904: "EMPLOYEE"."EMP_NUM": invalid identifier 
+
+
+SQL> select emp_name,salecost from employee,software where employee.employeenum=software.employeenum group by emp_name;
+select emp_name,salecost from employee,software where employee.employeenum=software.employeenum group by emp_name
+                *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select emp_name,sum(salecost) from employee,software where employee.employeenum=software.employeenum group by emp_name;
+
+EMP_NAME             SUM(SALECOST)                                              
+-------------------- -------------                                              
+noushad                       4323                                              
+shanavas                      1200                                              
+sujith                        1200                                              
+vijeesh                       1213                                              
+vineeth                       2000                                              
+
+SQL> select count(*),dept_name from  employee,department where employee.dept_num=department.dept_numgroup by dept_name;
+select count(*),dept_name from  employee,department where employee.dept_num=department.dept_numgroup by dept_name
+                                                                                                     *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select count(*),dept_name from  employee,department where employee.dept_num=department.dept_num group by dept_name;
+
+  COUNT(*) DEPT_NAME                                                            
+---------- --------------------                                                 
+         1 civil                                                                
+         3 copmuter science                                                     
+         2 mechanical                                                           
+
+SQL> select emp_name,count(*) from employee,software where employee.employeenum=software.employeenum group by emp_name;
+
+EMP_NAME               COUNT(*)                                                 
+-------------------- ----------                                                 
+noushad                       1                                                 
+shanavas                      1                                                 
+sujith                        1                                                 
+vijeesh                       1                                                 
+vineeth                       1                                                 
+
+SQL> select min(salary) from employee group by job;
+
+MIN(SALARY)                                                                     
+-----------                                                                     
+       9000                                                                     
+      32000                                                                     
+      15000                                                                     
+      30000                                                                     
+
+SQL> select *  from employee where salary<all(select min(salary) from employee group by job) or salary=all(select min(salary) from employee group by job) group by job;
+select *  from employee where salary<all(select min(salary) from employee group by job) or salary=all(select min(salary) from employee group by job) group by job
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select *  from employee where salary<all(select min(salary) from employee group by job) or salary=all(select min(salary) from employee group by job);
+
+no rows selected
+
+SQL> select *  from employee where salary=all(select min(salary) from employee group by job);
+
+no rows selected
+
+SQL> select *  from employee where salary=all(select min(salary) from employee) group by job;
+select *  from employee where salary=all(select min(salary) from employee) group by job
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select *  from employee where salary=(select min(salary) from employee) group by job;
+select *  from employee where salary=(select min(salary) from employee) group by job
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select * from employee t where salary=(select min(salary) from employee where job=t.job);
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          1 vineeth              programmer           sujith                    
+11-JAN-91      15000          1 10-JAN-91                                       
+                                                                                
+          4 sujith               server administrator HOD                       
+12-JAN-09      30000          1 11-MAY-91                                       
+                                                                                
+          6 noushad              professor            HOD                       
+12-JUN-07      32000          3 12-MAR-85                                       
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          2 sooraj               clerk                nithin                    
+01-APR-10       9000          2 13-JUL-85                                       
+                                                                                
+
+SQL> ooraj
+SP2-0042: unknown command "ooraj" - rest of line ignored.
+SQL> select * from employee;
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          1 vineeth              programmer           sujith                    
+11-JAN-91      15000          1 10-JAN-91                                       
+                                                                                
+          3 shanavas             clerk                HOD                       
+12-JAN-11      23000          1 12-JAN-91                                       
+                                                                                
+          4 sujith               server administrator HOD                       
+12-JAN-09      30000          1 11-MAY-91                                       
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          5 vijeesh              clerk                vineeth                   
+12-MAY-08      22000          2 12-FEB-87                                       
+                                                                                
+          6 noushad              professor            HOD                       
+12-JUN-07      32000          3 12-MAR-85                                       
+                                                                                
+          2 sooraj               clerk                nithin                    
+01-APR-10       9000          2 13-JUL-85                                       
+                                                                                
+
+6 rows selected.
+
+SQL> insert into employee values(&employeeNum,'&emp_name','&job','&manager',&heir_date,&salary,&dept_num,&dob);
+Enter value for employeenum: 7
+Enter value for emp_name: subin
+Enter value for job: manager
+Enter value for manager: sujith
+Enter value for heir_date: '12-jan-99'
+Enter value for salary: 120000
+Enter value for dept_num: 4
+Enter value for dob: '11-apr-91'
+old   1: insert into employee values(&employeeNum,'&emp_name','&job','&manager',&heir_date,&salary,&dept_num,&dob)
+new   1: insert into employee values(7,'subin','manager','sujith','12-jan-99',120000,4,'11-apr-91')
+insert into employee values(7,'subin','manager','sujith','12-jan-99',120000,4,'11-apr-91')
+                                                                     *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allows for this column 
+
+
+SQL> /
+Enter value for employeenum: 7
+Enter value for emp_name: subin
+Enter value for job: manager
+Enter value for manager: abcd
+Enter value for heir_date: '12-jan-99'
+Enter value for salary: 80000
+Enter value for dept_num: 4
+Enter value for dob: '12-apr-91'
+old   1: insert into employee values(&employeeNum,'&emp_name','&job','&manager',&heir_date,&salary,&dept_num,&dob)
+new   1: insert into employee values(7,'subin','manager','abcd','12-jan-99',80000,4,'12-apr-91')
+
+1 row created.
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEENUM                               NOT NULL NUMBER(3)
+ EMP_NAME                                           VARCHAR2(20)
+ JOB                                                VARCHAR2(20)
+ MANAGER                                            VARCHAR2(20)
+ HIER_DATE                                          DATE
+ SALARY                                             NUMBER(5)
+ DEPT_NUM                                           NUMBER(3)
+ DOB                                                DATE
+
+SQL> /
+Enter value for employeenum: 8
+Enter value for emp_name: sonu
+Enter value for job: programmer
+Enter value for manager: subin
+Enter value for heir_date: '12-dec-99'
+Enter value for salary: 10200
+Enter value for dept_num: 10
+Enter value for dob: '12-feb-91'
+old   1: insert into employee values(&employeeNum,'&emp_name','&job','&manager',&heir_date,&salary,&dept_num,&dob)
+new   1: insert into employee values(8,'sonu','programmer','subin','12-dec-99',10200,10,'12-feb-91')
+insert into employee values(8,'sonu','programmer','subin','12-dec-99',10200,10,'12-feb-91')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (S0961.SYS_C0036433) violated - parent key not 
+found 
+
+
+SQL> select * from employee;
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          7 subin                manager              abcd                      
+12-JAN-99      80000          4 12-APR-91                                       
+                                                                                
+          1 vineeth              programmer           sujith                    
+11-JAN-91      15000          1 10-JAN-91                                       
+                                                                                
+          3 shanavas             clerk                HOD                       
+12-JAN-11      23000          1 12-JAN-91                                       
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          4 sujith               server administrator HOD                       
+12-JAN-09      30000          1 11-MAY-91                                       
+                                                                                
+          5 vijeesh              clerk                vineeth                   
+12-MAY-08      22000          2 12-FEB-87                                       
+                                                                                
+          6 noushad              professor            HOD                       
+12-JUN-07      32000          3 12-MAR-85                                       
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          2 sooraj               clerk                nithin                    
+01-APR-10       9000          2 13-JUL-85                                       
+                                                                                
+
+7 rows selected.
+
+SQL> select * from department;
+
+  DEPT_NUM DEPT_NAME            LOCATION                                        
+---------- -------------------- --------------------                            
+         1 copmuter science     trivandrum                                      
+         2 mechanical           trivandrum                                      
+         3 civil                trivandrum                                      
+         4 technical            tvm                                             
+         5 electronics          tvm                                             
+
+SQL> insert into department values(&dept_num,'&dept_name','&location');
+Enter value for dept_num: 10
+Enter value for dept_name: HR
+Enter value for location: tvm
+old   1: insert into department values(&dept_num,'&dept_name','&location')
+new   1: insert into department values(10,'HR','tvm')
+
+1 row created.
+
+SQL> alter table employee modify hier_date hire_date date;
+alter table employee modify hier_date hire_date date
+                                                *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> spool off;
+SQL> desc software;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEENUM                                        NUMBER(3)
+ PACKAGE                                   NOT NULL VARCHAR2(20)
+ LANGUAGE                                           VARCHAR2(20)
+ DEVELOPCOST                                        NUMBER(6)
+ SALECOST                                           NUMBER(6)
+
+SQL> select language,count(package) from software where developcost<20000 group by language;
+
+LANGUAGE             COUNT(PACKAGE)                                             
+-------------------- --------------                                             
+c/c++                             1                                             
+
+SQL> insert into software values(&employeenum,'&package','&language',&developcost,&salecost);
+Enter value for employeenum: 2
+Enter value for package: msofffice
+Enter value for language: pascal
+Enter value for developcost: 500000
+Enter value for salecost: 34457
+old   1: insert into software values(&employeenum,'&package','&language',&developcost,&salecost)
+new   1: insert into software values(2,'msofffice','pascal',500000,34457)
+
+1 row created.
+
+SQL> /
+Enter value for employeenum: 3
+Enter value for package: abcdefg
+Enter value for language: pascal
+Enter value for developcost: 123456
+Enter value for salecost: 1213
+old   1: insert into software values(&employeenum,'&package','&language',&developcost,&salecost)
+new   1: insert into software values(3,'abcdefg','pascal',123456,1213)
+
+1 row created.
+
+SQL> select package from software where developcost=(select max(developcost) from software where language =pascal);
+select package from software where developcost=(select max(developcost) from software where language =pascal)
+                                                                                                      *
+ERROR at line 1:
+ORA-00904: "PASCAL": invalid identifier 
+
+
+SQL> select package from software where developcost=(select max(developcost) from software where language = 'pascal');
+
+PACKAGE                                                                         
+--------------------                                                            
+msofffice                                                                       
+
+SQL> select * from software;
+
+EMPLOYEENUM PACKAGE              LANGUAGE             DEVELOPCOST   SALECOST    
+----------- -------------------- -------------------- ----------- ----------    
+          1 emacs                python                    300000       2000    
+          3 mint package         c/c++                      12000       1200    
+          4 chrome               python                     20000       1200    
+          5 yty                  java                       23000       1213    
+          6 abcd                 perl                       43000       4323    
+          2 msofffice            pascal                    500000      34457    
+          3 abcdefg              pascal                    123456       1213    
+
+7 rows selected.
+
+SQL> alter table employee change hier_date hire_date date;
+alter table employee change hier_date hire_date date
+                     *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> alter table employee change(heir_date) hire_date date;
+alter table employee change(heir_date) hire_date date
+                     *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> select package from software where developcost=(select min(developcost) from software where language = 'pascal');
+
+PACKAGE                                                                         
+--------------------                                                            
+abcdefg                                                                         
+
+SQL> select language from software where count(package)=(select max(count(*)) from software group by language) group by language;
+select language from software where count(package)=(select max(count(*)) from software group by language) group by language
+                                    *
+ERROR at line 1:
+ORA-00934: group function is not allowed here 
+
+
+SQL> select language from software group by language having count(package)=(select max(count(*)) from software group by language);
+
+LANGUAGE                                                                        
+--------------------                                                            
+pascal                                                                          
+python                                                                          
+
+SQL> desc study;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEENUM                                        NUMBER(3)
+ INSTITUTE                                          VARCHAR2(20)
+ LOCATION                                           VARCHAR2(20)
+
+SQL> desc software;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEENUM                                        NUMBER(3)
+ PACKAGE                                   NOT NULL VARCHAR2(20)
+ LANGUAGE                                           VARCHAR2(20)
+ DEVELOPCOST                                        NUMBER(6)
+ SALECOST                                           NUMBER(6)
+
+SQL> select institute from software,study where study.employeenum=software.employeenum and software.developcost=(select max(developcost) from software);
+
+no rows selected
+
+SQL> select * from study;
+
+EMPLOYEENUM INSTITUTE            LOCATION                                       
+----------- -------------------- --------------------                           
+          1 CET                  trivandrum                                     
+          4 cet                  trivandrum                                     
+          3 tkm                  kollam                                         
+          5 nit                  calicut                                        
+          6 iit                  delhi                                          
+
+SQL> insert into study values(&employeenum,'&institute','&location');
+Enter value for employeenum: 2
+Enter value for institute: kgptc calicut
+Enter value for location: calicut
+old   1: insert into study values(&employeenum,'&institute','&location')
+new   1: insert into study values(2,'kgptc calicut','calicut')
+
+1 row created.
+
+SQL> select institute from software,study where study.employeenum=software.employeenum and software.developcost=(select max(developcost) from software);
+
+INSTITUTE                                                                       
+--------------------                                                            
+kgptc calicut                                                                   
+
+SQL> spooloff;
+SP2-0042: unknown command "spooloff" - rest of line ignored.
+SQL> spool off;
+SQL> select salary,institute from study,employee where employee.employeenum=study.employeenum and employeenum=(select employeenum from software where developcost=(select max(developcost) from software));
+select salary,institute from study,employee where employee.employeenum=study.employeenum and employeenum=(select employeenum from software where developcost=(select max(developcost) from software))
+                                                                                             *
+ERROR at line 1:
+ORA-00918: column ambiguously defined 
+
+
+SQL> select salary,institute from study,employee,software where employee.employeenum=study.employeenum and employeenum=(select employeenum from software where developcost=(select max(developcost) from software));
+select salary,institute from study,employee,software where employee.employeenum=study.employeenum and employeenum=(select employeenum from software where developcost=(select max(developcost) from software))
+                                                                                                      *
+ERROR at line 1:
+ORA-00918: column ambiguously defined 
+
+
+SQL> select salary,institute from study,employee,software where employee.employeenum=study.employeenum and study.employeenum=(select employeenum from software where developcost=(select max(developcost) from software));
+
+    SALARY INSTITUTE                                                            
+---------- --------------------                                                 
+      9000 kgptc calicut                                                        
+      9000 kgptc calicut                                                        
+      9000 kgptc calicut                                                        
+      9000 kgptc calicut                                                        
+      9000 kgptc calicut                                                        
+      9000 kgptc calicut                                                        
+      9000 kgptc calicut                                                        
+
+7 rows selected.
+
+SQL> select distinct salary,institute from study,employee,software where employee.employeenum=study.employeenum and study.employeenum=(select employeenum from software where developcost=(select max(developcost) from software));
+
+    SALARY INSTITUTE                                                            
+---------- --------------------                                                 
+      9000 kgptc calicut                                                        
+
+SQL> select count(package),employeenum group by employeenum having ;
+select count(package),employeenum group by employeenum having 
+                                  *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select count(package),employeenum from software group by employeenum having developcost=(select min(developcost) from software);
+select count(package),employeenum from software group by employeenum having developcost=(select min(developcost) from software)
+                                                                            *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select count(*),,employeenum from software group by employeenum having developcost=(select;
+select count(*),,employeenum from software group by employeenum having developcost=(select
+                *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select count(*),employeenum from software group by employeenum having developcost=(select min(developcost) from software);
+select count(*),employeenum from software group by employeenum having developcost=(select min(developcost) from software)
+                                                                      *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL>  select count(*) from software group by employeenum having developcost=(select min(developcost) from software);
+ select count(*) from software group by employeenum having developcost=(select min(developcost) from software)
+                                                           *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select count(*) from software where employeenum=(select employeenum from software where developcost=(select min(developcost) from software));
+
+  COUNT(*)                                                                      
+----------                                                                      
+         2                                                                      
+
+SQL> select * from software;
+
+EMPLOYEENUM PACKAGE              LANGUAGE             DEVELOPCOST   SALECOST    
+----------- -------------------- -------------------- ----------- ----------    
+          1 emacs                python                    300000       2000    
+          3 mint package         c/c++                      12000       1200    
+          4 chrome               python                     20000       1200    
+          5 yty                  java                       23000       1213    
+          6 abcd                 perl                       43000       4323    
+          2 msofffice            pascal                    500000      34457    
+          3 abcdefg              pascal                    123456       1213    
+
+7 rows selected.
+
+SQL> select * from employee group by salary;
+select * from employee group by salary
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select * from employee;
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          7 subin                manager              abcd                      
+12-JAN-99      80000          4 12-APR-91                                       
+                                                                                
+          1 vineeth              programmer           sujith                    
+11-JAN-91      15000          1 10-JAN-91                                       
+                                                                                
+          3 shanavas             clerk                HOD                       
+12-JAN-11      23000          1 12-JAN-91                                       
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          4 sujith               server administrator HOD                       
+12-JAN-09      30000          1 11-MAY-91                                       
+                                                                                
+          5 vijeesh              clerk                vineeth                   
+12-MAY-08      22000          2 12-FEB-87                                       
+                                                                                
+          6 noushad              professor            HOD                       
+12-JUN-07      32000          3 12-MAR-85                                       
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          2 sooraj               clerk                nithin                    
+01-APR-10       9000          2 13-JUL-85                                       
+                                                                                
+
+7 rows selected.
+
+SQL> select * from employee where salary in (select * from employee where count(*)>1 group by salary) order by salary;
+select * from employee where salary in (select * from employee where count(*)>1 group by salary) order by salary
+                                                                     *
+ERROR at line 1:
+ORA-00934: group function is not allowed here 
+
+
+SQL> select * from employee where salary in (select salary from employee where count(*)>1 group by salary) order by salary;
+select * from employee where salary in (select salary from employee where count(*)>1 group by salary) order by salary
+                                                                          *
+ERROR at line 1:
+ORA-00934: group function is not allowed here 
+
+
+SQL> select * from employee where salary in (select salary from employee group by salary having count(*)>1) order by salary;
+
+no rows selected
+
+SQL> insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob');
+Enter value for employeenum: 7
+Enter value for emp_name: abcd
+Enter value for job: manager
+Enter value for manager: GM
+Enter value for heir_date: 12-jan-97
+Enter value for salary: 30000
+Enter value for dept_num: 4
+Enter value for dob: 12-feb-80
+old   1: insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob')
+new   1: insert into employee values(7,'abcd','manager','GM','12-jan-97',30000,4,'12-feb-80')
+insert into employee values(7,'abcd','manager','GM','12-jan-97',30000,4,'12-feb-80')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (S0961.SYS_C0036432) violated 
+
+
+SQL> /
+Enter value for employeenum: 8
+Enter value for emp_name: abcd
+Enter value for job: manager
+Enter value for manager: GM
+Enter value for heir_date: 12-jan-98
+Enter value for salary: 30000
+Enter value for dept_num: 3
+Enter value for dob: 12-dec-81
+old   1: insert into employee values(&employeeNum,'&emp_name','&job','&manager','&heir_date',&salary,&dept_num,'&dob')
+new   1: insert into employee values(8,'abcd','manager','GM','12-jan-98',30000,3,'12-dec-81')
+
+1 row created.
+
+SQL> select * from employee where salary in (select salary from employee group by salary having count(*)>1) order by salary;
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          4 sujith               server administrator HOD                       
+12-JAN-09      30000          1 11-MAY-91                                       
+                                                                                
+          8 abcd                 manager              GM                        
+12-JAN-98      30000          3 12-DEC-81                                       
+                                                                                
+
+SQL> select employeename,dob from employee where (extract month from dob)='JAN';
+select employeename,dob from employee where (extract month from dob)='JAN'
+                                                     *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> select employeename,dob from employee where dob like 'JAN';
+select employeename,dob from employee where dob like 'JAN'
+       *
+ERROR at line 1:
+ORA-00904: "EMPLOYEENAME": invalid identifier 
+
+
+SQL> select empname,dob from employee where dob like 'JAN';
+select empname,dob from employee where dob like 'JAN'
+       *
+ERROR at line 1:
+ORA-00904: "EMPNAME": invalid identifier 
+
+
+SQL> select empname,dob from employee where dob like '%JAN';
+select empname,dob from employee where dob like '%JAN'
+       *
+ERROR at line 1:
+ORA-00904: "EMPNAME": invalid identifier 
+
+
+SQL> select emp_name,dob from employee where dob like '%JAN';
+
+no rows selected
+
+SQL> select emp_name,dob from employee where dob like '%FEB';
+
+no rows selected
+
+SQL> select emp_name,dob from employee where dob like '%MAY';
+
+no rows selected
+
+SQL> select emp_name,dob from employee where dob like '%MAY%';
+
+EMP_NAME             DOB                                                        
+-------------------- ---------                                                  
+sujith               11-MAY-91                                                  
+
+SQL> select emp_name,dob from employee where dob like '%JAN%';
+
+EMP_NAME             DOB                                                        
+-------------------- ---------                                                  
+vineeth              10-JAN-91                                                  
+shanavas             12-JAN-91                                                  
+
+SQL> select emp_name,(select sysdate from dual-hier_date)/356 as experiance from employee;
+select emp_name,(select sysdate from dual-hier_date)/356 as experiance from employee
+                                         *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off;
+SQL> select * from employee;
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          7 subin                manager              abcd                      
+12-JAN-99      80000          4 12-APR-91                                       
+                                                                                
+          8 abcd                 manager              GM                        
+12-JAN-98      30000          3 12-DEC-81                                       
+                                                                                
+          1 vineeth              programmer           sujith                    
+11-JAN-91      15000          1 10-JAN-91                                       
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          3 shanavas             clerk                HOD                       
+12-JAN-11      23000          1 12-JAN-91                                       
+                                                                                
+          4 sujith               server administrator HOD                       
+12-JAN-09      30000          1 11-MAY-91                                       
+                                                                                
+          5 vijeesh              clerk                vineeth                   
+12-MAY-08      22000          2 12-FEB-87                                       
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          6 noushad              professor            HOD                       
+12-JUN-07      32000          3 12-MAR-85                                       
+                                                                                
+          2 sooraj               clerk                nithin                    
+01-APR-10       9000          2 13-JUL-85                                       
+                                                                                
+
+8 rows selected.
+
+SQL> select * from software;
+
+EMPLOYEENUM PACKAGE              LANGUAGE             DEVELOPCOST   SALECOST    
+----------- -------------------- -------------------- ----------- ----------    
+          1 emacs                python                    300000       2000    
+          3 mint package         c/c++                      12000       1200    
+          4 chrome               python                     20000       1200    
+          5 yty                  java                       23000       1213    
+          6 abcd                 perl                       43000       4323    
+          2 msofffice            pascal                    500000      34457    
+          3 abcdefg              pascal                    123456       1213    
+
+7 rows selected.
+
+SQL> alter table rename hier_date hire_date;
+alter table rename hier_date hire_date
+            *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> alter table employee rename hier_date hire_date;
+alter table employee rename hier_date hire_date
+                            *
+ERROR at line 1:
+ORA-14155: missing PARTITION or SUBPARTITION keyword 
+
+
+SQL> alter table employee rename 'hier_date' hire_date;
+alter table employee rename 'hier_date' hire_date
+                            *
+ERROR at line 1:
+ORA-14155: missing PARTITION or SUBPARTITION keyword 
+
+
+SQL> alter table employee rename hier_date to hire_date;
+alter table employee rename hier_date to hire_date
+                            *
+ERROR at line 1:
+ORA-14155: missing PARTITION or SUBPARTITION keyword 
+
+
+SQL> update employee set job='programmer' where employeenum!=7 and employeenum!=8;
+
+6 rows updated.
+
+SQL> select emp
+  2  _name,((select sysdate from dual)-hier_date)/365 as experience from employee where job='programmer' order 2 desc;
+_name,((select sysdate from dual)-hier_date)/365 as experience from employee where job='programmer' order 2 desc
+*
+ERROR at line 2:
+ORA-00911: invalid character 
+
+
+SQL>  select emp_name,((select sysdate from dual)-hier_date)/365 as experience from employee where job='programmer' order 2 desc;
+ select emp_name,((select sysdate from dual)-hier_date)/365 as experience from employee where job='programmer' order 2 desc
+                                                                                                                     *
+ERROR at line 1:
+ORA-00924: missing BY keyword 
+
+
+SQL> select emp_name,((select sysdate from dual)-hier_date)/365 as experience from employee where job='programmer' order by 2 desc;
+
+EMP_NAME             EXPERIENCE                                                 
+-------------------- ----------                                                 
+vineeth              20.5327126                                                 
+noushad              4.10531535                                                 
+vijeesh              3.18750713                                                 
+sujith               2.51627426                                                 
+sooraj                1.2998359                                                 
+shanavas             .516274258                                                 
+
+6 rows selected.
+
+SQL> select emp_name,dob from employee where exctract month from dob = exctract month from (select sysdate from dual);
+select emp_name,dob from employee where exctract month from dob = exctract month from (select sysdate from dual)
+                                                 *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> elect emp_name,dob from employee where exctract(month from dob) = exctract(month from (select sysdate from dual));
+SP2-0734: unknown command beginning "elect emp_..." - rest of line ignored.
+SQL> select emp_name,dob from employee where exctract(month from dob) = exctract(month from (select sysdate from dual));
+select emp_name,dob from employee where exctract(month from dob) = exctract(month from (select sysdate from dual))
+                                                       *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> select emp_name,dob from employee where extract(month from dob) = extract(month from (select sysdate from dual));
+
+EMP_NAME             DOB                                                        
+-------------------- ---------                                                  
+sooraj               13-JUL-85                                                  
+
+SQL> select * from employee where employeenum = (
+  2  select employeenum from employee where ((select sysdate from dual)-hier_date)/365=(
+  3  select min(((select sysdate from dual)-hier_date)/365) from employee));
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          3 shanavas             programmer           HOD                       
+12-JAN-11      23000          1 12-JAN-91                                       
+                                                                                
+
+SQL> commit;
+
+Commit complete.
+
+SQL> update employee set dob='12-feb-90' where employeenum=4;
+
+1 row updated.
+
+SQL> update employee set dob='10-apr-90' where employeenum=6
+  2  ;
+
+1 row updated.
+
+SQL> update employee set dob='17-aug-90' where employeenum=1;
+
+1 row updated.
+
+SQL> select emp_name from employee where employeenum = (
+  2  select employeenum from employee where ((select sysdate from dual)-dob)/365=( select min(((select sysdate from dual)-dob)/365)) and extract(year from dob)=1990) and job='programmer;
+ERROR:
+ORA-01756: quoted string not properly terminated 
+
+
+SQL> select emp_name from employee where employeenum = (select employeenum from employee where ((select sysdate from dual)-dob)/365=( select min(((select sysdate from dual)-dob)/365)) and extract(year from dob)=1990) and job='programmer';
+select emp_name from employee where employeenum = (select employeenum from employee where ((select sysdate from dual)-dob)/365=( select min(((select sysdate from dual)-dob)/365)) and extract(year from dob)=1990) and job='programmer'
+                                                                                                                                                                                 *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select select * from employee where employeenum = ( select employeenum from employee where ((select sysdate from dual)-hier_date)/365=(select min(((select sysdate from dual)-hier_date)/365) from employee)) and dob like '%90%';
+select select * from employee where employeenum = ( select employeenum from employee where ((select sysdate from dual)-hier_date)/365=(select min(((select sysdate from dual)-hier_date)/365) from employee)) and dob like '%90%'
+       *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select * from employee where employeenum = ( select employeenum from employee where ((select sysdate from dual)-hier_date)/365=(select min(((select sysdate from dual)-hier_date)/365) fromemployee)) and dob like '%90%';
+select * from employee where employeenum = ( select employeenum from employee where ((select sysdate from dual)-hier_date)/365=(select min(((select sysdate from dual)-hier_date)/365) fromemployee)) and dob like '%90%'
+                                                                                                                                                                                                   *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select emp_name from employee where employeenum = ( select employeenum from employee where ((select sysdate from dual)-dob)/365=(select min(((select sysdate from dual)-dob)/365) fromemployee)) and dob like '%90%';
+select emp_name from employee where employeenum = ( select employeenum from employee where ((select sysdate from dual)-dob)/365=(select min(((select sysdate from dual)-dob)/365) fromemployee)) and dob like '%90%'
+                                                                                                                                                                                              *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select emp_name from employee where employeenum = ( select employeenum from employee where ((se;
+select emp_name from employee where employeenum = ( select employeenum from employee where ((se
+                                                    *
+ERROR at line 1:
+ORA-00921: unexpected end of SQL command 
+
+
+SQL> selct emp_name from employee where dob=(select min(dob) from employee where dob like '%90%');
+SP2-0734: unknown command beginning "selct emp_..." - rest of line ignored.
+SQL> select emp_name from employee where dob=(select min(dob) from employee where dob like '%90%');
+
+EMP_NAME                                                                        
+--------------------                                                            
+sujith                                                                          
+
+SQL> select extract(year from hier_date),count(*) from employee group by extract(year from hier_date) having count(*)=(
+  2  select max(count(*)) from employee group by extract(year from hier_date));
+
+EXTRACT(YEARFROMHIER_DATE)   COUNT(*)                                           
+-------------------------- ----------                                           
+                      1991          1                                           
+                      1998          1                                           
+                      1999          1                                           
+                      2007          1                                           
+                      2008          1                                           
+                      2009          1                                           
+                      2010          1                                           
+                      2011          1                                           
+
+8 rows selected.
+
+SQL> select * from employee;
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          7 subin                manager              abcd                      
+12-JAN-99      80000          4 12-APR-91                                       
+                                                                                
+          8 abcd                 manager              GM                        
+12-JAN-98      30000          3 12-DEC-81                                       
+                                                                                
+          1 vineeth              programmer           sujith                    
+11-JAN-91      15000          1 17-AUG-90                                       
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          3 shanavas             programmer           HOD                       
+12-JAN-11      23000          1 12-JAN-91                                       
+                                                                                
+          4 sujith               programmer           HOD                       
+12-JAN-09      30000          1 12-FEB-90                                       
+                                                                                
+          5 vijeesh              programmer           vineeth                   
+12-MAY-08      22000          2 12-FEB-87                                       
+                                                                                
+
+EMPLOYEENUM EMP_NAME             JOB                  MANAGER                   
+----------- -------------------- -------------------- --------------------      
+HIER_DATE     SALARY   DEPT_NUM DOB                                             
+--------- ---------- ---------- ---------                                       
+          6 noushad              programmer           HOD                       
+12-JUN-07      32000          3 10-APR-90                                       
+                                                                                
+          2 sooraj               programmer           nithin                    
+01-APR-10       9000          2 13-JUL-85                                       
+                                                                                
+
+8 rows selected.
+
+SQL> update employee set hier_date ='12-jan-08' where emloyeenum=4;
+update employee set hier_date ='12-jan-08' where emloyeenum=4
+                                                 *
+ERROR at line 1:
+ORA-00904: "EMLOYEENUM": invalid identifier 
+
+
+SQL> update employee set hier_date ='12-jan-08' where employeenum=4;
+
+1 row updated.
+
+SQL> select extract(year from hier_date),count(*) from employee group by extract(year from hier_date) having count(*)=(
+  2    2  select max(count(*)) from employee group by extract(year from hier_date));
+  2  select max(count(*)) from employee group by extract(year from hier_date))
+     *
+ERROR at line 2:
+ORA-00907: missing right parenthesis 
+
+
+SQL> select extract(year from hier_date),count(*) from employee group by extract(year from hier_date) having count(*)=(select max(count(*)) from employee group by extract(year from hier_date));
+
+EXTRACT(YEARFROMHIER_DATE)   COUNT(*)                                           
+-------------------------- ----------                                           
+                      2008          2                                           
+
+SQL> select extract(year from hier_date),count(*) from employee group by extract(year from hier_dateselect extract(year from dob),count(*) from employee group by extract(year from hier_date) having count(*)=(
+  2  
+SQL> 
+SQL>  select extract(year from dob),count(*) from employee group by extract(year from dob) having count(*)=(select max(count(*)) from employee group by extract(year from dob));
+
+EXTRACT(YEARFROMDOB)   COUNT(*)                                                 
+-------------------- ----------                                                 
+                1990          3                                                 
+
+SQL> select emp_name from employee where emp_name like'_____' and job='programmer';
+
+no rows selected
+
+SQL> select emp_name from employee where emp_name like'_____%' and job='programmer';
+
+EMP_NAME                                                                        
+--------------------                                                            
+vineeth                                                                         
+shanavas                                                                        
+sujith                                                                          
+vijeesh                                                                         
+noushad                                                                         
+sooraj                                                                          
+
+6 rows selected.
+
+SQL> select emp_name from employee where emp_name like'_____';
+
+EMP_NAME                                                                        
+--------------------                                                            
+subin                                                                           
+
+SQL> select lower(package) as package,upper(emp_name) as name from employee,software where employee.employeenum=software.employeenum;
+
+PACKAGE              NAME                                                       
+-------------------- --------------------                                       
+emacs                VINEETH                                                    
+abcdefg              SHANAVAS                                                   
+mint package         SHANAVAS                                                   
+chrome               SUJITH                                                     
+yty                  VIJEESH                                                    
+abcd                 NOUSHAD                                                    
+msofffice            SOORAJ                                                     
+
+7 rows selected.
+
+SQL> spool off;
+SQL> select count(distinct job) from employee;
+
+COUNT(DISTINCTJOB)                                                              
+------------------                                                              
+                 2                                                              
+
+SQL> spool off;
