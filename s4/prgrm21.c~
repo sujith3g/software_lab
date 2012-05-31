@@ -1,0 +1,115 @@
+/*to perform traversals on graph*/
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+  int data;
+  int visited;
+  struct node *rlink;
+  struct node *dlink;
+}*head,*rptr,*ptr,*ptrloc,*new;
+struct node * search(int value)
+{
+  ptr=head;
+  while(ptr!=NULL)
+    {
+     if(ptr->data==value)
+	return(ptr);
+      ptr=ptr->dlink;
+    }
+}
+void insertion()
+{
+  struct node *new;
+  int item,value,check;
+  ptr=head;
+  printf("Enter the item to be inserted:");
+  scanf("%d",&item);
+  printf("hi\n");
+  //new=(struct node*)malloc(sizeof(struct node*));
+  printf("after new\n");
+  new->data=item;
+  new->rlink=NULL;
+  new->dlink=NULL;
+  printf("The value copied to a new node\n\n");
+  if(head==NULL)  //first node..not connected to any other node
+    {
+      head=new;
+      return;
+    }
+  else
+    {
+      while(ptr->dlink!=NULL)
+	ptr=ptr->dlink;
+      printf("hai\n");
+      ptr->dlink=new;
+      }
+  /*  rptr=new;
+  printf("Enter the values to which it is connected\nEnterspace between values.ENTER considered termination\n");
+  while(value!='\n')
+  {
+    scanf("%d",&value);
+    ptrloc=search(value);
+    if(ptrloc!=NULL)   //the value entered exists..the new node is connected
+      {
+        new=(struct node *)malloc(sizeof(struct node *));
+        new->data=value;
+        new->dlink=NULL;
+        new->rlink=NULL;
+        rptr->rlink=new;
+        rptr=new;
+
+	new=(struct node *)malloc(sizeof(struct node *));  //adding the enterd number to the end previous nodes
+	new->data=item;
+	new->dlink=NULL;
+	new->rlink=NULL;
+	while(ptrloc->rlink!=NULL)
+	  ptrloc=ptrloc->rlink;
+	ptrloc->rlink=new;
+      }
+    else   //the value not already in graph.could not connect!!!
+      {
+	printf("The value you said did not exist in graph...\nCOULDNOT CONNECT\nEnter the values correctly..\n");
+      }
+   }*/
+}
+void bfs()
+{
+}
+void dfs()
+{
+}
+void display()
+{
+}
+void main()
+{
+  int ch,item;
+  char ans;
+do
+  {
+  printf("\t\tMENU\n1.Inserting a node\n2.Breadth first traversal\n3.Depth first traversal\n4.Display\nEnter your choice:");
+  scanf("%d",&ch);
+  switch(ch)
+    {
+    case 1:
+      new=(struct node*)malloc(sizeof(struct node*));
+      insertion();
+       break;
+    case 2:
+      bfs();
+      break;
+    case 3:
+      dfs();
+      break;
+    case 4:
+      display();
+      break;
+    default:
+      printf("Invalid choice\n");
+    }
+  printf("Do you want to continue?press y for yes:");
+  scanf(" %c",&ans);
+  }
+ while(ans=='y'||ans=='Y');
+}
