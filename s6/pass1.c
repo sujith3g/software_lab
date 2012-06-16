@@ -4,8 +4,8 @@
 FILE *fin,*fout,*optab,*finter;
 int sindex=0,start,locctr,exe;
 struct node{
-  unsigned int addrs;
-  struct node *link;
+ unsigned int addrs;
+struct node *link;
 }*ptr,*newptr,*tmp,*frwrd;
 struct sym{
   char symbol[20];

@@ -1,0 +1,14 @@
+
+ 
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+int tt;
+struct optab{char mne[10];char code[10];};
+struct optab op[20];
+//OPCODEvoid read_opcode(){int j=0;int start;FILE *fop=fopen("optable.dat","r");fscanf(fop,"%s\t%s\n",op[0].mne,op[0].code);while(strcmp(op[j].mne,"END")!=0){ j++;fscanf(fop,"%s\t%s\n",op[j].mne,op[j].code);}tt=j;}//MAIN PROGRAMvoid main(){FILE *fin,*fout,*fsym;char opc[10],oper[10],flag,label[10];int i,locc,curraddr;int start;clrscr();fin=fopen("input.dat","r");fout=fopen("output.dat","w");fsym=fopen("symout.dat","w");fscanf(fin,"%s\t%s\t%s\n",label,opc,oper);read_opcode();if(strcmp(opc,"START")==0)locc=atoi(oper);
+ 
+elselocc=0;start=locc;do{fscanf(fin,"%s\t%s\t%s\n",label,opc,oper);flag='F';curraddr=locc;if(strcmp(label,"NULL")!=0&&strcmp(label,"**")!=0)fprintf(fsym,"%s\t%d\n",label,curraddr);for(i=0;i<=tt;i++){if(strcmp(opc,op[i].mne)==0)flag='T';}if(flag=='T')locc+=3;else if(strcmp(opc,"RESW")==0)locc+=3*atoi(oper);else if (strcmp(opc,"RESB")==0)locc+=atoi(oper);else if (strcmp(opc,"BYTE")==0)locc+=strlen(oper);else if (strcmp(opc,"WORD")==0)locc+=3;elseprintf("%d\t%s\t%s\t%s\tINVALID\n",curraddr,label,opc,oper);fprintf(fout,"%d\t%s\t%s\t%s\n",curraddr,label,opc,oper);}while(strcmp(opc,"END")!=0);printf("\nExecuted successfully");printf("\n\nThe length of the file is : %d",curraddr-start);getch();}
+ 
+//OPTABLE.DAT file rmodeLDX 56LDA 54ADD 16JLT 15STA 14TIX 43RSUB 63END//INPUT.DAT rmodeADD START 1000FIRST LDX ZERO** LDA ZEROLOOP ADD TABLE** TIX COUNT** JLT LOOP** STA TOTAL** RSUB **TABLE RESW 2COUNT RESW 1ZERO WORD 0TOTAL RESW 1** END **//OUTPUT.DAT wmode1000 FIRST LDX ZERO1003 ** LDA ZERO1006 LOOP ADD TABLE1009 ** TIX COUNT1012 ** JLT LOOP1015 ** STA TOTAL1018 ** RSUB **1021 TABLE RESW 21027 COUNT RESW 11030 ZERO WORD 01033 TOTAL RESW 11036 ** END **
+

@@ -1,0 +1,10 @@
+#include<iostream.h>
+void main()
+{
+int a=5;
+char b<='a';
+{
+if(a==b)
+printf("a==b");
+}
+}
