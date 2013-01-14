@@ -1,0 +1,15 @@
+#include<rpc/rpc.h>
+#include<stdio.h>
+finger_out * myfinger_1_svc(void *dummy,svc_req *rqstp){
+  finger_out fp;
+  char buf[1024];
+  system("ls > result.txt");
+  FILE *fp = fopen("result.txt","r");
+  while(!feof(fp)){
+    buf[i++]=fgetc(fp);
+  }
+  buf[i]='\0';
+  strcpy(fp.message,buf);
+  system("rm -f result.txt");
+  return &fp;
+}

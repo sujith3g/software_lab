@@ -1,0 +1,44 @@
+total 204
+drwxrwxr-x 2 noname noname 4096 2013-01-02 15:41 .
+drwxrwxr-x 8 noname noname 4096 2012-12-28 11:43 ..
+-rwxrwxr-x 1 noname noname 7597 2013-01-01 19:20 1bit_cli
+-rw-rw-r-- 1 noname noname 1627 2013-01-01 19:20 1bit_client.c
+-rw-rw-r-- 1 noname noname 1623 2013-01-01 17:09 1bit_client.c~
+-rwxrwxr-x 1 noname noname 7585 2013-01-01 19:21 1bit_ser
+-rw-rw-r-- 1 noname noname 1955 2013-01-01 19:21 1bit_server.c
+-rw-rw-r-- 1 noname noname 1879 2013-01-01 17:19 1bit_server.c~
+-rwxrwxr-x 1 noname noname 7701 2013-01-02 15:35 a.out
+-rwxrwxr-x 1 noname noname 7577 2013-01-02 15:41 ftp_cli
+-rw-rw-r-- 1 noname noname  301 2013-01-02 14:33 ftp_client.c
+-rw-rw-r-- 1 noname noname   99 2013-01-02 14:25 ftp_client.c~
+-rw-rw-r-- 1 noname noname 1600 2013-01-02 15:41 ftp_cll.c
+-rw-rw-r-- 1 noname noname  748 2013-01-02 14:32 ftp_cll.c~
+-rwxrwxr-x 1 noname noname 7701 2013-01-02 15:35 ftp_ser
+-rw-rw-r-- 1 noname noname 1757 2013-01-02 15:35 ftp_server.c
+-rw-rw-r-- 1 noname noname 1149 2013-01-02 14:32 ftp_server.c~
+-rw-rw-r-- 1 noname noname  709 2013-01-02 12:19 ipc_pipe.c
+-rw-rw-r-- 1 noname noname  292 2013-01-02 12:13 ipc_pipe.c~
+-rw-rw-r-- 1 noname noname 1329 2013-01-02 10:31 ipc_shm.c
+-rw-rw-r-- 1 noname noname  528 2013-01-02 09:05 ipc_shm.c~
+-rwx------ 1 noname noname 2400 2013-01-02 15:37 list2.txt
+-rw-rw-r-- 1 noname noname    0 2013-01-02 15:41 list.txt
+-rwxrwxr-x 1 noname noname 7393 2013-01-02 00:28 smtp_c
+-rw-rw-r-- 1 noname noname 1745 2013-01-02 00:17 smtp_client.c
+-rw-rw-r-- 1 noname noname  923 2013-01-02 00:08 smtp_client.c~
+-rwxrwxr-x 1 noname noname 7354 2013-01-02 00:28 smtp_s
+-rw-rw-r-- 1 noname noname 1854 2013-01-02 00:28 smtp_server.c
+-rw-rw-r-- 1 noname noname  995 2013-01-02 00:08 smtp_server.c~
+-rw-rw-r-- 1 noname noname  748 2012-12-30 11:05 tcp.c
+-rw-rw-r-- 1 noname noname  153 2012-12-28 11:44 tcp.c~
+-rwxrwxr-x 1 noname noname 7429 2012-12-30 16:08 tcp_cli
+-rwxrwxr-x 1 noname noname 7514 2012-12-30 16:10 tcp_ser
+-rw-rw-r-- 1 noname noname 1149 2013-01-01 16:35 tcp_server.c
+-rw-rw-r-- 1 noname noname 1159 2013-01-01 16:34 tcp_server.c~
+-rwxrwxr-x 1 noname noname 7353 2013-01-01 01:00 udp_cli
+-rw-rw-r-- 1 noname noname  936 2013-01-02 08:18 udp_client.c
+-rw-rw-r-- 1 noname noname  995 2013-01-01 01:00 udp_client.c~
+-rwxrwxr-x 1 noname noname 7432 2013-01-01 00:59 udp_ser
+-rw-rw-r-- 1 noname noname  923 2013-01-01 00:59 udp_server.c
+-rw-rw-r-- 1 noname noname  918 2012-12-31 19:03 udp_server.c~
+e  923 2013-01-01 00:59 udp_server.c
+-rw-r

@@ -1,0 +1,18 @@
+#include<stdio.h>
+#include<stdlib.h>
+void main(){
+  int pipe_pointer[2];
+  char message[25] ;
+  pid_t pid;
+  if(pipe(pipe_pointer)==-1){
+    printf("\n error pipe error...");
+  }
+  if( (pid = fork())==-1){
+    printf("\nError in fork...:(");
+  }
+  if(pid==0){//child
+
+  }else{//parent
+
+  }
+}

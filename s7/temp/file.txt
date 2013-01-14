@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <sys/statvfs.h>
+#include <string.h>
+int main( int argc, char* argv[] )
+{
+	struct statvfs Data;
+	char Path[128];
+	int i;
+	if( argc < 2 ) {
+		printf("Usage, <executable> DEVICE0 ..... DEVICEX\n");
+		return(2);
+	}
+	for( i = 1 ; i<argc; i++ ) {
+		strcpy(Path, argv[i]);
+		if((statvfs(Path,&Data)) < 0 ) {
+			printf("Failed to stat %s:\n", Path);
+		} 
+		else {
+			printf("Disk %s: \n", Path);
+			printf("\tblock size: %u\n", Data.f_bsize);
+			printf("\ttotal no blocks: %i\n", Data.f_blocks);
+			printf("\tfree blocks: %i\n", Data.f_bfree);
+		}
+	}
+}
+

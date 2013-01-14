@@ -1,0 +1,26 @@
+#include<stdio.h>
+#include<sys/ipc.h>
+#include<sys/shm.h>
+#define MEMSIZE 27
+void main(){
+  key_t key;
+  pid_t pid;
+  int seg_id;
+  int *shm_child,*shm_parent;
+  int a,b,c,d,res1,res2;
+  pid=fork();
+  if(pid>0){//parent
+    printf("\nEnter the value of a,b:");
+    scanf("%d %d",&a,&b);
+    seg_id= shmget(key,MEMSIZE,IPC_CREATE|0666);
+    if(seg_id==-1){
+      printf("\nError in getting shm..");
+    }
+    if((shm_parent=shmat(seg_id,NULL,0))==(int *)-1){
+      printf("\nError in attatching ");
+    }
+  }else{//child
+
+  }
+
+}

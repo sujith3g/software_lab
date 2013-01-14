@@ -1,0 +1,75 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<sys/socket.h>
+#include<sys/types.h>
+#include<arpa/inet.h>
+#include<netdb.h>
+#include<unistd.h>
+
+void main(){
+  int k,sock_desc;
+  socklen_t len;
+  char buf[100];
+  struct sockaddr_in client;
+
+  memset(&client,0,sizeof(client));
+  sock_desc = socket(AF_INET,SOCK_DGRAM,0);
+  if(sock_desc == -1){
+    printf("\nEnrror in creating socket..");
+    exit(0);
+  }
+  client.sin_family = AF_INET;
+  client.sin_addr.s_addr=INADDR_ANY;
+  client.sin_port=3002;
+  k = bind(sock_desc,(struct sockaddr *)&client,sizeof(client));
+  if(k == -1){
+    printf("\nError in binding socket...");
+    exit(0);
+  }
+  //  while(1){
+    len = sizeof(client);
+    k=recvfrom(sock_desc,buf,100,0,(struct sockaddr *)&client,&len);
+    if(k == -1){
+      printf("\nError in receiving....");
+      exit(0);
+    }
+    printf("\n Mail to: %s",buf);
+    strcpy(buf,"\0");
+    len = sizeof(client);
+    k=recvfrom(sock_desc,buf,100,0,(struct sockaddr *)&client,&len);
+    if(k == -1){
+      printf("\nError in receiving....");
+      exit(0);
+    }
+    printf("\n Mail FROM: %s",buf);
+    strcpy(buf,"\0");
+    len = sizeof(client);
+    k=recvfrom(sock_desc,buf,100,0,(struct sockaddr *)&client,&len);
+    if(k == -1){
+      printf("\nError in receiving....");
+      exit(0);
+    }
+    printf("\n MAIL SUBJECT: %s",buf);
+    strcpy(buf,"\0");
+    printf("\nMessageBody:");
+    while(strcmp(buf,".")!=0){
+      strcpy(buf,"\0");
+      len = sizeof(client);
+      k=recvfrom(sock_desc,buf,100,0,(struct sockaddr *)&client,&len);
+      if(k == -1){
+	printf("\nError in receiving....");
+	exit(0);
+      }
+      printf("%s",buf);
+      //strcpy(buf,"\0");
+    }
+    /*if(strcmp(buf,"end")==0){
+      printf("\nEnd of transmission..");
+      break;
+      }*/
+    //printf("\n%s\n",buf);
+    //}
+    close(sock_desc);
+    exit(0);
+}
